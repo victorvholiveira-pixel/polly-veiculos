@@ -1,0 +1,6803 @@
+{
+  "generatedAt": "2026-08-29T01:42:42.741Z",
+  "note": "Demo fixture for offline preview of the Review Center — not production data. See build-review-fixture.ts.",
+  "summary": {
+    "reviewQueueTotal": 529,
+    "conflicts": 5,
+    "ambiguousSalesTotal": 263,
+    "otherReviewTotal": 84
+  },
+  "sales": {
+    "periodFrom": "2022-07-01",
+    "periodTo": "2026-08-01",
+    "validDate": 602,
+    "invalidDate": 23,
+    "ambiguous": 263
+  },
+  "currentInventory": [
+    {
+      "vehicleCandidateId": "veh_00904",
+      "brand": "Chevrolet",
+      "model": "Montana",
+      "version": "1.3 Turbo premier",
+      "year": 2025,
+      "plate": null,
+      "value": 124900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 11,
+      "confidence": "medium",
+      "warnings": [
+        "no plate recorded for this vehicle across any occurrence"
+      ],
+      "priorMonthsSeen": [
+        "2026-04-01",
+        "2026-05-01",
+        "2026-06-01",
+        "2026-07-01",
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_00905",
+      "brand": "Toyota",
+      "model": "Etios",
+      "version": "1.0 expression",
+      "year": 2018,
+      "plate": null,
+      "value": 29900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 12,
+      "confidence": "medium",
+      "warnings": [
+        "plate does not match a known format: \"ELam 5G72\"",
+        "no plate recorded for this vehicle across any occurrence"
+      ],
+      "priorMonthsSeen": [
+        "2026-04-01",
+        "2026-05-01",
+        "2026-06-01",
+        "2026-07-01",
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_00929",
+      "brand": "Ford",
+      "model": "Fiesta",
+      "version": "automático",
+      "year": 2016,
+      "plate": "GCA0B64",
+      "value": 56900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 32,
+      "confidence": "medium",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-04-01",
+        "2026-05-01",
+        "2026-06-01",
+        "2026-07-01",
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_00941",
+      "brand": "Chevrolet",
+      "model": "Onix",
+      "version": "1.0 sedan Plus",
+      "year": 2023,
+      "plate": "SHC3I47",
+      "value": null,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 10,
+      "confidence": "medium",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-05-01",
+        "2026-06-01",
+        "2026-07-01",
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_00947",
+      "brand": "Jeep",
+      "model": "Renegade",
+      "version": "1.8 Sport",
+      "year": 2021,
+      "plate": null,
+      "value": 82900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 29,
+      "confidence": "medium",
+      "warnings": [
+        "plate does not match a known format: \"GAK 1C885\"",
+        "no plate recorded for this vehicle across any occurrence"
+      ],
+      "priorMonthsSeen": [
+        "2026-05-01",
+        "2026-06-01",
+        "2026-07-01",
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_00959",
+      "brand": "Chevrolet",
+      "model": "Agile",
+      "version": "LTZ 1.4",
+      "year": 2011,
+      "plate": "EYR7I73",
+      "value": 37900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 8,
+      "confidence": "high",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-06-01",
+        "2026-07-01",
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_00966",
+      "brand": "Hyundai",
+      "model": "I30",
+      "version": "2.0 autom",
+      "year": 2010,
+      "plate": "EEY3832",
+      "value": null,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 16,
+      "confidence": "medium",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-06-01",
+        "2026-07-01",
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_00978",
+      "brand": "Renault",
+      "model": "Sandero",
+      "version": "1.0 expression",
+      "year": 2019,
+      "plate": "QOB2G36",
+      "value": 44900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 6,
+      "confidence": "high",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-07-01",
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_00985",
+      "brand": "Chevrolet",
+      "model": "Onix",
+      "version": "1.4 LT aut.",
+      "year": 2018,
+      "plate": "GBT5244",
+      "value": null,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 21,
+      "confidence": "medium",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-07-01",
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_00998",
+      "brand": null,
+      "model": null,
+      "version": "LTZ 1.8",
+      "year": 2019,
+      "plate": null,
+      "value": null,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 9,
+      "confidence": "medium",
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "no plate recorded for this vehicle across any occurrence",
+        "brand could not be parsed with confidence"
+      ],
+      "priorMonthsSeen": [
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_01001",
+      "brand": "Renault",
+      "model": "Sandero",
+      "version": "expression 1.0",
+      "year": null,
+      "plate": null,
+      "value": 44900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 15,
+      "confidence": "medium",
+      "warnings": [
+        "no plate recorded for this vehicle across any occurrence"
+      ],
+      "priorMonthsSeen": [
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_01002",
+      "brand": "Ford",
+      "model": "Fiesta",
+      "version": "hetch 1.0",
+      "year": 2011,
+      "plate": "EQW1124",
+      "value": 25900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 17,
+      "confidence": "high",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_01003",
+      "brand": null,
+      "model": null,
+      "version": "1.6 S",
+      "year": 2012,
+      "plate": "FAQ8807",
+      "value": 32900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 19,
+      "confidence": "high",
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "brand could not be parsed with confidence"
+      ],
+      "priorMonthsSeen": [
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_01005",
+      "brand": "Ford",
+      "model": "Ka",
+      "version": "2026-05-01",
+      "year": 2015,
+      "plate": "FKJ2D64",
+      "value": 42900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 23,
+      "confidence": "high",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_01008",
+      "brand": "Volkswagen",
+      "model": "Gol",
+      "version": "1.0 8v",
+      "year": 2006,
+      "plate": "DRS9287",
+      "value": 19900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 26,
+      "confidence": "high",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_01010",
+      "brand": "Honda",
+      "model": "Elite moto",
+      "version": "125cc 2024",
+      "year": 2024,
+      "plate": null,
+      "value": 14900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 28,
+      "confidence": "medium",
+      "warnings": [
+        "no plate recorded for this vehicle across any occurrence"
+      ],
+      "priorMonthsSeen": [
+        "2026-08-01"
+      ]
+    },
+    {
+      "vehicleCandidateId": "veh_01013",
+      "brand": "Honda",
+      "model": "Fit",
+      "version": "1.5 Ex",
+      "year": 2011,
+      "plate": "EVM8G56",
+      "value": 53900,
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 34,
+      "confidence": "high",
+      "warnings": [],
+      "priorMonthsSeen": [
+        "2026-08-01"
+      ]
+    }
+  ],
+  "conflicts": [
+    {
+      "occurrenceA": {
+        "key": "Dez22#9",
+        "sourceSheet": "Dez22",
+        "sourceRow": 9,
+        "period": "2022-12-01",
+        "brand": "Toyota",
+        "model": "Etios",
+        "year": 2015,
+        "plate": "GEP7063",
+        "value": 42900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "reliable"
+      },
+      "occurrenceBKey": "NOV 22#13",
+      "score": 0.4,
+      "reasonsFor": [
+        "same normalized plate: GEP7063"
+      ],
+      "reasonsAgainst": [
+        "plate matches but parsed brand conflicts: \"Toyota\" vs \"Jeep\" — treated as a data conflict, not auto-merged"
+      ]
+    },
+    {
+      "occurrenceA": {
+        "key": "JAN 2025#15",
+        "sourceSheet": "JAN 2025",
+        "sourceRow": 15,
+        "period": "2025-01-01",
+        "brand": "Hyundai",
+        "model": "Hb20",
+        "year": 2024,
+        "plate": "STW7I69",
+        "value": 95900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "reliable"
+      },
+      "occurrenceBKey": "JAN 2025#6",
+      "score": 0.4,
+      "reasonsFor": [
+        "same normalized plate: STW7I69"
+      ],
+      "reasonsAgainst": [
+        "plate matches but parsed brand conflicts: \"Hyundai\" vs \"Chevrolet\" — treated as a data conflict, not auto-merged"
+      ]
+    },
+    {
+      "occurrenceA": {
+        "key": "FEV 2025#6",
+        "sourceSheet": "FEV 2025",
+        "sourceRow": 6,
+        "period": "2025-02-01",
+        "brand": "Chevrolet",
+        "model": "Onix",
+        "year": 2024,
+        "plate": "STW7I69",
+        "value": 99900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "reliable"
+      },
+      "occurrenceBKey": "FEV 2025#6",
+      "score": 0.5,
+      "reasonsFor": [
+        "both associated with normalized plate STW7I69"
+      ],
+      "reasonsAgainst": [
+        "more than one open vehicle currently claims this exact plate — conflict, not auto-resolved"
+      ]
+    },
+    {
+      "occurrenceA": {
+        "key": "FEV 2025#6",
+        "sourceSheet": "FEV 2025",
+        "sourceRow": 6,
+        "period": "2025-02-01",
+        "brand": "Chevrolet",
+        "model": "Onix",
+        "year": 2024,
+        "plate": "STW7I69",
+        "value": 99900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "reliable"
+      },
+      "occurrenceBKey": "FEV 2025#6",
+      "score": 0.5,
+      "reasonsFor": [
+        "both associated with normalized plate STW7I69"
+      ],
+      "reasonsAgainst": [
+        "more than one open vehicle currently claims this exact plate — conflict, not auto-resolved"
+      ]
+    },
+    {
+      "occurrenceA": {
+        "key": "SET 2025#23",
+        "sourceSheet": "SET 2025",
+        "sourceRow": 23,
+        "period": "2025-09-01",
+        "brand": "Chevrolet",
+        "model": "Classic",
+        "year": 2009,
+        "plate": "FJK2B63",
+        "value": 22900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "reliable"
+      },
+      "occurrenceBKey": "SET 2025#10",
+      "score": 0.4,
+      "reasonsFor": [
+        "same normalized plate: FJK2B63"
+      ],
+      "reasonsAgainst": [
+        "plate matches but parsed brand conflicts: \"Chevrolet\" vs \"Ford\" — treated as a data conflict, not auto-merged"
+      ]
+    }
+  ],
+  "ambiguousSales": [
+    {
+      "key": " JULHO 2022#27",
+      "sourceSheet": " JULHO 2022",
+      "sourceRow": 27,
+      "period": "2022-07-01",
+      "brand": "Fiat",
+      "model": "Idea",
+      "year": 2011,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " JULHO 2022#31",
+      "sourceSheet": " JULHO 2022",
+      "sourceRow": 31,
+      "period": "2022-07-01",
+      "brand": "Ford",
+      "model": "Ka",
+      "year": 2015,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " JULHO 2022#35",
+      "sourceSheet": " JULHO 2022",
+      "sourceRow": 35,
+      "period": "2022-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 22#30",
+      "sourceSheet": "NOV 22",
+      "sourceRow": 30,
+      "period": "2022-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN 2023#32",
+      "sourceSheet": "JAN 2023",
+      "sourceRow": 32,
+      "period": "2023-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV 2023#34",
+      "sourceSheet": "FEV 2023",
+      "sourceRow": 34,
+      "period": "2023-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MARCO23#36",
+      "sourceSheet": "MARCO23",
+      "sourceRow": 36,
+      "period": "2023-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Abril 23#36",
+      "sourceSheet": "Abril 23",
+      "sourceRow": 36,
+      "period": "2023-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Maio 2023#31",
+      "sourceSheet": "Maio 2023",
+      "sourceRow": 31,
+      "period": "2023-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUN 2023#36",
+      "sourceSheet": "JUN 2023",
+      "sourceRow": 36,
+      "period": "2023-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUL 2023#40",
+      "sourceSheet": "JUL 2023",
+      "sourceRow": 40,
+      "period": "2023-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGO 2023#43",
+      "sourceSheet": "AGO 2023",
+      "sourceRow": 43,
+      "period": "2023-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "SET 2023#37",
+      "sourceSheet": "SET 2023",
+      "sourceRow": 37,
+      "period": "2023-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT 2023#41",
+      "sourceSheet": "OUT 2023",
+      "sourceRow": 41,
+      "period": "2023-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Nov 2023#33",
+      "sourceSheet": "Nov 2023",
+      "sourceRow": 33,
+      "period": "2023-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Dez2023#33",
+      "sourceSheet": "Dez2023",
+      "sourceRow": 33,
+      "period": "2023-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN24#43",
+      "sourceSheet": "JAN24",
+      "sourceRow": 43,
+      "period": "2024-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN24#45",
+      "sourceSheet": "JAN24",
+      "sourceRow": 45,
+      "period": "2024-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN24#46",
+      "sourceSheet": "JAN24",
+      "sourceRow": 46,
+      "period": "2024-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN24#47",
+      "sourceSheet": "JAN24",
+      "sourceRow": 47,
+      "period": "2024-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN24#48",
+      "sourceSheet": "JAN24",
+      "sourceRow": 48,
+      "period": "2024-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN24#49",
+      "sourceSheet": "JAN24",
+      "sourceRow": 49,
+      "period": "2024-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN24#50",
+      "sourceSheet": "JAN24",
+      "sourceRow": 50,
+      "period": "2024-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "FEV24#43",
+      "sourceSheet": "FEV24",
+      "sourceRow": 43,
+      "period": "2024-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV24#45",
+      "sourceSheet": "FEV24",
+      "sourceRow": 45,
+      "period": "2024-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV24#46",
+      "sourceSheet": "FEV24",
+      "sourceRow": 46,
+      "period": "2024-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV24#47",
+      "sourceSheet": "FEV24",
+      "sourceRow": 47,
+      "period": "2024-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV24#48",
+      "sourceSheet": "FEV24",
+      "sourceRow": 48,
+      "period": "2024-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV24#49",
+      "sourceSheet": "FEV24",
+      "sourceRow": 49,
+      "period": "2024-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV24#50",
+      "sourceSheet": "FEV24",
+      "sourceRow": 50,
+      "period": "2024-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV24#51",
+      "sourceSheet": "FEV24",
+      "sourceRow": 51,
+      "period": "2024-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "MARC24#39",
+      "sourceSheet": "MARC24",
+      "sourceRow": 39,
+      "period": "2024-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MARC24#41",
+      "sourceSheet": "MARC24",
+      "sourceRow": 41,
+      "period": "2024-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MARC24#42",
+      "sourceSheet": "MARC24",
+      "sourceRow": 42,
+      "period": "2024-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MARC24#43",
+      "sourceSheet": "MARC24",
+      "sourceRow": 43,
+      "period": "2024-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MARC24#44",
+      "sourceSheet": "MARC24",
+      "sourceRow": 44,
+      "period": "2024-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MARC24#45",
+      "sourceSheet": "MARC24",
+      "sourceRow": 45,
+      "period": "2024-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MARC24#46",
+      "sourceSheet": "MARC24",
+      "sourceRow": 46,
+      "period": "2024-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MARC24#47",
+      "sourceSheet": "MARC24",
+      "sourceRow": 47,
+      "period": "2024-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "A B R 24#40",
+      "sourceSheet": "A B R 24",
+      "sourceRow": 40,
+      "period": "2024-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "A B R 24#42",
+      "sourceSheet": "A B R 24",
+      "sourceRow": 42,
+      "period": "2024-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "A B R 24#43",
+      "sourceSheet": "A B R 24",
+      "sourceRow": 43,
+      "period": "2024-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "A B R 24#44",
+      "sourceSheet": "A B R 24",
+      "sourceRow": 44,
+      "period": "2024-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "A B R 24#45",
+      "sourceSheet": "A B R 24",
+      "sourceRow": 45,
+      "period": "2024-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "A B R 24#46",
+      "sourceSheet": "A B R 24",
+      "sourceRow": 46,
+      "period": "2024-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "A B R 24#47",
+      "sourceSheet": "A B R 24",
+      "sourceRow": 47,
+      "period": "2024-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "A B R 24#48",
+      "sourceSheet": "A B R 24",
+      "sourceRow": 48,
+      "period": "2024-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "M A I24#36",
+      "sourceSheet": "M A I24",
+      "sourceRow": 36,
+      "period": "2024-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "M A I24#38",
+      "sourceSheet": "M A I24",
+      "sourceRow": 38,
+      "period": "2024-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "M A I24#39",
+      "sourceSheet": "M A I24",
+      "sourceRow": 39,
+      "period": "2024-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "M A I24#40",
+      "sourceSheet": "M A I24",
+      "sourceRow": 40,
+      "period": "2024-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "M A I24#41",
+      "sourceSheet": "M A I24",
+      "sourceRow": 41,
+      "period": "2024-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "M A I24#42",
+      "sourceSheet": "M A I24",
+      "sourceRow": 42,
+      "period": "2024-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "M A I24#43",
+      "sourceSheet": "M A I24",
+      "sourceRow": 43,
+      "period": "2024-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "J U N 24#34",
+      "sourceSheet": "J U N 24",
+      "sourceRow": 34,
+      "period": "2024-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "J U N 24#36",
+      "sourceSheet": "J U N 24",
+      "sourceRow": 36,
+      "period": "2024-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "J U N 24#37",
+      "sourceSheet": "J U N 24",
+      "sourceRow": 37,
+      "period": "2024-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "J U N 24#38",
+      "sourceSheet": "J U N 24",
+      "sourceRow": 38,
+      "period": "2024-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "J U N 24#39",
+      "sourceSheet": "J U N 24",
+      "sourceRow": 39,
+      "period": "2024-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "J U N 24#40",
+      "sourceSheet": "J U N 24",
+      "sourceRow": 40,
+      "period": "2024-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "J U N 24#41",
+      "sourceSheet": "J U N 24",
+      "sourceRow": 41,
+      "period": "2024-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": " J U L   24#28",
+      "sourceSheet": " J U L   24",
+      "sourceRow": 28,
+      "period": "2024-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " J U L   24#30",
+      "sourceSheet": " J U L   24",
+      "sourceRow": 30,
+      "period": "2024-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " J U L   24#31",
+      "sourceSheet": " J U L   24",
+      "sourceRow": 31,
+      "period": "2024-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " J U L   24#32",
+      "sourceSheet": " J U L   24",
+      "sourceRow": 32,
+      "period": "2024-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " J U L   24#33",
+      "sourceSheet": " J U L   24",
+      "sourceRow": 33,
+      "period": "2024-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " J U L   24#34",
+      "sourceSheet": " J U L   24",
+      "sourceRow": 34,
+      "period": "2024-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " J U L   24#35",
+      "sourceSheet": " J U L   24",
+      "sourceRow": 35,
+      "period": "2024-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "AGOS   24#36",
+      "sourceSheet": "AGOS   24",
+      "sourceRow": 36,
+      "period": "2024-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGOS   24#38",
+      "sourceSheet": "AGOS   24",
+      "sourceRow": 38,
+      "period": "2024-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGOS   24#39",
+      "sourceSheet": "AGOS   24",
+      "sourceRow": 39,
+      "period": "2024-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGOS   24#40",
+      "sourceSheet": "AGOS   24",
+      "sourceRow": 40,
+      "period": "2024-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGOS   24#41",
+      "sourceSheet": "AGOS   24",
+      "sourceRow": 41,
+      "period": "2024-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGOS   24#42",
+      "sourceSheet": "AGOS   24",
+      "sourceRow": 42,
+      "period": "2024-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGOS   24#43",
+      "sourceSheet": "AGOS   24",
+      "sourceRow": 43,
+      "period": "2024-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "Sete2024#40",
+      "sourceSheet": "Sete2024",
+      "sourceRow": 40,
+      "period": "2024-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Sete2024#42",
+      "sourceSheet": "Sete2024",
+      "sourceRow": 42,
+      "period": "2024-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Sete2024#43",
+      "sourceSheet": "Sete2024",
+      "sourceRow": 43,
+      "period": "2024-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Sete2024#44",
+      "sourceSheet": "Sete2024",
+      "sourceRow": 44,
+      "period": "2024-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Sete2024#45",
+      "sourceSheet": "Sete2024",
+      "sourceRow": 45,
+      "period": "2024-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Sete2024#46",
+      "sourceSheet": "Sete2024",
+      "sourceRow": 46,
+      "period": "2024-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Sete2024#47",
+      "sourceSheet": "Sete2024",
+      "sourceRow": 47,
+      "period": "2024-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "OUT2024#37",
+      "sourceSheet": "OUT2024",
+      "sourceRow": 37,
+      "period": "2024-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT2024#39",
+      "sourceSheet": "OUT2024",
+      "sourceRow": 39,
+      "period": "2024-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT2024#40",
+      "sourceSheet": "OUT2024",
+      "sourceRow": 40,
+      "period": "2024-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT2024#41",
+      "sourceSheet": "OUT2024",
+      "sourceRow": 41,
+      "period": "2024-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT2024#42",
+      "sourceSheet": "OUT2024",
+      "sourceRow": 42,
+      "period": "2024-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT2024#43",
+      "sourceSheet": "OUT2024",
+      "sourceRow": 43,
+      "period": "2024-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT2024#44",
+      "sourceSheet": "OUT2024",
+      "sourceRow": 44,
+      "period": "2024-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "NOV 2024#34",
+      "sourceSheet": "NOV 2024",
+      "sourceRow": 34,
+      "period": "2024-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2024#36",
+      "sourceSheet": "NOV 2024",
+      "sourceRow": 36,
+      "period": "2024-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2024#37",
+      "sourceSheet": "NOV 2024",
+      "sourceRow": 37,
+      "period": "2024-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2024#38",
+      "sourceSheet": "NOV 2024",
+      "sourceRow": 38,
+      "period": "2024-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2024#39",
+      "sourceSheet": "NOV 2024",
+      "sourceRow": 39,
+      "period": "2024-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2024#40",
+      "sourceSheet": "NOV 2024",
+      "sourceRow": 40,
+      "period": "2024-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2024#41",
+      "sourceSheet": "NOV 2024",
+      "sourceRow": 41,
+      "period": "2024-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "Dez 2024#37",
+      "sourceSheet": "Dez 2024",
+      "sourceRow": 37,
+      "period": "2024-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Dez 2024#39",
+      "sourceSheet": "Dez 2024",
+      "sourceRow": 39,
+      "period": "2024-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Dez 2024#40",
+      "sourceSheet": "Dez 2024",
+      "sourceRow": 40,
+      "period": "2024-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Dez 2024#41",
+      "sourceSheet": "Dez 2024",
+      "sourceRow": 41,
+      "period": "2024-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Dez 2024#42",
+      "sourceSheet": "Dez 2024",
+      "sourceRow": 42,
+      "period": "2024-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Dez 2024#43",
+      "sourceSheet": "Dez 2024",
+      "sourceRow": 43,
+      "period": "2024-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Dez 2024#44",
+      "sourceSheet": "Dez 2024",
+      "sourceRow": 44,
+      "period": "2024-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JAN 2025#22",
+      "sourceSheet": "JAN 2025",
+      "sourceRow": 22,
+      "period": "2025-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN 2025#24",
+      "sourceSheet": "JAN 2025",
+      "sourceRow": 24,
+      "period": "2025-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN 2025#25",
+      "sourceSheet": "JAN 2025",
+      "sourceRow": 25,
+      "period": "2025-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN 2025#26",
+      "sourceSheet": "JAN 2025",
+      "sourceRow": 26,
+      "period": "2025-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN 2025#27",
+      "sourceSheet": "JAN 2025",
+      "sourceRow": 27,
+      "period": "2025-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN 2025#28",
+      "sourceSheet": "JAN 2025",
+      "sourceRow": 28,
+      "period": "2025-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JAN 2025#29",
+      "sourceSheet": "JAN 2025",
+      "sourceRow": 29,
+      "period": "2025-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "FEV 2025#37",
+      "sourceSheet": "FEV 2025",
+      "sourceRow": 37,
+      "period": "2025-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV 2025#39",
+      "sourceSheet": "FEV 2025",
+      "sourceRow": 39,
+      "period": "2025-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV 2025#40",
+      "sourceSheet": "FEV 2025",
+      "sourceRow": 40,
+      "period": "2025-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV 2025#41",
+      "sourceSheet": "FEV 2025",
+      "sourceRow": 41,
+      "period": "2025-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV 2025#42",
+      "sourceSheet": "FEV 2025",
+      "sourceRow": 42,
+      "period": "2025-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV 2025#43",
+      "sourceSheet": "FEV 2025",
+      "sourceRow": 43,
+      "period": "2025-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "FEV 2025#44",
+      "sourceSheet": "FEV 2025",
+      "sourceRow": 44,
+      "period": "2025-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "MAR 2025#26",
+      "sourceSheet": "MAR 2025",
+      "sourceRow": 26,
+      "period": "2025-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAR 2025#28",
+      "sourceSheet": "MAR 2025",
+      "sourceRow": 28,
+      "period": "2025-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAR 2025#29",
+      "sourceSheet": "MAR 2025",
+      "sourceRow": 29,
+      "period": "2025-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAR 2025#30",
+      "sourceSheet": "MAR 2025",
+      "sourceRow": 30,
+      "period": "2025-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAR 2025#31",
+      "sourceSheet": "MAR 2025",
+      "sourceRow": 31,
+      "period": "2025-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAR 2025#32",
+      "sourceSheet": "MAR 2025",
+      "sourceRow": 32,
+      "period": "2025-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAR 2025#33",
+      "sourceSheet": "MAR 2025",
+      "sourceRow": 33,
+      "period": "2025-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "ABR 2025#35",
+      "sourceSheet": "ABR 2025",
+      "sourceRow": 35,
+      "period": "2025-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "ABR 2025#37",
+      "sourceSheet": "ABR 2025",
+      "sourceRow": 37,
+      "period": "2025-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "ABR 2025#38",
+      "sourceSheet": "ABR 2025",
+      "sourceRow": 38,
+      "period": "2025-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "ABR 2025#39",
+      "sourceSheet": "ABR 2025",
+      "sourceRow": 39,
+      "period": "2025-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "ABR 2025#40",
+      "sourceSheet": "ABR 2025",
+      "sourceRow": 40,
+      "period": "2025-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "ABR 2025#41",
+      "sourceSheet": "ABR 2025",
+      "sourceRow": 41,
+      "period": "2025-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "ABR 2025#42",
+      "sourceSheet": "ABR 2025",
+      "sourceRow": 42,
+      "period": "2025-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "MAI 2025#37",
+      "sourceSheet": "MAI 2025",
+      "sourceRow": 37,
+      "period": "2025-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAI 2025#39",
+      "sourceSheet": "MAI 2025",
+      "sourceRow": 39,
+      "period": "2025-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAI 2025#40",
+      "sourceSheet": "MAI 2025",
+      "sourceRow": 40,
+      "period": "2025-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAI 2025#41",
+      "sourceSheet": "MAI 2025",
+      "sourceRow": 41,
+      "period": "2025-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAI 2025#42",
+      "sourceSheet": "MAI 2025",
+      "sourceRow": 42,
+      "period": "2025-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAI 2025#43",
+      "sourceSheet": "MAI 2025",
+      "sourceRow": 43,
+      "period": "2025-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "MAI 2025#44",
+      "sourceSheet": "MAI 2025",
+      "sourceRow": 44,
+      "period": "2025-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JUN 2025#41",
+      "sourceSheet": "JUN 2025",
+      "sourceRow": 41,
+      "period": "2025-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUN 2025#43",
+      "sourceSheet": "JUN 2025",
+      "sourceRow": 43,
+      "period": "2025-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUN 2025#44",
+      "sourceSheet": "JUN 2025",
+      "sourceRow": 44,
+      "period": "2025-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUN 2025#45",
+      "sourceSheet": "JUN 2025",
+      "sourceRow": 45,
+      "period": "2025-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUN 2025#46",
+      "sourceSheet": "JUN 2025",
+      "sourceRow": 46,
+      "period": "2025-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUN 2025#47",
+      "sourceSheet": "JUN 2025",
+      "sourceRow": 47,
+      "period": "2025-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUN 2025#48",
+      "sourceSheet": "JUN 2025",
+      "sourceRow": 48,
+      "period": "2025-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": " JUL 2025#41",
+      "sourceSheet": " JUL 2025",
+      "sourceRow": 41,
+      "period": "2025-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " JUL 2025#43",
+      "sourceSheet": " JUL 2025",
+      "sourceRow": 43,
+      "period": "2025-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " JUL 2025#44",
+      "sourceSheet": " JUL 2025",
+      "sourceRow": 44,
+      "period": "2025-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " JUL 2025#45",
+      "sourceSheet": " JUL 2025",
+      "sourceRow": 45,
+      "period": "2025-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " JUL 2025#46",
+      "sourceSheet": " JUL 2025",
+      "sourceRow": 46,
+      "period": "2025-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " JUL 2025#47",
+      "sourceSheet": " JUL 2025",
+      "sourceRow": 47,
+      "period": "2025-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": " JUL 2025#48",
+      "sourceSheet": " JUL 2025",
+      "sourceRow": 48,
+      "period": "2025-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "Agos 2025#36",
+      "sourceSheet": "Agos 2025",
+      "sourceRow": 36,
+      "period": "2025-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Agos 2025#38",
+      "sourceSheet": "Agos 2025",
+      "sourceRow": 38,
+      "period": "2025-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Agos 2025#39",
+      "sourceSheet": "Agos 2025",
+      "sourceRow": 39,
+      "period": "2025-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Agos 2025#40",
+      "sourceSheet": "Agos 2025",
+      "sourceRow": 40,
+      "period": "2025-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Agos 2025#41",
+      "sourceSheet": "Agos 2025",
+      "sourceRow": 41,
+      "period": "2025-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Agos 2025#42",
+      "sourceSheet": "Agos 2025",
+      "sourceRow": 42,
+      "period": "2025-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Agos 2025#43",
+      "sourceSheet": "Agos 2025",
+      "sourceRow": 43,
+      "period": "2025-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "SET 2025#39",
+      "sourceSheet": "SET 2025",
+      "sourceRow": 39,
+      "period": "2025-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "SET 2025#41",
+      "sourceSheet": "SET 2025",
+      "sourceRow": 41,
+      "period": "2025-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "SET 2025#42",
+      "sourceSheet": "SET 2025",
+      "sourceRow": 42,
+      "period": "2025-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "SET 2025#43",
+      "sourceSheet": "SET 2025",
+      "sourceRow": 43,
+      "period": "2025-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "SET 2025#44",
+      "sourceSheet": "SET 2025",
+      "sourceRow": 44,
+      "period": "2025-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "SET 2025#45",
+      "sourceSheet": "SET 2025",
+      "sourceRow": 45,
+      "period": "2025-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "SET 2025#46",
+      "sourceSheet": "SET 2025",
+      "sourceRow": 46,
+      "period": "2025-09-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "OUT 2025#42",
+      "sourceSheet": "OUT 2025",
+      "sourceRow": 42,
+      "period": "2025-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "OUT 2025#43",
+      "sourceSheet": "OUT 2025",
+      "sourceRow": 43,
+      "period": "2025-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT 2025#45",
+      "sourceSheet": "OUT 2025",
+      "sourceRow": 45,
+      "period": "2025-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT 2025#46",
+      "sourceSheet": "OUT 2025",
+      "sourceRow": 46,
+      "period": "2025-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT 2025#47",
+      "sourceSheet": "OUT 2025",
+      "sourceRow": 47,
+      "period": "2025-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT 2025#48",
+      "sourceSheet": "OUT 2025",
+      "sourceRow": 48,
+      "period": "2025-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT 2025#49",
+      "sourceSheet": "OUT 2025",
+      "sourceRow": 49,
+      "period": "2025-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "OUT 2025#50",
+      "sourceSheet": "OUT 2025",
+      "sourceRow": 50,
+      "period": "2025-10-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "NOV 2025#41",
+      "sourceSheet": "NOV 2025",
+      "sourceRow": 41,
+      "period": "2025-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "NOV 2025#42",
+      "sourceSheet": "NOV 2025",
+      "sourceRow": 42,
+      "period": "2025-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2025#44",
+      "sourceSheet": "NOV 2025",
+      "sourceRow": 44,
+      "period": "2025-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2025#45",
+      "sourceSheet": "NOV 2025",
+      "sourceRow": 45,
+      "period": "2025-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2025#46",
+      "sourceSheet": "NOV 2025",
+      "sourceRow": 46,
+      "period": "2025-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2025#47",
+      "sourceSheet": "NOV 2025",
+      "sourceRow": 47,
+      "period": "2025-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2025#48",
+      "sourceSheet": "NOV 2025",
+      "sourceRow": 48,
+      "period": "2025-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "NOV 2025#49",
+      "sourceSheet": "NOV 2025",
+      "sourceRow": 49,
+      "period": "2025-11-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "DEZ 2025#41",
+      "sourceSheet": "DEZ 2025",
+      "sourceRow": 41,
+      "period": "2025-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "DEZ 2025#42",
+      "sourceSheet": "DEZ 2025",
+      "sourceRow": 42,
+      "period": "2025-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "DEZ 2025#44",
+      "sourceSheet": "DEZ 2025",
+      "sourceRow": 44,
+      "period": "2025-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "DEZ 2025#45",
+      "sourceSheet": "DEZ 2025",
+      "sourceRow": 45,
+      "period": "2025-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "DEZ 2025#46",
+      "sourceSheet": "DEZ 2025",
+      "sourceRow": 46,
+      "period": "2025-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "DEZ 2025#47",
+      "sourceSheet": "DEZ 2025",
+      "sourceRow": 47,
+      "period": "2025-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "DEZ 2025#48",
+      "sourceSheet": "DEZ 2025",
+      "sourceRow": 48,
+      "period": "2025-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "DEZ 2025#49",
+      "sourceSheet": "DEZ 2025",
+      "sourceRow": 49,
+      "period": "2025-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "jan2026#37",
+      "sourceSheet": "jan2026",
+      "sourceRow": 37,
+      "period": "2026-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "jan2026#38",
+      "sourceSheet": "jan2026",
+      "sourceRow": 38,
+      "period": "2026-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "jan2026#40",
+      "sourceSheet": "jan2026",
+      "sourceRow": 40,
+      "period": "2026-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "jan2026#41",
+      "sourceSheet": "jan2026",
+      "sourceRow": 41,
+      "period": "2026-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "jan2026#42",
+      "sourceSheet": "jan2026",
+      "sourceRow": 42,
+      "period": "2026-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "jan2026#43",
+      "sourceSheet": "jan2026",
+      "sourceRow": 43,
+      "period": "2026-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "jan2026#44",
+      "sourceSheet": "jan2026",
+      "sourceRow": 44,
+      "period": "2026-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "jan2026#45",
+      "sourceSheet": "jan2026",
+      "sourceRow": 45,
+      "period": "2026-01-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "fev2026#40",
+      "sourceSheet": "fev2026",
+      "sourceRow": 40,
+      "period": "2026-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "fev2026#41",
+      "sourceSheet": "fev2026",
+      "sourceRow": 41,
+      "period": "2026-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "fev2026#43",
+      "sourceSheet": "fev2026",
+      "sourceRow": 43,
+      "period": "2026-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "fev2026#44",
+      "sourceSheet": "fev2026",
+      "sourceRow": 44,
+      "period": "2026-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "fev2026#45",
+      "sourceSheet": "fev2026",
+      "sourceRow": 45,
+      "period": "2026-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "fev2026#46",
+      "sourceSheet": "fev2026",
+      "sourceRow": 46,
+      "period": "2026-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "fev2026#47",
+      "sourceSheet": "fev2026",
+      "sourceRow": 47,
+      "period": "2026-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "fev2026#48",
+      "sourceSheet": "fev2026",
+      "sourceRow": 48,
+      "period": "2026-02-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "mar2026#41",
+      "sourceSheet": "mar2026",
+      "sourceRow": 41,
+      "period": "2026-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "mar2026#42",
+      "sourceSheet": "mar2026",
+      "sourceRow": 42,
+      "period": "2026-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "mar2026#44",
+      "sourceSheet": "mar2026",
+      "sourceRow": 44,
+      "period": "2026-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "mar2026#45",
+      "sourceSheet": "mar2026",
+      "sourceRow": 45,
+      "period": "2026-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "mar2026#46",
+      "sourceSheet": "mar2026",
+      "sourceRow": 46,
+      "period": "2026-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "mar2026#47",
+      "sourceSheet": "mar2026",
+      "sourceRow": 47,
+      "period": "2026-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "mar2026#48",
+      "sourceSheet": "mar2026",
+      "sourceRow": 48,
+      "period": "2026-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "mar2026#49",
+      "sourceSheet": "mar2026",
+      "sourceRow": 49,
+      "period": "2026-03-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "abril2026#49",
+      "sourceSheet": "abril2026",
+      "sourceRow": 49,
+      "period": "2026-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "abril2026#50",
+      "sourceSheet": "abril2026",
+      "sourceRow": 50,
+      "period": "2026-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "abril2026#52",
+      "sourceSheet": "abril2026",
+      "sourceRow": 52,
+      "period": "2026-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "abril2026#53",
+      "sourceSheet": "abril2026",
+      "sourceRow": 53,
+      "period": "2026-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "abril2026#54",
+      "sourceSheet": "abril2026",
+      "sourceRow": 54,
+      "period": "2026-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "abril2026#55",
+      "sourceSheet": "abril2026",
+      "sourceRow": 55,
+      "period": "2026-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "abril2026#56",
+      "sourceSheet": "abril2026",
+      "sourceRow": 56,
+      "period": "2026-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "abril2026#57",
+      "sourceSheet": "abril2026",
+      "sourceRow": 57,
+      "period": "2026-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "abril2026#58",
+      "sourceSheet": "abril2026",
+      "sourceRow": 58,
+      "period": "2026-04-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "Maio2026#49",
+      "sourceSheet": "Maio2026",
+      "sourceRow": 49,
+      "period": "2026-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "Maio2026#50",
+      "sourceSheet": "Maio2026",
+      "sourceRow": 50,
+      "period": "2026-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Maio2026#52",
+      "sourceSheet": "Maio2026",
+      "sourceRow": 52,
+      "period": "2026-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Maio2026#53",
+      "sourceSheet": "Maio2026",
+      "sourceRow": 53,
+      "period": "2026-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Maio2026#54",
+      "sourceSheet": "Maio2026",
+      "sourceRow": 54,
+      "period": "2026-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Maio2026#55",
+      "sourceSheet": "Maio2026",
+      "sourceRow": 55,
+      "period": "2026-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Maio2026#56",
+      "sourceSheet": "Maio2026",
+      "sourceRow": 56,
+      "period": "2026-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "Maio2026#57",
+      "sourceSheet": "Maio2026",
+      "sourceRow": 57,
+      "period": "2026-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "Maio2026#58",
+      "sourceSheet": "Maio2026",
+      "sourceRow": 58,
+      "period": "2026-05-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JUNHO 2026#50",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 50,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JUNHO 2026#51",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 51,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUNHO 2026#53",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 53,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUNHO 2026#54",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 54,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUNHO 2026#55",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 55,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUNHO 2026#56",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 56,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUNHO 2026#57",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 57,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JUNHO 2026#58",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 58,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JUNHO 2026#59",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 59,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JUNHO 2026#60",
+      "sourceSheet": "JUNHO 2026",
+      "sourceRow": 60,
+      "period": "2026-06-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JULHO 2026#39",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 39,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JULHO 2026#40",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 40,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JULHO 2026#42",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 42,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JULHO 2026#43",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 43,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JULHO 2026#44",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 44,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JULHO 2026#45",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 45,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JULHO 2026#46",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 46,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "JULHO 2026#47",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 47,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JULHO 2026#48",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 48,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "JULHO 2026#49",
+      "sourceSheet": "JULHO 2026",
+      "sourceRow": 49,
+      "period": "2026-07-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "AGO 2026#39",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 39,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "AGO 2026#40",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 40,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGO 2026#42",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 42,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGO 2026#43",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 43,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGO 2026#44",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 44,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGO 2026#45",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 45,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGO 2026#46",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 46,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description",
+        "conflicting signals: stock flag = 1 and a sale date are both present"
+      ],
+      "dataQuality": "ambiguous"
+    },
+    {
+      "key": "AGO 2026#47",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 47,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "AGO 2026#48",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 48,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "AGO 2026#49",
+      "sourceSheet": "AGO 2026",
+      "sourceRow": 49,
+      "period": "2026-08-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "empty description"
+      ],
+      "dataQuality": "invalid"
+    },
+    {
+      "key": "Dez22#35",
+      "sourceSheet": "Dez22",
+      "sourceRow": 35,
+      "period": "2022-12-01",
+      "brand": null,
+      "model": null,
+      "year": null,
+      "plate": null,
+      "value": null,
+      "buyer": null,
+      "warnings": [
+        "neither a known model nor a known brand recognized in the description"
+      ],
+      "dataQuality": "ambiguous"
+    }
+  ],
+  "otherReview": [
+    {
+      "occurrence": {
+        "key": "AGOS 22#22",
+        "sourceSheet": "AGOS 22",
+        "sourceRow": 22,
+        "period": "2022-08-01",
+        "brand": "Ford",
+        "model": "Ecosport",
+        "year": 2009,
+        "plate": null,
+        "value": 37900,
+        "buyer": "1",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.65,
+      "reasonsFor": [
+        "same parsed brand: Ford",
+        "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+        "value changed by 5.6%",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2009 vs 2011",
+        "value moved 5.6% — larger than a typical single-month markdown"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "SET 22#8",
+        "sourceSheet": "SET 22",
+        "sourceRow": 8,
+        "period": "2022-09-01",
+        "brand": "Toyota",
+        "model": "Corolla",
+        "year": null,
+        "plate": null,
+        "value": 56900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Toyota",
+        "similar parsed model: \"Corolla\" ~ \"Corolla\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "SET 22#10",
+        "sourceSheet": "SET 22",
+        "sourceRow": 10,
+        "period": "2022-09-01",
+        "brand": "Renault",
+        "model": "Kwid",
+        "year": null,
+        "plate": null,
+        "value": 49900,
+        "buyer": "1",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "SET 22#16",
+        "sourceSheet": "SET 22",
+        "sourceRow": 16,
+        "period": "2022-09-01",
+        "brand": "Hyundai",
+        "model": "Hb20",
+        "year": 2016,
+        "plate": null,
+        "value": 51900,
+        "buyer": "1",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Hyundai",
+        "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2013"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "SET 22#19",
+        "sourceSheet": "SET 22",
+        "sourceRow": 19,
+        "period": "2022-09-01",
+        "brand": "Volkswagen",
+        "model": "Fox",
+        "year": 2009,
+        "plate": null,
+        "value": 29900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Volkswagen",
+        "similar parsed model: \"Fox\" ~ \"Crossfox\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2009 vs 2006"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "SET 22#20",
+        "sourceSheet": "SET 22",
+        "sourceRow": 20,
+        "period": "2022-09-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2014,
+        "plate": null,
+        "value": 48900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "same year: 2014",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "value changed by 15.5% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "SET 22#33",
+        "sourceSheet": "SET 22",
+        "sourceRow": 33,
+        "period": "2022-09-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2016,
+        "plate": null,
+        "value": 71900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2014",
+        "value changed by 24.2% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "OUT 22#7",
+        "sourceSheet": "OUT 22",
+        "sourceRow": 7,
+        "period": "2022-10-01",
+        "brand": "Renault",
+        "model": "Kwid",
+        "year": null,
+        "plate": null,
+        "value": 49900,
+        "buyer": "1",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "NOV 22#6",
+        "sourceSheet": "NOV 22",
+        "sourceRow": 6,
+        "period": "2022-11-01",
+        "brand": "Renault",
+        "model": "Kwid",
+        "year": null,
+        "plate": null,
+        "value": 49900,
+        "buyer": "1",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "NOV 22#8",
+        "sourceSheet": "NOV 22",
+        "sourceRow": 8,
+        "period": "2022-11-01",
+        "brand": "Hyundai",
+        "model": "Hb20",
+        "year": 2014,
+        "plate": null,
+        "value": 45900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.65,
+      "reasonsFor": [
+        "same parsed brand: Hyundai",
+        "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+        "value changed by 11.6%",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2014 vs 2016",
+        "value moved 11.6% — larger than a typical single-month markdown"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "NOV 22#17",
+        "sourceSheet": "NOV 22",
+        "sourceRow": 17,
+        "period": "2022-11-01",
+        "brand": "Chevrolet",
+        "model": "Corsa",
+        "year": 2007,
+        "plate": null,
+        "value": 22900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Corsa\" ~ \"Corsa\"",
+        "same year: 2007",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "Dez22#5",
+        "sourceSheet": "Dez22",
+        "sourceRow": 5,
+        "period": "2022-12-01",
+        "brand": "Renault",
+        "model": "Kwid",
+        "year": null,
+        "plate": null,
+        "value": 49900,
+        "buyer": "1",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "JAN 2023#5",
+        "sourceSheet": "JAN 2023",
+        "sourceRow": 5,
+        "period": "2023-01-01",
+        "brand": "Renault",
+        "model": "Kwid",
+        "year": null,
+        "plate": null,
+        "value": 49900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "FEV 2023#6",
+        "sourceSheet": "FEV 2023",
+        "sourceRow": 6,
+        "period": "2023-02-01",
+        "brand": "Renault",
+        "model": "Kwid",
+        "year": null,
+        "plate": null,
+        "value": 49900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "MARCO23#30",
+        "sourceSheet": "MARCO23",
+        "sourceRow": 30,
+        "period": "2023-03-01",
+        "brand": "Volkswagen",
+        "model": "Spacefox",
+        "year": 2010,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Volkswagen",
+        "similar parsed model: \"Spacefox\" ~ \"Fox\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2010 vs 2012"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Abril 23#29",
+        "sourceSheet": "Abril 23",
+        "sourceRow": 29,
+        "period": "2023-04-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2018,
+        "plate": "FJI 21O2",
+        "value": null,
+        "buyer": null,
+        "warnings": [
+          "plate does not match a known format: \"FJI 21O2\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "Abril 23#29",
+        "sourceSheet": "Abril 23",
+        "sourceRow": 29,
+        "period": "2023-04-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2018,
+        "plate": "FJI 21O2",
+        "value": null,
+        "buyer": null,
+        "warnings": [
+          "plate does not match a known format: \"FJI 21O2\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.55,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "same year: 2018",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "model text differs: \"Fit\" vs \"City\""
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Maio 2023#13",
+        "sourceSheet": "Maio 2023",
+        "sourceRow": 13,
+        "period": "2023-05-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2018,
+        "plate": "FJI 21O2",
+        "value": 79900,
+        "buyer": null,
+        "warnings": [
+          "plate does not match a known format: \"FJI 21O2\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "same year: 2018",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "Maio 2023#13",
+        "sourceSheet": "Maio 2023",
+        "sourceRow": 13,
+        "period": "2023-05-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2018,
+        "plate": "FJI 21O2",
+        "value": 79900,
+        "buyer": null,
+        "warnings": [
+          "plate does not match a known format: \"FJI 21O2\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.7000000000000001,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "same year: 2018",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "model text differs: \"Fit\" vs \"City\""
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Maio 2023#13",
+        "sourceSheet": "Maio 2023",
+        "sourceRow": 13,
+        "period": "2023-05-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2018,
+        "plate": "FJI 21O2",
+        "value": 79900,
+        "buyer": null,
+        "warnings": [
+          "plate does not match a known format: \"FJI 21O2\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "value changed by 60.1% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2023#20",
+        "sourceSheet": "JUN 2023",
+        "sourceRow": 20,
+        "period": "2023-06-01",
+        "brand": "Fiat",
+        "model": "Punto",
+        "year": 2016,
+        "plate": null,
+        "value": 48900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Fiat",
+        "similar parsed model: \"Punto\" ~ \"Punto\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2015"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2023#21",
+        "sourceSheet": "JUN 2023",
+        "sourceRow": 21,
+        "period": "2023-06-01",
+        "brand": "Peugeot",
+        "model": "2008",
+        "year": 2008,
+        "plate": null,
+        "value": 25900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Peugeot",
+        "similar parsed model: \"2008\" ~ \"2008\"",
+        "same year: 2008",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "value changed by 23.9% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "SET 2023#30",
+        "sourceSheet": "SET 2023",
+        "sourceRow": 30,
+        "period": "2023-09-01",
+        "brand": "Chevrolet",
+        "model": "Onix",
+        "year": 2019,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Onix\" ~ \"Onix\"",
+        "same year: 2019",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "SET 2023#30",
+        "sourceSheet": "SET 2023",
+        "sourceRow": 30,
+        "period": "2023-09-01",
+        "brand": "Chevrolet",
+        "model": "Onix",
+        "year": 2019,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Onix\" ~ \"Onix\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2019 vs 2015"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "SET 2023#32",
+        "sourceSheet": "SET 2023",
+        "sourceRow": 32,
+        "period": "2023-09-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2011,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2011 vs 2019"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "OUT 2023#6",
+        "sourceSheet": "OUT 2023",
+        "sourceRow": 6,
+        "period": "2023-10-01",
+        "brand": "Honda",
+        "model": "City",
+        "year": 2019,
+        "plate": null,
+        "value": 79900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.7000000000000001,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "same year: 2019",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "model text differs: \"City\" vs \"Fit\""
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "OUT 2023#19",
+        "sourceSheet": "OUT 2023",
+        "sourceRow": 19,
+        "period": "2023-10-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2011,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "same year: 2011",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "OUT 2023#19",
+        "sourceSheet": "OUT 2023",
+        "sourceRow": 19,
+        "period": "2023-10-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2011,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2011 vs 2019"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Nov 2023#13",
+        "sourceSheet": "Nov 2023",
+        "sourceRow": 13,
+        "period": "2023-11-01",
+        "brand": "Honda",
+        "model": "Civic",
+        "year": 2014,
+        "plate": null,
+        "value": 62900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Civic\" ~ \"Civic\"",
+        "same year: 2014",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "Nov 2023#18",
+        "sourceSheet": "Nov 2023",
+        "sourceRow": 18,
+        "period": "2023-11-01",
+        "brand": "Fiat",
+        "model": "Idea",
+        "year": 2014,
+        "plate": null,
+        "value": 38900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Fiat",
+        "similar parsed model: \"Idea\" ~ \"Idea\"",
+        "same year: 2014",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "Nov 2023#23",
+        "sourceSheet": "Nov 2023",
+        "sourceRow": 23,
+        "period": "2023-11-01",
+        "brand": "Renault",
+        "model": "Duster",
+        "year": 2014,
+        "plate": null,
+        "value": 48900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Duster\" ~ \"Duster\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2014 vs 2021",
+        "value changed by 44.4% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Nov 2023#26",
+        "sourceSheet": "Nov 2023",
+        "sourceRow": 26,
+        "period": "2023-11-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2010,
+        "plate": "Em 6964",
+        "value": 45900,
+        "buyer": "Kaue",
+        "warnings": [
+          "plate does not match a known format: \"Em 6964\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2010 vs 2011"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Nov 2023#26",
+        "sourceSheet": "Nov 2023",
+        "sourceRow": 26,
+        "period": "2023-11-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2010,
+        "plate": "Em 6964",
+        "value": 45900,
+        "buyer": "Kaue",
+        "warnings": [
+          "plate does not match a known format: \"Em 6964\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "value changed by 31.5% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Nov 2023#28",
+        "sourceSheet": "Nov 2023",
+        "sourceRow": 28,
+        "period": "2023-11-01",
+        "brand": "Honda",
+        "model": "Civic",
+        "year": 2018,
+        "plate": null,
+        "value": 110000,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Civic\" ~ \"Civic\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2018 vs 2014"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Dez2023#13",
+        "sourceSheet": "Dez2023",
+        "sourceRow": 13,
+        "period": "2023-12-01",
+        "brand": "Volkswagen",
+        "model": "Spacefox",
+        "year": 2009,
+        "plate": null,
+        "value": 25900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Volkswagen",
+        "similar parsed model: \"Spacefox\" ~ \"Spacefox\"",
+        "same year: 2009",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "Dez2023#16",
+        "sourceSheet": "Dez2023",
+        "sourceRow": 16,
+        "period": "2023-12-01",
+        "brand": "Volkswagen",
+        "model": "Fox",
+        "year": 2012,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Volkswagen",
+        "similar parsed model: \"Fox\" ~ \"Spacefox\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2012 vs 2009"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Dez2023#16",
+        "sourceSheet": "Dez2023",
+        "sourceRow": 16,
+        "period": "2023-12-01",
+        "brand": "Volkswagen",
+        "model": "Fox",
+        "year": 2012,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Volkswagen",
+        "similar parsed model: \"Fox\" ~ \"Spacefox\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2012 vs 2009"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "FEV24#15",
+        "sourceSheet": "FEV24",
+        "sourceRow": 15,
+        "period": "2024-02-01",
+        "brand": "Chevrolet",
+        "model": "Celta",
+        "year": 2005,
+        "plate": null,
+        "value": 16900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Celta\" ~ \"Celta\"",
+        "same year: 2005",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "value changed by 15.1% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "FEV24#20",
+        "sourceSheet": "FEV24",
+        "sourceRow": 20,
+        "period": "2024-02-01",
+        "brand": "Hyundai",
+        "model": "Hb20",
+        "year": 2015,
+        "plate": null,
+        "value": 55900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Hyundai",
+        "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2015 vs 2019",
+        "value changed by 20.0% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "MARC24#29",
+        "sourceSheet": "MARC24",
+        "sourceRow": 29,
+        "period": "2024-03-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2014,
+        "plate": null,
+        "value": 55900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.7000000000000001,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "same year: 2014",
+        "value essentially unchanged (1.8% difference)",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "model text differs: \"Fit\" vs \"City\""
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "J U N 24#27",
+        "sourceSheet": "J U N 24",
+        "sourceRow": 27,
+        "period": "2024-06-01",
+        "brand": "Fiat",
+        "model": "Siena",
+        "year": 2012,
+        "plate": null,
+        "value": 26900,
+        "buyer": "Alex",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Fiat",
+        "similar parsed model: \"Siena\" ~ \"Siena\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2012 vs 2011"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "NOV 2024#21",
+        "sourceSheet": "NOV 2024",
+        "sourceRow": 21,
+        "period": "2024-11-01",
+        "brand": "Hyundai",
+        "model": "Hb20",
+        "year": 2017,
+        "plate": null,
+        "value": 57900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Hyundai",
+        "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2017 vs 2016"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Dez 2024#26",
+        "sourceSheet": "Dez 2024",
+        "sourceRow": 26,
+        "period": "2024-12-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2016,
+        "plate": null,
+        "value": 69900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "same year: 2016",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "Dez 2024#26",
+        "sourceSheet": "Dez 2024",
+        "sourceRow": 26,
+        "period": "2024-12-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2016,
+        "plate": null,
+        "value": 69900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2005",
+        "value changed by 159.9% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JAN 2025#12",
+        "sourceSheet": "JAN 2025",
+        "sourceRow": 12,
+        "period": "2025-01-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2015,
+        "plate": null,
+        "value": 63900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.65,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "value changed by 8.6%",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2015 vs 2016",
+        "value moved 8.6% — larger than a typical single-month markdown"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JAN 2025#12",
+        "sourceSheet": "JAN 2025",
+        "sourceRow": 12,
+        "period": "2025-01-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2015,
+        "plate": null,
+        "value": 63900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2015 vs 2005",
+        "value changed by 137.5% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JAN 2025#12",
+        "sourceSheet": "JAN 2025",
+        "sourceRow": 12,
+        "period": "2025-01-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2015,
+        "plate": null,
+        "value": 63900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2015 vs 2016"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "FEV 2025#28",
+        "sourceSheet": "FEV 2025",
+        "sourceRow": 28,
+        "period": "2025-02-01",
+        "brand": "Chevrolet",
+        "model": "Corsa",
+        "year": 2001,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Corsa\" ~ \"Corsa\"",
+        "same year: 2001",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "MAR 2025#10",
+        "sourceSheet": "MAR 2025",
+        "sourceRow": 10,
+        "period": "2025-03-01",
+        "brand": "Toyota",
+        "model": "Corolla",
+        "year": 2017,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Toyota",
+        "similar parsed model: \"Corolla\" ~ \"Corolla\"",
+        "same year: 2017",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "MAI 2025#28",
+        "sourceSheet": "MAI 2025",
+        "sourceRow": 28,
+        "period": "2025-05-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2016,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2013"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "MAI 2025#28",
+        "sourceSheet": "MAI 2025",
+        "sourceRow": 28,
+        "period": "2025-05-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2016,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2013"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "MAI 2025#31",
+        "sourceSheet": "MAI 2025",
+        "sourceRow": 31,
+        "period": "2025-05-01",
+        "brand": "Chevrolet",
+        "model": "Classic",
+        "year": 2010,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Classic\" ~ \"Classic\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2010 vs 2014"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2025#13",
+        "sourceSheet": "JUN 2025",
+        "sourceRow": 13,
+        "period": "2025-06-01",
+        "brand": "Hyundai",
+        "model": "I30",
+        "year": 2012,
+        "plate": null,
+        "value": 45900,
+        "buyer": "Lucas",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Hyundai",
+        "similar parsed model: \"I30\" ~ \"I30\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2012 vs 2010"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2025#18",
+        "sourceSheet": "JUN 2025",
+        "sourceRow": 18,
+        "period": "2025-06-01",
+        "brand": "Chevrolet",
+        "model": "Classic",
+        "year": 2010,
+        "plate": null,
+        "value": 21900,
+        "buyer": "Rafael /Carlos",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Classic\" ~ \"Classic\"",
+        "same year: 2010",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2025#24",
+        "sourceSheet": "JUN 2025",
+        "sourceRow": 24,
+        "period": "2025-06-01",
+        "brand": "Chevrolet",
+        "model": "Onix",
+        "year": 2016,
+        "plate": null,
+        "value": 56900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.55,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "same year: 2016",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "model text differs: \"Onix\" vs \"Spin\"",
+        "value changed by 21.3% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2025#28",
+        "sourceSheet": "JUN 2025",
+        "sourceRow": 28,
+        "period": "2025-06-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2016,
+        "plate": null,
+        "value": 69900,
+        "buyer": "Sr Leandro",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "same year: 2016",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2025#28",
+        "sourceSheet": "JUN 2025",
+        "sourceRow": 28,
+        "period": "2025-06-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2016,
+        "plate": null,
+        "value": 69900,
+        "buyer": "Sr Leandro",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2013",
+        "value changed by 40.1% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2025#28",
+        "sourceSheet": "JUN 2025",
+        "sourceRow": 28,
+        "period": "2025-06-01",
+        "brand": "Honda",
+        "model": "Fit",
+        "year": 2016,
+        "plate": null,
+        "value": 69900,
+        "buyer": "Sr Leandro",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Fit\" ~ \"Fit\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2013",
+        "value changed by 20.7% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2025#31",
+        "sourceSheet": "JUN 2025",
+        "sourceRow": 31,
+        "period": "2025-06-01",
+        "brand": "Chevrolet",
+        "model": "Classic",
+        "year": 2010,
+        "plate": null,
+        "value": 24900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Classic\" ~ \"Classic\"",
+        "same year: 2010",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "JUN 2025#31",
+        "sourceSheet": "JUN 2025",
+        "sourceRow": 31,
+        "period": "2025-06-01",
+        "brand": "Chevrolet",
+        "model": "Classic",
+        "year": 2010,
+        "plate": null,
+        "value": 24900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.55,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "same year: 2010",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "model text differs: \"Classic\" vs \"Agile\"",
+        "value changed by 26.5% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "NOV 2025#21",
+        "sourceSheet": "NOV 2025",
+        "sourceRow": 21,
+        "period": "2025-11-01",
+        "brand": "Ford",
+        "model": "Focus",
+        "year": 2010,
+        "plate": null,
+        "value": 37900,
+        "buyer": "Cauã",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Ford",
+        "similar parsed model: \"Focus\" ~ \"Focus\"",
+        "same year: 2010",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "NOV 2025#25",
+        "sourceSheet": "NOV 2025",
+        "sourceRow": 25,
+        "period": "2025-11-01",
+        "brand": "Hyundai",
+        "model": "Hb20",
+        "year": 2022,
+        "plate": "GIL",
+        "value": 64900,
+        "buyer": null,
+        "warnings": [
+          "plate does not match a known format: \"GIL\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.65,
+      "reasonsFor": [
+        "same parsed brand: Hyundai",
+        "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+        "value changed by 11.0%",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2022 vs 2019",
+        "value moved 11.0% — larger than a typical single-month markdown"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "NOV 2025#25",
+        "sourceSheet": "NOV 2025",
+        "sourceRow": 25,
+        "period": "2025-11-01",
+        "brand": "Hyundai",
+        "model": "Hb20",
+        "year": 2022,
+        "plate": "GIL",
+        "value": 64900,
+        "buyer": null,
+        "warnings": [
+          "plate does not match a known format: \"GIL\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Hyundai",
+        "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2022 vs 2014"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "DEZ 2025#12",
+        "sourceSheet": "DEZ 2025",
+        "sourceRow": 12,
+        "period": "2025-12-01",
+        "brand": "Chevrolet",
+        "model": "Spin",
+        "year": 2016,
+        "plate": null,
+        "value": 49900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Spin\" ~ \"Spin\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2020"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "DEZ 2025#15",
+        "sourceSheet": "DEZ 2025",
+        "sourceRow": 15,
+        "period": "2025-12-01",
+        "brand": "Fiat",
+        "model": "Palio",
+        "year": null,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Fiat",
+        "similar parsed model: \"Palio\" ~ \"Palio\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "DEZ 2025#17",
+        "sourceSheet": "DEZ 2025",
+        "sourceRow": 17,
+        "period": "2025-12-01",
+        "brand": "Fiat",
+        "model": "Strada",
+        "year": 2014,
+        "plate": null,
+        "value": 65900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.5,
+      "reasonsFor": [
+        "same parsed brand: Fiat",
+        "value essentially unchanged (3.1% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "model text differs: \"Strada\" vs \"Mobi\"",
+        "year differs: 2014 vs 2023"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "jan2026#31",
+        "sourceSheet": "jan2026",
+        "sourceRow": 31,
+        "period": "2026-01-01",
+        "brand": "Volkswagen",
+        "model": "Fox",
+        "year": 2013,
+        "plate": null,
+        "value": 42900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Volkswagen",
+        "similar parsed model: \"Fox\" ~ \"Fox\"",
+        "value essentially unchanged (2.3% difference)",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2013 vs 2014"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "fev2026#32",
+        "sourceSheet": "fev2026",
+        "sourceRow": 32,
+        "period": "2026-02-01",
+        "brand": "Renault",
+        "model": "Sandero",
+        "year": 2014,
+        "plate": null,
+        "value": 34900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2014 vs 2019",
+        "value changed by 22.3% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "mar2026#24",
+        "sourceSheet": "mar2026",
+        "sourceRow": 24,
+        "period": "2026-03-01",
+        "brand": "Fiat",
+        "model": "Siena",
+        "year": 2014,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Fiat",
+        "similar parsed model: \"Siena\" ~ \"Siena\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2014 vs 2016"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "mar2026#25",
+        "sourceSheet": "mar2026",
+        "sourceRow": 25,
+        "period": "2026-03-01",
+        "brand": "Fiat",
+        "model": "Palio",
+        "year": 2015,
+        "plate": null,
+        "value": 44900,
+        "buyer": "Sr Alberto",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.5,
+      "reasonsFor": [
+        "same parsed brand: Fiat",
+        "value essentially unchanged (2.2% difference)",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "model text differs: \"Palio\" vs \"Siena\"",
+        "year differs: 2015 vs 2016"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "mar2026#34",
+        "sourceSheet": "mar2026",
+        "sourceRow": 34,
+        "period": "2026-03-01",
+        "brand": "Volkswagen",
+        "model": "Spacefox",
+        "year": 2018,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Volkswagen",
+        "similar parsed model: \"Spacefox\" ~ \"Fox\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2018 vs 2014"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "mar2026#36",
+        "sourceSheet": "mar2026",
+        "sourceRow": 36,
+        "period": "2026-03-01",
+        "brand": "Ford",
+        "model": "Fiesta",
+        "year": 2016,
+        "plate": "GCA OB64",
+        "value": null,
+        "buyer": null,
+        "warnings": [
+          "plate does not match a known format: \"GCA OB64\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Ford",
+        "similar parsed model: \"Fiesta\" ~ \"Fiesta\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2011"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "abril2026#33",
+        "sourceSheet": "abril2026",
+        "sourceRow": 33,
+        "period": "2026-04-01",
+        "brand": "Volkswagen",
+        "model": "Spacefox",
+        "year": 2018,
+        "plate": null,
+        "value": 57900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Volkswagen",
+        "similar parsed model: \"Spacefox\" ~ \"Spacefox\"",
+        "same year: 2018",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "abril2026#33",
+        "sourceSheet": "abril2026",
+        "sourceRow": 33,
+        "period": "2026-04-01",
+        "brand": "Volkswagen",
+        "model": "Spacefox",
+        "year": 2018,
+        "plate": null,
+        "value": 57900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Volkswagen",
+        "similar parsed model: \"Spacefox\" ~ \"Fox\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2018 vs 2014",
+        "value changed by 38.2% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "abril2026#39",
+        "sourceSheet": "abril2026",
+        "sourceRow": 39,
+        "period": "2026-04-01",
+        "brand": "Chevrolet",
+        "model": "Cruze",
+        "year": 2013,
+        "plate": null,
+        "value": 64900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.5,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "value essentially unchanged (3.1% difference)",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "model text differs: \"Cruze\" vs \"Onix\"",
+        "year differs: 2013 vs 2023"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "abril2026#40",
+        "sourceSheet": "abril2026",
+        "sourceRow": 40,
+        "period": "2026-04-01",
+        "brand": "Toyota",
+        "model": "Etios",
+        "year": 2014,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Toyota",
+        "similar parsed model: \"Etios\" ~ \"Etios\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2014 vs 2018"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "Maio2026#38",
+        "sourceSheet": "Maio2026",
+        "sourceRow": 38,
+        "period": "2026-05-01",
+        "brand": "Jeep",
+        "model": "Renegade",
+        "year": 2021,
+        "plate": "GAK 1C885",
+        "value": 82900,
+        "buyer": null,
+        "warnings": [
+          "plate does not match a known format: \"GAK 1C885\""
+        ],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Jeep",
+        "similar parsed model: \"Renegade\" ~ \"Renegade\"",
+        "same year: 2021",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "Maio2026#43",
+        "sourceSheet": "Maio2026",
+        "sourceRow": 43,
+        "period": "2026-05-01",
+        "brand": "Fiat",
+        "model": "Uno",
+        "year": 2016,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Fiat",
+        "similar parsed model: \"Uno\" ~ \"Uno\"",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2016 vs 2021"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JUNHO 2026#9",
+        "sourceSheet": "JUNHO 2026",
+        "sourceRow": 9,
+        "period": "2026-06-01",
+        "brand": "Chevrolet",
+        "model": "Onix",
+        "year": 2015,
+        "plate": null,
+        "value": null,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.6,
+      "reasonsFor": [
+        "same parsed brand: Chevrolet",
+        "similar parsed model: \"Onix\" ~ \"Onix\"",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "year differs: 2015 vs 2023"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "JULHO 2026#15",
+        "sourceSheet": "JULHO 2026",
+        "sourceRow": 15,
+        "period": "2026-07-01",
+        "brand": "Renault",
+        "model": "Sandero",
+        "year": null,
+        "plate": null,
+        "value": 44900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "JULHO 2026#15",
+        "sourceSheet": "JULHO 2026",
+        "sourceRow": 15,
+        "period": "2026-07-01",
+        "brand": "Renault",
+        "model": "Sandero",
+        "year": null,
+        "plate": null,
+        "value": 44900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "AGO 2026#14",
+        "sourceSheet": "AGO 2026",
+        "sourceRow": 14,
+        "period": "2026-08-01",
+        "brand": "Honda",
+        "model": "Civic",
+        "year": 2006,
+        "plate": null,
+        "value": 21900,
+        "buyer": "Vinícius",
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.8,
+      "reasonsFor": [
+        "same parsed brand: Honda",
+        "similar parsed model: \"Civic\" ~ \"Civic\"",
+        "same year: 2006",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": [
+        "value changed by 36.9% — too large to be confident"
+      ]
+    },
+    {
+      "occurrence": {
+        "key": "AGO 2026#15",
+        "sourceSheet": "AGO 2026",
+        "sourceRow": 15,
+        "period": "2026-08-01",
+        "brand": "Renault",
+        "model": "Sandero",
+        "year": null,
+        "plate": null,
+        "value": 44900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the same month sheet"
+      ],
+      "reasonsAgainst": []
+    },
+    {
+      "occurrence": {
+        "key": "AGO 2026#15",
+        "sourceSheet": "AGO 2026",
+        "sourceRow": 15,
+        "period": "2026-08-01",
+        "brand": "Renault",
+        "model": "Sandero",
+        "year": null,
+        "plate": null,
+        "value": 44900,
+        "buyer": null,
+        "warnings": [],
+        "dataQuality": "partially_reliable"
+      },
+      "score": 0.75,
+      "reasonsFor": [
+        "same parsed brand: Renault",
+        "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+        "value essentially unchanged (0.0% difference)",
+        "appears in the consecutive month"
+      ],
+      "reasonsAgainst": []
+    }
+  ]
+}

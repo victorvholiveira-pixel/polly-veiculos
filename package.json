@@ -12,7 +12,9 @@
     "test:e2e": "playwright test",
     "preview": "vite preview",
     "db:validate": "scripts/db/validate-migrations.sh",
-    "migration:dry-run": "tsx scripts/migration/run-dry-run.ts"
+    "migration:dry-run": "tsx scripts/migration/run-dry-run.ts",
+    "migration:load-ledger": "tsx scripts/migration/load-ledger.ts",
+    "migration:build-review-fixture": "tsx scripts/migration/build-review-fixture.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.112.4",

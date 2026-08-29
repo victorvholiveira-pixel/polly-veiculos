@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 
 export function MorePage() {
@@ -18,6 +19,14 @@ export function MorePage() {
         <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">Mais</h1>
         <p className="text-slate-500 dark:text-slate-400">Configurações e outras ferramentas chegam nas próximas ondas.</p>
       </div>
+
+      <Link
+        to="/mais/revisao"
+        className="block rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+      >
+        <p className="font-medium text-slate-900 dark:text-slate-50">Revisão da Migração</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Confirme o estoque e resolva pendências vindas da planilha antiga.</p>
+      </Link>
 
       <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
         <p className="text-sm text-slate-500 dark:text-slate-400">Conectado como</p>
