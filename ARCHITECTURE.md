@@ -1,165 +1,209 @@
 # Arquitetura
 
-Este documento registra as decisões de arquitetura aprovadas (FASE 0.5) e como
-elas foram implementadas na Onda 1. Para o contrato completo de schema, ver os
-arquivos em `supabase/migrations/` — eles são a fonte de verdade; este
-documento explica o *porquê*.
+Este documento registra as decisões de arquitetura do Polly Veículos. Para o
+contrato completo do "banco" (abas, colunas, regras de negócio), ver os
+arquivos em `gas/` — eles são a fonte de verdade; este documento explica o
+*porquê*.
+
+## Mudança de arquitetura (pós-Onda 6)
+
+As Ondas 1–6 foram construídas sobre Supabase (Postgres + Auth + RLS). Sem
+projeto Supabase real disponível em nenhum momento (mesmo bloqueio reportado
+repetidamente — sem credenciais, Docker, CLI autenticada), e dado o volume
+real esperado (~20-30 vendas/mês, uso pessoal), o backend foi trocado por
+**Google Apps Script + Google Sheets**: mais simples de provisionar (o
+usuário já tem conta Google), zero custo de hospedagem de banco, e
+suficiente para esse volume. O frontend e a experiência do usuário foram
+preservados — só a camada de dados mudou.
 
 ## Visão geral
 
 ```
-React + TS + Vite + Tailwind  →  Supabase (Postgres + Auth + RLS)
-        (frontend)                      (único backend)
+React + TS + Vite + Tailwind (PWA)  →  Google Apps Script Web App  →  Google Sheets
+           (frontend)                      (API + regras)              (armazenamento)
 ```
 
-Sem servidor próprio. Sem Edge Functions ainda (ver "Venda: RPC em vez de
-Edge Function" abaixo). Um único cliente Supabase centralizado
-(`src/lib/supabase.ts`) — nenhuma outra parte do código deve chamar
-`createClient` diretamente.
+Um único cliente HTTP centralizado (`src/lib/api.ts`) — nenhuma outra parte
+do frontend chama `fetch` no backend diretamente. A planilha em si (o
+"banco") nunca é exposta ao usuário final — ele nunca a abre, nunca a edita
+à mão; é só armazenamento por trás da API.
 
-## Banco de dados
+## Por que Google Apps Script + Sheets, e não outro backend
 
-Sete tabelas, todas com RLS habilitado desde a migration que as cria (nunca
-existe uma janela onde uma tabela operacional fica exposta sem RLS):
+- **Zero infraestrutura para o usuário manter**: roda na conta Google que
+  ele já tem, sem outro provedor para cadastrar, sem cartão de crédito, sem
+  fatura mensal.
+- **Suficiente para o volume real**: ~20-30 vendas/mês e dezenas de veículos
+  em estoque estão muito abaixo de qualquer limite prático do Sheets ou de
+  cota do Apps Script.
+- **Simples de auditar**: qualquer pessoa técnica consegue abrir a planilha
+  e entender o "banco" olhando as abas — não é uma caixa-preta.
+- O que se perde, conscientemente: transações reais, constraints de banco,
+  índices — ver "Invariantes sem banco relacional" abaixo para como cada uma
+  foi preservada em código.
 
-- `vehicles` — identidade canônica do veículo real. `id` (uuid) é a única
-  identidade que outras tabelas referenciam; a placa é um atributo, nunca uma
-  identidade (pode ser corrigida sem afetar `vehicles.id`).
-- `vehicle_occurrences` — ledger imutável de cada linha da planilha migrada.
-  Também *é* o modelo de provenance (ver abaixo) — não existe uma tabela
-  genérica `migration_provenance` separada.
-- `vehicle_match_candidates` — fila de revisão para ocorrências que a
-  migração não conseguiu resolver com confiança.
-- `sellers`, `sales`, `app_settings`, `audit_log`.
+## O "banco" (Google Sheets)
 
-Detalhes completos (tipos, constraints, índices, políticas de RLS) estão
-comentados diretamente em cada arquivo de migration.
+Uma única planilha, criada automaticamente no primeiro `setup()` (ver
+"Deploy do backend"). Cada aba é uma tabela — a linha 1 é o cabeçalho, cada
+linha seguinte é um registro. Nomes de coluna em `gas/Store.js`
+(`SHEET_COLUMNS`) são a fonte de verdade.
 
-### Por que não existe uma tabela `migration_provenance` genérica
+- `Vehicles` — identidade canônica do veículo real. `id` (uuid) é a única
+  identidade que outras abas referenciam; a placa é um atributo, nunca uma
+  identidade (pode ser corrigida sem afetar `Vehicles.id`).
+- `VehicleOccurrences` — ledger imutável de cada linha da planilha antiga
+  migrada. Também *é* o modelo de proveniência — não existe uma aba genérica
+  separada para isso.
+- `VehicleMatchCandidates` — evidência de possível duplicidade entre
+  ocorrências, para revisão humana. Guarda **chaves de ocorrência**
+  (`source_sheet#source_row`), não uma referência a um `Vehicles.id` real —
+  a maioria dos 1.023 candidatos de identidade estimados na Onda 2 não
+  correspondem a veículos reais ainda, e forçar essa referência exigiria
+  fabricar veículos-placeholder só para guardar evidência.
+- `Sellers`, `Sales`, `AppSettings` (linha única), `AuditLog`,
+  `MigrationImportBatches`.
 
-A proveniência de cada registro migrado vive em `vehicle_occurrences`, que já
-carrega `source_sheet`/`source_row`/`original_payload` — ela *é* o registro de
-origem, por definição. `vehicles.founding_occurrence_id` e
-`sales.source_occurrence_id` apontam para lá. Duplicar essas colunas em uma
-segunda tabela genérica violaria single-source-of-truth sem ganhar nada.
+## O backend (`gas/`)
 
-### Identidade vs. deduplicação (resumo)
+Quatro arquivos, colados como estão no editor do Apps Script (nenhum build
+step — é JavaScript puro, compatível com o runtime V8 do Apps Script):
 
-Três conceitos, nunca confundidos:
+- **`Store.js`** — CRUD genérico sobre as abas (`readAll_`, `appendRow_`,
+  `appendRows_`, `updateById_`, `findById_`) + `setup()`/`resetPassword()`.
+- **`Auth.js`** — login simples (uma senha compartilhada — ver "Auth"
+  abaixo) e o token assinado.
+- **`Logic.js`** — as regras de negócio: o equivalente às antigas RPCs do
+  Postgres (`registerSale_`, `cancelSale_`, `createVehicle_`,
+  `updateVehicle_`, `createInitialInventory_`, etc.).
+- **`Router.js`** — `doPost`/`doGet`, um único endpoint despachando por
+  `action`.
 
-1. **Identidade do registro de origem** — `(source_sheet, source_row)`,
-   natural key de `vehicle_occurrences`. Determinística, imutável.
-2. **Identidade do veículo real** — `vehicles.id` (uuid surrogate).
-3. **Ocorrência mensal** — cada linha de `vehicle_occurrences`; um mesmo
-   veículo normalmente tem várias.
+Testado com Vitest via um harness que carrega esses mesmos arquivos num
+`vm` do Node com mocks de `SpreadsheetApp`/`PropertiesService`/`Utilities`/
+`LockService` — ver "Testando o backend" abaixo e `gas/__tests__/`.
 
-A migração (Onda 2) resolve identidade com uma estratégia hierárquica
-conservadora — placa exata + continuidade de mês > atributos combinados sem
-ambiguidade > revisão humana — e **nunca funde dois veículos automaticamente
-quando há dúvida** (falso negativo de deduplicação é preferível a um falso
-positivo). Detalhe completo em `MIGRATION.md`.
+## Auth
 
-## Segurança / RLS
+Sem cadastro de usuários — é um app pessoal para 1-2 pessoas (o dono da loja
+e o pai dele). Uma única senha compartilhada, configurada uma vez
+(`setup()` gera e imprime uma no log de execução). Quem faz login também
+digita um nome — não é uma conta separada, só identifica o "actor" no
+`AuditLog` (ex.: "Victor", "Pai").
 
-Modelo de confiança adotado: **qualquer usuário autenticado é staff da loja**
-com acesso completo às tabelas operacionais (não há hoje diferenciação de
-papel entre vendedores). Isso é uma decisão consciente, não um descuido — é
-o item mais provável de precisar mudar se o negócio crescer para múltiplos
-vendedores com visibilidade restrita entre si.
+Sessão: um token assinado (`base64url(JSON{name,iat,exp})` +
+`base64url(HMAC-SHA256(...))`, ver `gas/Auth.js`) guardado no
+`localStorage` do navegador — sem sessão armazenada no servidor, cada
+chamada é verificada de novo. Expira em 30 dias; expirando, o app volta para
+a tela de login.
 
-Dentro desse modelo, ainda há fronteiras reais:
+Uma segunda credencial, **`ADMIN_SECRET`**, existe só para automação (o
+script de carga da migração, `scripts/migration/load-ledger.ts`) — nunca é
+a senha que uma pessoa digita, e nunca deve ir para uma variável `VITE_`
+(essas são embutidas no bundle do frontend, logo públicas).
 
-- `sales`, `audit_log` e `vehicle_occurrences`/`vehicle_match_candidates` têm
-  **política de leitura para `authenticated`, mas nenhuma política de escrita
-  direta**. Ninguém insere uma venda ou uma linha de auditoria direto na
-  tabela — apenas funções `SECURITY DEFINER` (RPCs) ou o pipeline de migração
-  (rodando com `service_role`, nunca no frontend) escrevem ali. Isso é testado
-  automaticamente — ver "Validação das migrations" abaixo.
-- `vehicles` permite `UPDATE` direto por qualquer autenticado, inclusive do
-  campo `status`. Isso é uma fronteira "soft", não imposta em nível de banco:
-  o app deve sempre passar pela RPC de venda para a transição para `sold`,
-  mas hoje nada no banco impede um `UPDATE` direto contornando isso. Aceitável
-  com um único usuário de confiança; revisar se isso mudar.
-- Nenhuma tabela tem política de `DELETE` para `authenticated` — exclusão
-  sempre é soft (`status='cancelled'`, `active=false`), nunca `DELETE`.
-- A `service_role key` nunca aparece em código de frontend nem em `.env*`
-  versionado — apenas a `anon key` pública, que só concede o que as policies
-  de RLS permitirem.
+## Invariantes sem banco relacional
 
-## Venda: RPC em vez de Edge Function
+Cada garantia que antes era uma constraint/trigger do Postgres agora é
+imposta em código, em `gas/Logic.js`:
 
-Decisão aprovada na FASE 0.5, ainda não implementada nesta onda (Onda 1 é
-schema/RLS/auth/shell — a RPC de venda chega na onda que implementar o fluxo
-"Vender"). Registrando o motivo aqui para não se perder:
-
-Uma função Postgres (`SECURITY DEFINER`) consegue, numa única transação:
-travar a linha do veículo (`FOR UPDATE`), inserir a venda, atualizar o status
-do veículo e gravar o `audit_log` — atomicamente, sem round-trip de rede
-adicional. Uma Edge Function só se justificaria se o fluxo precisasse chamar
-algo *fora* do Postgres (gateway de pagamento, API de financiamento) — nada
-disso está no escopo atual. Se isso mudar, dá para envolver a mesma RPC numa
-Edge Function depois sem alterar o schema.
+- **"sold" só pelo caminho oficial** — `updateVehicle_` nem recebe `status`
+  como parâmetro; só `registerSale_`/`cancelSale_`/`createInitialInventory_`
+  escrevem nessa coluna, cada um com sua própria regra validada.
+- **Placa única entre veículos ativos** — `assertPlateAvailable_` varre
+  `Vehicles` antes de criar/editar. `cancelSale_` reprovisiona essa mesma
+  checagem antes de reativar um veículo, para não colidir com uma placa que
+  um veículo novo já reivindicou.
+- **Uma venda ativa por veículo** — checado antes de inserir (segunda linha
+  de defesa; o check de `status='available'` já deveria impedir isso).
+- **Proveniência da migração** — `decideInventoryCandidate_`/`decideSale_`
+  só escrevem nas colunas de overlay (`confirmed_*`, `review_*`), nunca nas
+  colunas originais (`*_raw`, `parsed_*`).
+- **Concorrência** — todo `doPost` roda dentro de
+  `LockService.getScriptLock()` (Router.js), serializando escritas. No
+  volume esperado o custo é irrelevante; existe para nunca deixar duas
+  escritas simultâneas na mesma aba se corromperem.
+- **Atomicidade parcial, um risco aceito conscientemente** — Sheets não tem
+  transação real. `cancelSale_` checa o conflito de placa *antes* de
+  escrever qualquer coisa (para nunca abortar no meio), mas as duas escritas
+  que seguem (cancelar a venda, reverter o veículo) não são atômicas entre
+  si — uma falha exatamente entre as duas deixaria estado parcial. Dado que
+  ambas acontecem em sequência síncrona dentro da mesma invocação (sem
+  round-trip de rede no meio) e sob o lock do script, a janela de risco é
+  desprezível no volume esperado. Documentado aqui em vez de resolvido com
+  mais complexidade — ver GO_LIVE_CHECKLIST.md.
 
 ## Comissão
 
-Sem regra assumida em lugar nenhum do código ou do banco.
-`sales.commission_amount`/`commission_percentage` ficam nulos até serem
-preenchidos manualmente; `commission_rule_snapshot` (jsonb) existe para,
-quando uma regra for definida com o usuário real, congelar os parâmetros
-vigentes por venda — uma mudança de regra no futuro nunca deve recalcular
-comissões passadas.
+Sem regra assumida em lugar nenhum do código. `Sales.commission_amount`/
+`commission_percentage` ficam nulos até serem preenchidos manualmente;
+`AppSettings.default_commission_pct` é só uma sugestão de preenchimento no
+formulário de venda, nunca aplicada sozinha. Uma regra de cálculo automática
+de verdade fica para quando o usuário real definir como o pagamento
+funciona hoje.
+
+## Deploy do backend
+
+Não é possível provisionar um projeto Apps Script/Web App autonomamente
+neste ambiente — a criação e o primeiro deploy exigem o editor
+script.google.com (ou a Apps Script API, que pede OAuth interativo,
+igualmente indisponível aqui). Passos, uma única vez:
+
+1. script.google.com → Novo projeto.
+2. Criar 4 arquivos de script (mesmos nomes) e colar o conteúdo de
+   `gas/Store.js`, `gas/Auth.js`, `gas/Logic.js`, `gas/Router.js`.
+3. No `appsscript.json` do projeto (⚙️ Configurações do projeto → "Mostrar
+   arquivo de manifesto"), colar o conteúdo de `gas/appsscript.json`.
+4. Selecionar a função `setup` no seletor de funções e clicar Executar —
+   autorizar o pedido de permissão (acesso a Planilhas, próprio do Apps
+   Script, não um app OAuth de terceiros). Ver o log de execução (Ver →
+   Registros) para a senha de login e o `ADMIN_SECRET` gerados.
+5. Implantar → Nova implantação → tipo "App da Web" → executar como "Eu",
+   acesso "Qualquer pessoa" → Implantar. Copiar a URL.
+6. `VITE_APPS_SCRIPT_URL=<url>` no `.env` do frontend (e nas variáveis de
+   ambiente do Vercel, se aplicável).
+
+Depois disso, tudo o mais (carregar a planilha antiga, testar os fluxos,
+fazer deploy do frontend) não exige nova autorização humana.
+
+## Testando o backend
+
+`gas/__tests__/logic.test.ts` roda os arquivos reais de `gas/*.js` — os
+mesmos que vão colados no editor — dentro de um `vm` do Node
+(`gas/__tests__/gasHarness.ts`), com mocks em memória de
+`SpreadsheetApp`/`PropertiesService`/`Utilities`/`LockService`. Cobre os
+mesmos casos que as antigas asserções do Postgres cobriam: guarda de venda,
+placa única, proveniência, idempotência da carga inicial de estoque, etc.
+`npm run test` roda isso junto com o resto da suíte Vitest.
 
 ## PWA
 
-`vite-plugin-pwa` com `generateSW`, precache apenas do app shell
-(`**/*.{js,css,html,svg}` — sem cache agressivo de dados/API). Ícones em
-`public/icons/` são **placeholders** (monograma "P"), pendentes de assets
-oficiais. Manifest em `pt-BR`, `display: standalone`, cores combinando com o
-tema da tela de login.
-
-## Validação das migrations sem Docker
-
-O ambiente onde a Onda 1 foi construída não tinha acesso a Docker (necessário
-para `supabase start`, o dev stack local oficial da Supabase). Para ainda
-assim validar as migrations de verdade, `scripts/db/validate-migrations.sh`:
-
-1. Sobe um Postgres 16 local descartável (via `initdb`/`pg_ctl`, sem Docker).
-2. Aplica `scripts/db/stub-auth.sql` — um stub mínimo do schema `auth` e das
-   roles `anon`/`authenticated`/`service_role` que um projeto Supabase real
-   já fornece, só para permitir que as migrations (que referenciam
-   `auth.users`/`auth.uid()`) rodem.
-3. Aplica todos os arquivos de `supabase/migrations/` em ordem.
-4. Roda `scripts/db/assertions.sql` — testa constraints, unique indexes e o
-   comportamento de RLS por papel (anon vs. authenticated) com inserts reais,
-   não apenas leitura do SQL.
-
-Isso é um **substituto**, não uma validação equivalente a rodar contra um
-projeto Supabase real — sempre validar de novo contra o projeto real antes de
-qualquer ida a produção (ver `GO_LIVE_CHECKLIST.md`).
+`vite-plugin-pwa` com `generateSW`, precache do app shell
+(`**/*.{js,css,html,svg,png}`). Ícones em `public/icons/` são
+**placeholders** (monograma "P"), pendentes de arte de marca de verdade —
+decisão do usuário, não algo para inventar. Manifest em `pt-BR`,
+`display: standalone`.
 
 ## Bundle
 
-O build de produção da Onda 1 gera um único chunk JS de ~500 kB
-(~146 kB gzip) — React 19 + React Router + o SDK completo do
-`@supabase/supabase-js` (que inclui auth, realtime, storage, functions e
-postgrest mesmo só usando auth hoje). Vite avisa sobre o tamanho (limite
-padrão de 500 kB por chunk). Não vale otimizar prematuramente numa fundação
-com cinco telas-placeholder; quando as features reais forem entrando,
-considerar `React.lazy` por rota como primeiro passo.
+Build de produção gera um único chunk JS de ~350-400 kB — bem menor que na
+era Supabase, já que `@supabase/supabase-js` (que incluía auth, realtime,
+storage, functions e postgrest) saiu por completo; o cliente HTTP do
+backend agora é um `fetch` de poucas linhas.
 
-## Decisões difíceis de mudar depois (herdadas da FASE 0.5)
+## Decisões difíceis de mudar depois
 
-Ver a lista completa na revisão de arquitetura aprovada; os itens mais
-relevantes para quem for mexer no schema:
-
-1. `vehicles.id` como identidade (não a placa) — baixo risco, mas caro de
-   reverter depois que `sales`/`audit_log` referenciarem amplamente.
-2. Proveniência ancorada em `vehicle_occurrences` em vez de uma tabela
-   genérica — reversível via migration, mas toca todo o rastreamento
-   histórico.
-3. Índices únicos parciais (uma placa ativa por vez, uma venda ativa por
-   veículo) — assumem "um lote, um item por vez"; motivam repensar se o
-   negócio crescer para múltiplas lojas/consignação.
-4. Postura de RLS "qualquer autenticado é staff completo" — o item de maior
-   risco se o negócio escalar para múltiplos vendedores com visibilidade
-   restrita entre si.
+1. `Vehicles.id` como identidade (não a placa) — baixo risco, mas caro de
+   reverter depois que `Sales`/`AuditLog` referenciarem amplamente.
+2. Proveniência ancorada em `VehicleOccurrences` em vez de uma aba
+   genérica — reversível, mas toca todo o rastreamento histórico.
+3. `Vehicles` ainda aceita `INSERT`/`UPDATE` direto de qualquer chamada
+   autenticada por trás de `updateVehicle_`/`createVehicle_` (o app só usa
+   essas duas ações, que auditam tudo) — não há uma segunda camada
+   impedindo alguém de escrever direto na planilha por fora do app. Aceitável
+   com uso pessoal e planilha não compartilhada; documentado como dívida
+   técnica de baixo risco, não um bloqueio.
+4. Uma senha compartilhada em vez de contas por pessoa — o item mais
+   provável de precisar mudar se o negócio crescer para múltiplos
+   vendedores com necessidade de identidade individual real (hoje o "nome"
+   no login é auto-declarado, não verificado).

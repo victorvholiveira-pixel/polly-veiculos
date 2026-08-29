@@ -10,7 +10,7 @@ function fmtBRL(n: number | null): string {
 
 export function AmbiguousSalesReviewPage() {
   const [items, setItems] = useState<AmbiguousSaleItem[]>([])
-  const [source, setSource] = useState<'supabase' | 'demo' | null>(null)
+  const [source, setSource] = useState<'live' | 'demo' | null>(null)
   const [loading, setLoading] = useState(true)
   const [busyId, setBusyId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -37,7 +37,7 @@ export function AmbiguousSalesReviewPage() {
   }, [])
 
   const decide = async (item: AmbiguousSaleItem, decision: 'approved' | 'rejected' | 'needs_followup') => {
-    if (source !== 'supabase') {
+    if (source !== 'live') {
       setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, reviewDecision: decision } : i)))
       return
     }

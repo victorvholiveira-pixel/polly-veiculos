@@ -14,7 +14,7 @@ function csvEscape(value: unknown): string {
   return str
 }
 
-export function toCSV<T extends Record<string, unknown>>(rows: T[], columns: Array<{ key: keyof T; header: string }>): string {
+export function toCSV<T extends object>(rows: T[], columns: Array<{ key: keyof T; header: string }>): string {
   const headerLine = columns.map((c) => csvEscape(c.header)).join(';')
   const lines = rows.map((row) => columns.map((c) => csvEscape(row[c.key])).join(';'))
   return [headerLine, ...lines].join('\r\n')

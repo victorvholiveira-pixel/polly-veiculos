@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs'
 import { defineConfig, devices } from '@playwright/test'
 
 // Real-browser smoke tests for routing/auth/mobile nav (see e2e/). These do
-// NOT exercise a real Supabase backend — no live project is linked yet — so
+// NOT exercise a real backend — no Apps Script Web App is deployed yet — so
 // they can only prove the client-side wiring (redirects, form submission,
 // error handling), not that sign-in actually succeeds end to end. See
 // GO_LIVE_CHECKLIST.md for the real-backend auth smoke test still pending.

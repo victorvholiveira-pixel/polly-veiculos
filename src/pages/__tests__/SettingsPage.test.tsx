@@ -36,8 +36,8 @@ describe('SettingsPage', () => {
   })
 
   it('loads the current default commission and saves a new one', async () => {
-    mockedFetch.mockResolvedValue({ id: true, default_commission_pct: 2, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
-    mockedUpdate.mockResolvedValue({ id: true, default_commission_pct: 3, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
+    mockedFetch.mockResolvedValue({ id: 'true', default_commission_pct: 2, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
+    mockedUpdate.mockResolvedValue({ id: 'true', default_commission_pct: 3, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
     const user = userEvent.setup()
 
     render(<SettingsPage />)
@@ -54,8 +54,8 @@ describe('SettingsPage', () => {
   })
 
   it('sends null when the field is cleared, instead of inventing a value', async () => {
-    mockedFetch.mockResolvedValue({ id: true, default_commission_pct: 2, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
-    mockedUpdate.mockResolvedValue({ id: true, default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
+    mockedFetch.mockResolvedValue({ id: 'true', default_commission_pct: 2, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
+    mockedUpdate.mockResolvedValue({ id: 'true', default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
     const user = userEvent.setup()
 
     render(<SettingsPage />)
@@ -68,7 +68,7 @@ describe('SettingsPage', () => {
   })
 
   it('exports the full vehicle list (not just what a filtered screen shows) as CSV', async () => {
-    mockedFetch.mockResolvedValue({ id: true, default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
+    mockedFetch.mockResolvedValue({ id: 'true', default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
     mockedFetchVehicles.mockResolvedValue([])
     const user = userEvent.setup()
 
@@ -82,7 +82,7 @@ describe('SettingsPage', () => {
   })
 
   it('shows a real error instead of a broken download when the export fetch fails', async () => {
-    mockedFetch.mockResolvedValue({ id: true, default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
+    mockedFetch.mockResolvedValue({ id: 'true', default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
     mockedFetchSales.mockRejectedValue(new Error('offline'))
     const user = userEvent.setup()
 
