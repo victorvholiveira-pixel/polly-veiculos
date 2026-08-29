@@ -47,6 +47,27 @@
       no caminho: `update_vehicle` zerava `entry_date` silenciosamente por
       nunca reenviá-lo — agora o formulário de veículo tem o campo e o RPC
       sempre recebe o valor atual. *(concluída)*
+- [x] **Onda 10 — Histórico de vendas mensal + vendas legadas**: o card de
+      performance da Home virou um módulo "Histórico de vendas" completo —
+      período selecionável (6/12/24 meses, Tudo, ano específico quando há
+      mais de um ano de dado), toggle quantidade/valor, detalhe por mês ao
+      tocar a barra (vendas, faturamento, ticket médio, comissão conhecida),
+      resumo do período com comparação ao período anterior quando há base
+      real, melhor/pior mês, médias mensais. Nenhum mês fora do intervalo
+      real selecionado é inventado.
+
+      Habilitado por uma importação segura das vendas históricas da
+      planilha: 542 das 602 ocorrências `sale_classification='sale_detected'`
+      (alta confiança) tinham data e valor — os únicos dois campos
+      obrigatórios de `sales` — e viraram vendas reais com
+      `origin='migration'`; as outras 60 (58 sem valor registrado, 2 com
+      data futura por erro de digitação na planilha original) ficaram de
+      fora, para revisão manual, sem inventar nada. `sales.vehicle_id` virou
+      opcional e uma venda legada nunca ganha um veículo placeholder — ver
+      `ARCHITECTURE.md`, "sales.origin", e `MIGRATION.md` para a auditoria
+      completa. *(concluída — falta só rodar
+      `artifacts/migration/import_legacy_sales.sql` no projeto real, mesmo
+      bloqueio de rede de sempre)*
 
 ### Endurecimento futuro (não bloqueia Go-Live)
 
@@ -75,8 +96,9 @@ fica para quando o usuário real definir como o pagamento funciona hoje.
 
 ## P2 — Inteligência
 
-- Ticket médio, dias médios em estoque, veículos mais antigos, desempenho
-  anual, quantidade vendida por marca.
+- [x] Ticket médio, dias médios em estoque, histórico mensal/anual de vendas
+      e faturamento — entregues na Home (Onda 9/10).
+- Veículos mais antigos além do top 5 já mostrado em "Estoque envelhecido".
 
 ## P3 — Integrações
 

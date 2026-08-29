@@ -15,6 +15,12 @@ export interface SaleWithDetails extends Sale {
  * the hand-written Database type (see database.ts's header note on
  * `Relationships: []`), so vehicle/seller details are fetched separately and
  * merged client-side rather than relying on postgrest embedding.
+ *
+ * A sale is either origin='app' (real vehicle_id) or origin='migration' (a
+ * legacy sale imported from the spreadsheet, no live vehicle — see
+ * ARCHITECTURE.md, "Onda 10"). For the second kind, vehicle/plate details
+ * come from vehicle_occurrences via source_occurrence_id instead — never
+ * a fabricated vehicle just to have something to join against.
  */
 export async function fetchSales(): Promise<SaleWithDetails[]> {
   const { data: sales, error } = await withTimeout(
@@ -23,24 +29,53 @@ export async function fetchSales(): Promise<SaleWithDetails[]> {
   if (error) throw error
   if (sales.length === 0) return []
 
-  const vehicleIds = [...new Set(sales.map((s) => s.vehicle_id))]
+  const vehicleIds = [...new Set(sales.filter((s) => s.vehicle_id !== null).map((s) => s.vehicle_id as string))]
+  const occurrenceIds = [...new Set(sales.filter((s) => s.vehicle_id === null && s.source_occurrence_id !== null).map((s) => s.source_occurrence_id as string))]
   const sellerIds = [...new Set(sales.map((s) => s.seller_id).filter((id): id is string => id !== null))]
 
-  const [{ data: vehicles, error: vehiclesError }, { data: sellers, error: sellersError }] = await Promise.all([
-    withTimeout(supabase.from('vehicles').select('id, brand, model, trim, plate').in('id', vehicleIds)),
+  const [{ data: vehicles, error: vehiclesError }, { data: occurrences, error: occurrencesError }, { data: sellers, error: sellersError }] = await Promise.all([
+    vehicleIds.length > 0
+      ? withTimeout(supabase.from('vehicles').select('id, brand, model, trim, plate').in('id', vehicleIds))
+      : Promise.resolve({ data: [], error: null }),
+    occurrenceIds.length > 0
+      ? withTimeout(
+          supabase
+            .from('vehicle_occurrences')
+            .select('id, confirmed_brand, confirmed_model, parsed_brand, parsed_model, model_raw, confirmed_plate, plate_normalized')
+            .in('id', occurrenceIds),
+        )
+      : Promise.resolve({ data: [], error: null }),
     sellerIds.length > 0
       ? withTimeout(supabase.from('sellers').select('id, name').in('id', sellerIds))
       : Promise.resolve({ data: [] as Array<{ id: string; name: string }>, error: null }),
   ])
   if (vehiclesError) throw vehiclesError
+  if (occurrencesError) throw occurrencesError
   if (sellersError) throw sellersError
 
   const vehicleMap = new Map(vehicles.map((v) => [v.id, v]))
+  // create_initial_inventory maps the occurrence's model_raw to vehicles.trim
+  // (a "version" string, e.g. "LXR 2.0") — mirrored here for the same shape.
+  const occurrenceMap = new Map(
+    occurrences.map((o) => [
+      o.id,
+      {
+        brand: o.confirmed_brand ?? o.parsed_brand ?? 'Não identificado',
+        model: o.confirmed_model ?? o.parsed_model ?? 'Não identificado',
+        trim: o.model_raw,
+        plate: o.confirmed_plate ?? o.plate_normalized,
+      },
+    ]),
+  )
   const sellerMap = new Map((sellers ?? []).map((s) => [s.id, s.name]))
 
   return sales.map((s) => ({
     ...s,
-    vehicle: vehicleMap.get(s.vehicle_id) ?? null,
+    vehicle: s.vehicle_id
+      ? (vehicleMap.get(s.vehicle_id) ?? null)
+      : s.source_occurrence_id
+        ? (occurrenceMap.get(s.source_occurrence_id) ?? null)
+        : null,
     sellerName: s.seller_id ? (sellerMap.get(s.seller_id) ?? null) : null,
   }))
 }

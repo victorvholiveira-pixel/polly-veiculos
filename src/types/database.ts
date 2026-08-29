@@ -44,6 +44,7 @@ export type ReviewDecision = 'pending' | 'approved' | 'rejected' | 'edited_and_a
 export type SaleClassification = 'sale_detected' | 'sale_detected_with_invalid_date' | 'sale_ambiguous'
 export type MatchCandidateDecision = 'pending' | 'same_vehicle' | 'different_vehicles'
 export type SaleStatus = 'completed' | 'cancelled'
+export type SaleOrigin = 'app' | 'migration'
 export type AuditEntityType = 'vehicle' | 'sale' | 'vehicle_occurrence' | 'settings'
 
 export interface Database {
@@ -252,7 +253,7 @@ export interface Database {
       sales: {
         Row: {
           id: string
-          vehicle_id: string
+          vehicle_id: string | null
           seller_id: string | null
           sale_date: string
           customer_name: string | null
@@ -270,16 +271,19 @@ export interface Database {
           cancelled_at: string | null
           source_occurrence_id: string | null
           created_by: string | null
+          origin: SaleOrigin
           created_at: string
           updated_at: string
         }
         // No RLS insert/update policy for `authenticated` — rows are written
-        // only via the future register_sale/cancel_sale RPCs (ARCHITECTURE.md).
-        // Shaped for completeness/type-safety of that future server-side code,
-        // not as an invitation to call .insert()/.update() from the app.
+        // only via the register_sale/cancel_sale RPCs (origin='app') or the
+        // legacy import script running as service_role (origin='migration') —
+        // see ARCHITECTURE.md. Shaped for completeness/type-safety of that
+        // server-side code, not as an invitation to call .insert()/.update()
+        // from the app.
         Insert: {
           id?: string
-          vehicle_id: string
+          vehicle_id?: string | null
           seller_id?: string | null
           sale_date: string
           customer_name?: string | null
@@ -297,6 +301,7 @@ export interface Database {
           cancelled_at?: string | null
           source_occurrence_id?: string | null
           created_by?: string | null
+          origin?: SaleOrigin
           created_at?: string
           updated_at?: string
         }

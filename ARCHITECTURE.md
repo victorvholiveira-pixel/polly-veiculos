@@ -102,6 +102,38 @@ conservadora — placa exata + continuidade de mês > atributos combinados sem
 ambiguidade > revisão humana — e **nunca funde dois veículos automaticamente
 quando há dúvida**. Detalhe completo em `MIGRATION.md`.
 
+### `sales.origin` — venda do app vs. venda histórica (Onda 10)
+
+`sales.vehicle_id` é opcional desde a Onda 10, e uma nova coluna `origin`
+('app' | 'migration') diz por quê:
+
+- **`origin='app'`** — sempre tem `vehicle_id` real (um veículo cadastrado
+  no sistema). Único caso possível antes da Onda 10; `register_sale`
+  continua funcionando exatamente igual, sem nenhuma mudança na RPC — o
+  default da coluna (`'app'`) resolve isso sozinho.
+- **`origin='migration'`** — uma venda da planilha antiga, de antes do
+  Go-Live, para a qual **nunca existiu e nunca vai existir** um `vehicles`
+  correspondente (o carro pode já nem estar mais na loja). Nunca tem
+  `vehicle_id` — em vez disso, sempre tem `source_occurrence_id`, apontando
+  para a linha original em `vehicle_occurrences`, de onde marca/modelo/placa
+  são lidos sob demanda (join client-side, ver `sales.ts`/`dashboard.ts`).
+  Nenhum veículo-placeholder é criado só para satisfazer uma FK — seria um
+  cutover de identidade disfarçado, o mesmo motivo que já impede carregar
+  `vehicle_match_candidates` (ver "Por que restaurar" acima).
+
+Duas constraints garantem que uma venda nunca fica em um estado ambíguo:
+`sales_app_requires_vehicle` (origin='app' → vehicle_id obrigatório) e
+`sales_migration_requires_occurrence` (origin='migration' →
+source_occurrence_id obrigatório) — nunca os dois, nunca nenhum dos dois.
+`sales_source_occurrence_uk` (unique) é o que torna o importador idempotente:
+rodar `artifacts/migration/import_legacy_sales.sql` mais de uma vez nunca
+duplica uma venda.
+
+`sales_one_active_per_vehicle_uk` (índice único parcial em `vehicle_id`)
+não precisou mudar — Postgres nunca considera dois `NULL` iguais num índice
+único, então várias vendas legadas com `vehicle_id=null` nunca colidem entre
+si nem com vendas reais do app.
+
 ## Segurança / RLS
 
 Modelo de confiança: **qualquer usuário autenticado é staff da loja** com

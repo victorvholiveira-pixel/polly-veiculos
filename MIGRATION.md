@@ -107,6 +107,39 @@ revisão com veículo, versão, ano, placa, valor, linha/aba de origem e nível
 de confiança para validação humana, linha a linha, antes de qualquer carga
 em produção.
 
+## Vendas legadas — auditoria e critério de importação (Onda 10)
+
+Das 888 ocorrências com `observed_status='sold'`, 602 têm
+`sale_classification='sale_detected'` — a classificação de alta confiança
+da migração (data de venda parseada com sucesso). Antes de importar
+qualquer uma como venda real, auditei essas 602 contra os dois únicos
+campos que `sales` exige (`sale_date`, `sale_value` — ambos `not null`):
+
+- **542 têm os dois campos e uma data plausível** (não-futura) — essas
+  viram `sales.origin='migration'` via
+  `artifacts/migration/import_legacy_sales.sql`.
+- **58 não têm valor de venda registrado** na planilha original
+  (`value_parsed is null`) — nunca inventado, ficam de fora.
+- **2 têm data de venda no futuro**: `2028-05-10` e `2028-07-12`, ambas em
+  sheets de **2025** (`MAI 2025`/`JUL 2025`) — quase certamente um erro de
+  digitação do ano na planilha original (2025 → 2028). O parser reportou
+  `saleDateValidation: 'valid'` corretamente (a data em si é um calendário
+  válido) — mas uma venda no futuro nunca é um registro histórico
+  plausível, então fica de fora da importação automática também, para
+  correção manual eventual.
+
+Nenhum dado ausente foi inventado para completar os 60 casos acima —
+continuam disponíveis em `vehicle_occurrences` para revisão futura, do jeito
+que a planilha realmente trouxe.
+
+Comprador/vendedor/placa de uma venda legada nunca são copiados para
+`sales` — continuam só em `vehicle_occurrences`, lidos sob demanda via
+`source_occurrence_id` quando a tela precisa mostrá-los (ver
+`ARCHITECTURE.md`, "sales.origin"). Comissão nunca existe na origem, então
+toda venda legada tem `commission_amount`/`commission_percentage` nulos —
+consistente com a regra geral de comissão deste projeto (ver "Comissão" no
+ROADMAP.md).
+
 ## O que ainda não foi feito
 
 Este documento descreve a estratégia **aprovada**. O pipeline de migração em

@@ -7,7 +7,7 @@ depois do detour de Google Apps Script na Onda 7).
 ## Banco
 
 - [x] Migrations versionadas e aplicadas com sucesso contra um Postgres real
-      (`npm run db:validate` — via Postgres local, 27/27 asserções; não o
+      (`npm run db:validate` — via Postgres local, 33/33 asserções; não o
       projeto real ainda)
 - [ ] Migrations aplicadas contra o projeto Supabase real
       (`xzcuhrdhccnforqkovof`) — **bloqueado neste ambiente**: o proxy de
@@ -54,6 +54,22 @@ depois do detour de Google Apps Script na Onda 7).
       deixada pendente)
 - [ ] Comissão: regra de negócio definida com o usuário real (hoje: nenhuma
       regra presumida, ver `MIGRATION.md`)
+- [x] Vendas legadas auditadas e artefato de importação gerado
+      (`artifacts/migration/import_legacy_sales.sql`, Onda 10): das 602
+      ocorrências `sale_classification='sale_detected'`, 542 têm os dois
+      campos obrigatórios de `sales` (data e valor) e um par plausível de
+      data (não-futura) — essas viram `sales.origin='migration'`, sem
+      `vehicle_id`, sem veículo placeholder. As outras 60 (58 sem valor, 2
+      com data de 2028 por erro de digitação na planilha) ficam de fora,
+      para revisão manual — ver `MIGRATION.md`. Validado ponta a ponta
+      contra Postgres 16 local com o ledger real: 542 importadas, 0 com
+      vehicle_id, idempotente ao rodar duas vezes.
+- [ ] Artefato de vendas legadas executado contra o projeto Supabase real
+      (`xzcuhrdhccnforqkovof`) — falta colar
+      `artifacts/migration/import_legacy_sales.sql` no SQL Editor (roda
+      inteiramente a partir do `vehicle_occurrences` já carregado, sem
+      depender de nenhum arquivo externo — só depende do item anterior de
+      carga do ledger já ter rodado)
 
 ## Aplicação
 
@@ -85,11 +101,11 @@ depois do detour de Google Apps Script na Onda 7).
 
 - [x] `npm run lint` sem erros (1 warning informativo conhecido)
 - [x] `npm run typecheck` sem erros (TypeScript strict)
-- [x] `npm run test` — 81 testes unitários/componente passando
+- [x] `npm run test` — 132 testes unitários/componente passando
 - [x] `npm run test:e2e` — 4/4 smoke tests em navegador real passando (sem
       backend real ainda — provam a fiação client-side, não login de verdade)
 - [x] `npm run build` — build de produção sem erros
-- [x] `npm run db:validate` — 27/27 asserções contra Postgres 16 local
+- [x] `npm run db:validate` — 33/33 asserções contra Postgres 16 local
 
 ## Segurança
 

@@ -417,6 +417,59 @@ begin
     raise notice 'PASS: update_vehicle applies the change and audits it (before/after)';
   end;
 
+  -- Checks 9-11 above left the session impersonating `authenticated` and only
+  -- reset it at the very end of this file — these next checks insert directly
+  -- (like checks 1-3 do), so they need postgres/superuser back first.
+  perform set_config('role', 'postgres', true);
+
+  -- 26) sales.origin='app' requires a real vehicle_id (an app sale never
+  -- represents a legacy record with no operational vehicle)
+  begin
+    insert into sales (sale_date, sale_value, origin) values (now(), 1000, 'app');
+    raise exception 'FAIL: an app-origin sale with no vehicle_id was accepted';
+  exception when check_violation then
+    raise notice 'PASS: sales_app_requires_vehicle enforced';
+  end;
+
+  -- 27) sales.origin='migration' requires source_occurrence_id (must always
+  -- be traceable to the original spreadsheet row — never a bare guess)
+  begin
+    insert into sales (sale_date, sale_value, origin) values (now(), 1000, 'migration');
+    raise exception 'FAIL: a migration-origin sale with no source_occurrence_id was accepted';
+  exception when check_violation then
+    raise notice 'PASS: sales_migration_requires_occurrence enforced';
+  end;
+
+  -- 28) a legacy sale with no operational vehicle is exactly what Onda 10
+  -- exists to allow — no placeholder vehicle needed
+  declare
+    v_occurrence uuid;
+    v_legacy_sale public.sales;
+  begin
+    insert into vehicle_occurrences (source_sheet, source_row, period, observed_status, sale_date_raw, original_payload, data_quality, migration_run_id, sale_classification)
+      values ('ASSERT-SALES', 1, '2024-03-01', 'sold', '2024-03-15', '{}', 'reliable', gen_random_uuid(), 'sale_detected')
+      returning id into v_occurrence;
+
+    insert into sales (sale_date, sale_value, origin, source_occurrence_id)
+      values ('2024-03-15', 42000, 'migration', v_occurrence)
+      returning * into v_legacy_sale;
+
+    if v_legacy_sale.vehicle_id is not null then
+      raise exception 'FAIL: a legacy sale should never carry a vehicle_id';
+    end if;
+    raise notice 'PASS: a legacy sale (origin=migration, vehicle_id=null) is accepted end to end';
+
+    -- 29) sales_source_occurrence_uk: re-importing the same occurrence must
+    -- never duplicate the sale (the idempotency guarantee the import script relies on)
+    begin
+      insert into sales (sale_date, sale_value, origin, source_occurrence_id)
+        values ('2024-03-15', 42000, 'migration', v_occurrence);
+      raise exception 'FAIL: the same source_occurrence_id was imported twice';
+    exception when unique_violation then
+      raise notice 'PASS: sales_source_occurrence_uk enforced (import is idempotent)';
+    end;
+  end;
+
   perform set_config('role', 'postgres', true);
   raise notice '=== ALL ASSERTIONS PASSED ===';
 end

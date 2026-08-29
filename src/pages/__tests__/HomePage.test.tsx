@@ -1,11 +1,12 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { HomePage } from '../HomePage'
 import { fetchDashboardStats, type DashboardStats } from '@/lib/data/dashboard'
 
-vi.mock('@/lib/data/dashboard', () => ({
+vi.mock('@/lib/data/dashboard', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/data/dashboard')>()),
   fetchDashboardStats: vi.fn(),
 }))
 
@@ -27,14 +28,9 @@ const EMPTY_STATS: DashboardStats = {
   vehiclesInStockWithEntryDate: 0,
   vehiclesInStockMissingEntryDate: 0,
 
-  monthlyPerformance: [
-    { month: '2026-03', label: 'Mar', salesCount: 0, revenue: 0 },
-    { month: '2026-04', label: 'Abr', salesCount: 0, revenue: 0 },
-    { month: '2026-05', label: 'Mai', salesCount: 0, revenue: 0 },
-    { month: '2026-06', label: 'Jun', salesCount: 0, revenue: 0 },
-    { month: '2026-07', label: 'Jul', salesCount: 0, revenue: 0 },
-    { month: '2026-08', label: 'Ago', salesCount: 0, revenue: 0 },
-  ],
+  salesHistorySales: [],
+  salesHistoryAvailableYears: [],
+  salesHistoryEarliestDate: null,
 
   agingVehicles: [],
   agingOver30: 0,
@@ -46,6 +42,21 @@ const EMPTY_STATS: DashboardStats = {
 
   recentActivity: [],
 }
+
+// Every date below is real (2026 is "now" in this test suite — see the
+// system-time freeze below), so the default 6-month window (Mar-Ago 2026)
+// lines up with the same monthly totals the previous fixture used.
+const SIX_MONTH_SALES: DashboardStats['salesHistorySales'] = [
+  { sale_date: '2026-03-10', sale_value: 30000, commission_amount: null },
+  { sale_date: '2026-05-05', sale_value: 30000, commission_amount: null },
+  { sale_date: '2026-05-20', sale_value: 40000, commission_amount: null },
+  { sale_date: '2026-06-15', sale_value: 35000, commission_amount: null },
+  { sale_date: '2026-07-05', sale_value: 40000, commission_amount: null },
+  { sale_date: '2026-07-25', sale_value: 60000, commission_amount: null },
+  { sale_date: '2026-08-05', sale_value: 30000, commission_amount: 500 },
+  { sale_date: '2026-08-15', sale_value: 40000, commission_amount: null },
+  { sale_date: '2026-08-25', sale_value: 50000, commission_amount: 1500 },
+]
 
 const FULL_STATS: DashboardStats = {
   ...EMPTY_STATS,
@@ -64,14 +75,9 @@ const FULL_STATS: DashboardStats = {
   vehiclesInStockWithEntryDate: 10,
   vehiclesInStockMissingEntryDate: 7,
 
-  monthlyPerformance: [
-    { month: '2026-03', label: 'Mar', salesCount: 1, revenue: 30000 },
-    { month: '2026-04', label: 'Abr', salesCount: 0, revenue: 0 },
-    { month: '2026-05', label: 'Mai', salesCount: 2, revenue: 70000 },
-    { month: '2026-06', label: 'Jun', salesCount: 1, revenue: 35000 },
-    { month: '2026-07', label: 'Jul', salesCount: 2, revenue: 100000 },
-    { month: '2026-08', label: 'Ago', salesCount: 3, revenue: 120000 },
-  ],
+  salesHistorySales: SIX_MONTH_SALES,
+  salesHistoryAvailableYears: [2026],
+  salesHistoryEarliestDate: '2026-03-10',
 
   agingVehicles: [
     { id: 'v-old', brand: 'Fiat', model: 'Uno', plate: 'ABC1234', daysInStock: 75 },
@@ -90,6 +96,19 @@ const FULL_STATS: DashboardStats = {
   ],
 }
 
+// Adds two prior years so the year selector and "Tudo" range have something
+// real to show beyond the 6-month window.
+const MULTI_YEAR_STATS: DashboardStats = {
+  ...FULL_STATS,
+  salesHistorySales: [
+    ...SIX_MONTH_SALES,
+    { sale_date: '2024-02-10', sale_value: 20000, commission_amount: null },
+    { sale_date: '2025-05-15', sale_value: 45000, commission_amount: null },
+  ],
+  salesHistoryAvailableYears: [2026, 2025, 2024],
+  salesHistoryEarliestDate: '2024-02-10',
+}
+
 function renderPage() {
   return render(
     <MemoryRouter>
@@ -101,6 +120,14 @@ function renderPage() {
 describe('HomePage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    // Only Date is mocked — setTimeout/setInterval stay real, so
+    // findBy*/waitFor (which poll via real timers) keep working normally.
+    vi.useFakeTimers({ toFake: ['Date'] })
+    vi.setSystemTime(new Date('2026-08-29T12:00:00'))
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   it('renders the principal KPIs from real data', async () => {
@@ -109,7 +136,8 @@ describe('HomePage', () => {
 
     expect(await screen.findByText('17')).toBeInTheDocument()
     expect(screen.getByText(/R\$\s*850\.000,00/)).toBeInTheDocument()
-    expect(screen.getByText(/R\$\s*120\.000,00/)).toBeInTheDocument()
+    const revenueCard = screen.getByText('Faturamento do mês').closest('div')!
+    expect(within(revenueCard).getByText(/R\$\s*120\.000,00/)).toBeInTheDocument()
     const salesCard = screen.getByText('Vendas do mês').closest('div')!
     expect(within(salesCard).getByText('3')).toBeInTheDocument()
   })
@@ -137,23 +165,87 @@ describe('HomePage', () => {
     expect(screen.getByText(/R\$\s*40\.000,00/)).toBeInTheDocument() // avg sale ticket
   })
 
-  it('toggles the performance chart between quantity and revenue', async () => {
+  it('shows the sales-history period summary for the default 6-month range', async () => {
     mockedFetch.mockResolvedValue(FULL_STATS)
-    const user = userEvent.setup()
     renderPage()
 
-    await screen.findByText('Vendas nos últimos 6 meses')
-    const chart = screen.getByText('Vendas nos últimos 6 meses').closest('section')!
-    expect(within(chart).getByText('3')).toBeInTheDocument() // Aug bar label, count mode
-    await user.click(within(chart).getByRole('button', { name: 'R$' }))
-    expect(within(chart).getAllByText(/R\$/).length).toBeGreaterThan(0)
+    await screen.findByText('Histórico de vendas')
+    const card = screen.getByText('Histórico de vendas').closest('section')!
+    // 9 sales across Mar-Ago: 30000+70000+35000+100000+120000 = 355000
+    expect(within(card).getByText('9')).toBeInTheDocument()
+    expect(within(card).getByText(/R\$\s*355\.000,00/)).toBeInTheDocument()
   })
 
-  it('shows an empty state for the performance chart with no sales in the window', async () => {
+  it('toggles the sales-history chart between quantity and revenue', async () => {
+    mockedFetch.mockResolvedValue(FULL_STATS)
+    const user = userEvent.setup({ delay: null })
+    renderPage()
+
+    await screen.findByText('Histórico de vendas')
+    const card = screen.getByText('Histórico de vendas').closest('section')!
+    expect(within(card).getByText('3')).toBeInTheDocument() // Aug bar label, count mode
+    await user.click(within(card).getByRole('button', { name: 'R$' }))
+    expect(within(card).getAllByText(/R\$/).length).toBeGreaterThan(0)
+  })
+
+  it('shows a month detail on tap, with quantity, revenue, average ticket and known commission', async () => {
+    mockedFetch.mockResolvedValue(FULL_STATS)
+    const user = userEvent.setup({ delay: null })
+    renderPage()
+
+    await screen.findByText('Histórico de vendas')
+    const card = screen.getByText('Histórico de vendas').closest('section')!
+    await user.click(within(card).getByText('Ago'))
+
+    const detail = within(card).getByText('3 vendas').closest('div')!
+    expect(within(detail).getByText('3 vendas')).toBeInTheDocument()
+    expect(within(detail).getByText(/R\$\s*120\.000,00/)).toBeInTheDocument()
+    expect(within(detail).getByText(/Ticket médio/)).toBeInTheDocument()
+    expect(within(detail).getByText(/Comissão: R\$\s*2\.000,00/)).toBeInTheDocument()
+  })
+
+  it('switches range with the preset pills, expanding beyond the 6-month window', async () => {
+    mockedFetch.mockResolvedValue(MULTI_YEAR_STATS)
+    const user = userEvent.setup({ delay: null })
+    renderPage()
+
+    await screen.findByText('Histórico de vendas')
+    const card = screen.getByText('Histórico de vendas').closest('section')!
+    await user.click(within(card).getByRole('button', { name: 'Tudo' }))
+
+    // Tudo spans 2024-2026 now — the 2024 sale (20000) must show up in the total
+    expect(within(card).getByText('11')).toBeInTheDocument() // 9 + 2 legacy sales
+  })
+
+  it('offers a year selector once more than one year is available', async () => {
+    mockedFetch.mockResolvedValue(MULTI_YEAR_STATS)
+    renderPage()
+    await screen.findByText('Histórico de vendas')
+    expect(screen.getByLabelText('Selecionar ano')).toBeInTheDocument()
+  })
+
+  it('does not offer a year selector for a single-year history', async () => {
+    mockedFetch.mockResolvedValue(FULL_STATS)
+    renderPage()
+    await screen.findByText('Histórico de vendas')
+    expect(screen.queryByLabelText('Selecionar ano')).not.toBeInTheDocument()
+  })
+
+  it('shows an empty state for the sales history within the default range', async () => {
     mockedFetch.mockResolvedValue(EMPTY_STATS)
     renderPage()
 
-    expect(await screen.findByText('Nenhuma venda registrada nos últimos 6 meses ainda.')).toBeInTheDocument()
+    expect(await screen.findByText('Nenhuma venda registrada nesse período.')).toBeInTheDocument()
+  })
+
+  it('shows a distinct empty state for "Tudo" when there has never been a sale', async () => {
+    mockedFetch.mockResolvedValue(EMPTY_STATS)
+    const user = userEvent.setup({ delay: null })
+    renderPage()
+
+    const card = await screen.findByText('Histórico de vendas').then((el) => el.closest('section')!)
+    await user.click(within(card).getByRole('button', { name: 'Tudo' }))
+    expect(within(card).getByText('Ainda não há vendas para mostrar histórico.')).toBeInTheDocument()
   })
 
   it('lists aging stock with +30/+60 day highlights and a link to the vehicle', async () => {

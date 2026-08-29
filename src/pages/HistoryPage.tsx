@@ -96,9 +96,16 @@ export function HistoryPage() {
           <li key={sale.id} className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
             <div className="flex items-start justify-between gap-2">
               <div>
-                <p className="font-medium text-slate-900 dark:text-slate-50">
-                  {sale.vehicle ? `${sale.vehicle.brand} ${sale.vehicle.model}` : 'Veículo removido'}
-                </p>
+                <div className="flex items-center gap-1.5">
+                  <p className="font-medium text-slate-900 dark:text-slate-50">
+                    {sale.vehicle ? `${sale.vehicle.brand} ${sale.vehicle.model}` : 'Veículo removido'}
+                  </p>
+                  {sale.origin === 'migration' && (
+                    <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                      Antes do app
+                    </span>
+                  )}
+                </div>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                   {sale.vehicle?.plate ?? 'Placa não informada'} · {fmtDate(sale.sale_date)}
                 </p>

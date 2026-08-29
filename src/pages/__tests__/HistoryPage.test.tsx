@@ -38,6 +38,7 @@ const ACTIVE_SALE: SaleWithDetails = {
   cancelled_at: null,
   source_occurrence_id: null,
   created_by: null,
+  origin: 'app',
   created_at: '2026-08-20T00:00:00Z',
   updated_at: '2026-08-20T00:00:00Z',
   vehicle: { brand: 'Fiat', model: 'Uno', trim: null, plate: 'ABC1234' },
@@ -83,6 +84,32 @@ describe('HistoryPage', () => {
     await user.click(confirmButton)
 
     await waitFor(() => expect(mockedCancelSale).toHaveBeenCalledWith('sale-1', 'Cliente desistiu'))
+  })
+
+  it('marks a legacy (pre-app) sale distinctly, with vehicle info resolved from the migration record', async () => {
+    mockedFetchSales.mockResolvedValue([
+      {
+        ...ACTIVE_SALE,
+        id: 'sale-legacy',
+        vehicle_id: null,
+        source_occurrence_id: 'occ-1',
+        origin: 'migration',
+        vehicle: { brand: 'Honda', model: 'Civic', trim: 'LXR', plate: 'DEF5678' },
+      },
+    ])
+
+    renderPage()
+
+    expect(await screen.findByText('Honda Civic')).toBeInTheDocument()
+    expect(screen.getByText('Antes do app')).toBeInTheDocument()
+  })
+
+  it('does not label a real app sale as legacy', async () => {
+    mockedFetchSales.mockResolvedValue([ACTIVE_SALE])
+    renderPage()
+
+    await screen.findByText('Fiat Uno')
+    expect(screen.queryByText('Antes do app')).not.toBeInTheDocument()
   })
 
   it('shows a cancelled sale as read-only, with its reason and no cancel action', async () => {
