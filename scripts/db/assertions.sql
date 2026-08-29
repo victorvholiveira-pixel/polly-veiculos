@@ -390,6 +390,33 @@ begin
     raise notice 'PASS: app_settings has no direct insert policy for authenticated, and is updatable';
   end;
 
+  -- 25) create_vehicle / update_vehicle: writes go through the RPC and are
+  --     audited (closes a gap left since Onda 1: audit_log.sql always
+  --     documented vehicle creation/edit as something to audit, but nothing
+  --     wrote there until this RPC existed).
+  declare
+    v_created public.vehicles;
+    v_updated public.vehicles;
+  begin
+    select * into v_created from create_vehicle(p_brand := 'RPC', p_model := 'Created', p_plate := 'RPC0001');
+    if v_created.origin <> 'manual' or v_created.status <> 'available' then
+      raise exception 'FAIL: create_vehicle did not set origin/status as expected';
+    end if;
+    if not exists (select 1 from audit_log where entity_type = 'vehicle' and entity_id = v_created.id and action = 'vehicle_created') then
+      raise exception 'FAIL: create_vehicle left no audit_log entry';
+    end if;
+    raise notice 'PASS: create_vehicle creates the vehicle and audits it';
+
+    select * into v_updated from update_vehicle(p_id := v_created.id, p_brand := 'RPC', p_model := 'Updated', p_plate := 'RPC0002');
+    if v_updated.model <> 'Updated' or v_updated.plate <> 'RPC0002' then
+      raise exception 'FAIL: update_vehicle did not apply the new values';
+    end if;
+    if not exists (select 1 from audit_log where entity_type = 'vehicle' and entity_id = v_created.id and action = 'vehicle_updated') then
+      raise exception 'FAIL: update_vehicle left no audit_log entry';
+    end if;
+    raise notice 'PASS: update_vehicle applies the change and audits it (before/after)';
+  end;
+
   perform set_config('role', 'postgres', true);
   raise notice '=== ALL ASSERTIONS PASSED ===';
 end

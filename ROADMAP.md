@@ -24,10 +24,26 @@
       `app_settings` (Mais → Configurações, sempre editável por venda),
       revisão de UX/copy em todo o app, remoção do componente de
       placeholder já sem uso. *(concluída)*
-- [ ] **Onda 6 — Supabase real + Go-Live**: aplicar migrations no projeto
-      real (bloqueado neste ambiente — ver relatório da onda), exportação de
-      dados, trilha de auditoria visível, ícones PWA reais, auditoria final
-      por `GO_LIVE_CHECKLIST.md`.
+- [x] **Onda 6 — Auditoria, exportação e fechamento**: exportação de dados
+      (CSV/JSON de estoque e histórico), trilha de auditoria visível em
+      Mais → Auditoria, `create_vehicle`/`update_vehicle` RPCs fechando uma
+      lacuna real (cadastro/edição de veículo agora é auditado — não era),
+      revisão final de `GO_LIVE_CHECKLIST.md`. Aplicar migrations no
+      projeto Supabase real continua bloqueado neste ambiente (sem projeto,
+      credenciais, Docker ou CLI autenticada — ver relatório da onda);
+      tudo o resto que não depende disso foi concluído. *(concluída)*
+
+### Endurecimento futuro (não bloqueia Go-Live)
+
+`vehicles` ainda aceita INSERT/UPDATE direto de `authenticated` via RLS
+(modelo de "equipe confiável" desde a Onda 1) — a Onda 6 fez o app passar a
+usar exclusivamente `create_vehicle`/`update_vehicle` (auditados), mas um
+acesso direto à tabela fora do app ainda contorna a auditoria tecnicamente.
+`sales`, `audit_log` e `vehicle_occurrences` já não têm essa brecha (só
+RPC/trigger escrevem). Fechar o mesmo caminho para `vehicles` — remover as
+policies de INSERT/UPDATE diretas e reescrever as asserções que dependem
+delas — é uma tarefa isolada e de baixo risco para quando houver tempo,
+não um bloqueio de lançamento.
 
 ### Comissão
 
@@ -40,7 +56,7 @@ quando o usuário real definir como o pagamento funciona hoje.
 
 ## P1 — Produtividade
 
-- [ ] Exportação de dados (CSV/JSON) — "os dados pertencem à loja".
+- [x] Exportação de dados (CSV/JSON) — "os dados pertencem à loja".
 - Melhorias de busca/filtro no Estoque e Histórico além do básico.
 - Assets oficiais de PWA (ícones reais, substituindo o placeholder "P").
 - Ferramenta de merge manual de veículos (para os casos que a migração

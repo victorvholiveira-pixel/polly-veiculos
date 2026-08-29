@@ -39,6 +39,10 @@ blob-report
 # (see ARCHITECTURE.md — never a substitute for the real Supabase project)
 .local-pg/
 
+# Supabase CLI's own cache/metadata (created just by running `supabase`
+# commands locally, e.g. to check for a linkable project) — never project content.
+supabase/.temp/
+
 # The legacy spreadsheet itself is never committed — only the pipeline code
 # and its generated artifacts (artifacts/migration/) are.
 data/source/

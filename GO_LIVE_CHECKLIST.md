@@ -39,6 +39,10 @@ até ser genuinamente verdade.
       mês anterior) — dado real, sem fallback de demonstração
 - [x] Comissão padrão configurável (Mais → Configurações) como sugestão
       editável por venda — nenhuma regra automática
+- [x] Auditoria (Mais → Auditoria) — leitura de `audit_log` em linguagem
+      simples: cadastro/edição de veículo, vendas e cancelamentos
+- [x] Exportação de dados (Mais → Configurações) — CSV/JSON de estoque e
+      histórico completos, não só o que a tela tem filtrado no momento
 - [x] PWA instalável (manifest + service worker gerados; ícones são placeholder)
 
 ## Qualidade
@@ -57,6 +61,11 @@ até ser genuinamente verdade.
 - [x] Nenhuma `service_role key` em código de frontend
 - [x] RLS ativo em toda tabela operacional, sem policy `true` temporária
       esquecida
+- [~] `vehicles` ainda permite INSERT/UPDATE direto de `authenticated` por
+      RLS (modelo de equipe confiável desde a Onda 1); o app usa só as RPCs
+      auditadas `create_vehicle`/`update_vehicle`, mas o caminho direto
+      continua tecnicamente aberto para quem acessar a tabela fora do app —
+      não bloqueia o lançamento, ver "Endurecimento futuro" em ROADMAP.md
 - [ ] Dados privados de cliente confirmados como não expostos publicamente
       (a validar quando existir dado real de cliente)
 - [ ] Confirmar que as credenciais expostas na planilha original foram

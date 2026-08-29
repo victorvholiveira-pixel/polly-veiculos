@@ -33,7 +33,15 @@ export function MorePage() {
         className="block rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
       >
         <p className="font-medium text-slate-900 dark:text-slate-50">Configurações</p>
-        <p className="text-sm text-slate-500 dark:text-slate-400">Comissão padrão sugerida e outros ajustes da loja.</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Comissão padrão sugerida, exportação de dados e outros ajustes da loja.</p>
+      </Link>
+
+      <Link
+        to="/mais/auditoria"
+        className="block rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+      >
+        <p className="font-medium text-slate-900 dark:text-slate-50">Auditoria</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Histórico de cadastros, edições, vendas e cancelamentos.</p>
       </Link>
 
       <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">

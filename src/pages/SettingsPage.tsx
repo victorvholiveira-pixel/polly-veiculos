@@ -1,5 +1,10 @@
 import { useEffect, useState, type FormEvent } from 'react'
+import { fetchSales } from '@/lib/data/sales'
 import { fetchAppSettings, updateDefaultCommissionPct } from '@/lib/data/settings'
+import { fetchVehicles } from '@/lib/data/vehicles'
+import { exportSalesCSV, exportSalesJSON, exportVehiclesCSV, exportVehiclesJSON } from '@/lib/export'
+
+type ExportKind = 'vehicles-csv' | 'vehicles-json' | 'sales-csv' | 'sales-json'
 
 export function SettingsPage() {
   const [pct, setPct] = useState('')
@@ -7,6 +12,8 @@ export function SettingsPage() {
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [exporting, setExporting] = useState<ExportKind | null>(null)
+  const [exportError, setExportError] = useState<string | null>(null)
 
   useEffect(() => {
     fetchAppSettings()
@@ -27,6 +34,26 @@ export function SettingsPage() {
       setError('Não foi possível salvar agora. Confira a conexão e tente de novo.')
     } finally {
       setSaving(false)
+    }
+  }
+
+  const runExport = async (kind: ExportKind) => {
+    setExporting(kind)
+    setExportError(null)
+    try {
+      if (kind === 'vehicles-csv' || kind === 'vehicles-json') {
+        const vehicles = await fetchVehicles('all')
+        if (kind === 'vehicles-csv') exportVehiclesCSV(vehicles)
+        else exportVehiclesJSON(vehicles)
+      } else {
+        const sales = await fetchSales()
+        if (kind === 'sales-csv') exportSalesCSV(sales)
+        else exportSalesJSON(sales)
+      }
+    } catch {
+      setExportError('Não foi possível gerar o arquivo agora. Confira a conexão e tente de novo.')
+    } finally {
+      setExporting(null)
     }
   }
 
@@ -70,6 +97,35 @@ export function SettingsPage() {
           {saving ? 'Salvando…' : 'Salvar'}
         </button>
       </form>
+
+      <div className="space-y-3 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+        <div>
+          <p className="font-medium text-slate-900 dark:text-slate-50">Exportar dados</p>
+          <p className="text-xs text-slate-400">Os dados são da loja — baixe uma cópia quando quiser.</p>
+        </div>
+
+        {exportError && <p role="alert" className="text-sm text-red-600 dark:text-red-400">{exportError}</p>}
+
+        <div className="grid grid-cols-2 gap-2">
+          <ExportButton label="Estoque (CSV)" busy={exporting === 'vehicles-csv'} onClick={() => runExport('vehicles-csv')} />
+          <ExportButton label="Estoque (JSON)" busy={exporting === 'vehicles-json'} onClick={() => runExport('vehicles-json')} />
+          <ExportButton label="Histórico (CSV)" busy={exporting === 'sales-csv'} onClick={() => runExport('sales-csv')} />
+          <ExportButton label="Histórico (JSON)" busy={exporting === 'sales-json'} onClick={() => runExport('sales-json')} />
+        </div>
+      </div>
     </div>
+  )
+}
+
+function ExportButton({ label, busy, onClick }: { label: string; busy: boolean; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={busy}
+      className="rounded-lg border border-slate-300 py-2 text-sm font-medium text-slate-700 disabled:opacity-50 dark:border-slate-700 dark:text-slate-200"
+    >
+      {busy ? 'Gerando…' : label}
+    </button>
   )
 }

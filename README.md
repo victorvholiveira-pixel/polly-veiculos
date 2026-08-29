@@ -9,13 +9,21 @@ Ver também: [`ARCHITECTURE.md`](./ARCHITECTURE.md) · [`ROADMAP.md`](./ROADMAP.
 
 ## Status atual
 
-**Onda 1 — Foundation concluída.** Scaffold, schema do banco (migrations
-versionadas), RLS, autenticação, shell de navegação mobile e PWA básico
-estão implementados. **Ainda não há um projeto Supabase real vinculado** —
-ver "Pendência" abaixo antes de rodar o app de verdade.
+**Ondas 1–6 concluídas** (ver `ROADMAP.md` para o detalhe de cada uma). O
+core operacional está funcional: login, Estoque (listar/buscar/cadastrar/
+editar), Vender (RPC transacional), Histórico com cancelamento, painel
+Início com os 6 indicadores, comissão manual/configurável, Central de
+Revisão da migração, auditoria e exportação de dados.
 
-Nada de estoque, vendas ou comissão foi migrado ou implementado ainda —
-isso é escopo da Onda 2 em diante (ver `ROADMAP.md`).
+**Ainda não há um projeto Supabase real vinculado** — todo o banco (25+
+migrations) foi validado só contra um Postgres 16 local, nunca contra
+produção. Ver "Pendência" abaixo antes de rodar o app de verdade, e
+`GO_LIVE_CHECKLIST.md` para o que falta antes do lançamento.
+
+O cutover histórico completo (as 602/23/263 vendas da planilha antiga, os
+~1.023 veículos candidatos a identidade canônica) segue deliberadamente
+não executado — fica para quando a revisão humana na Central de Revisão
+estiver pronta, contra o projeto real.
 
 ## Stack
 

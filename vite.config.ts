@@ -31,7 +31,7 @@ export default defineConfig({
       },
       workbox: {
         // Minimal precache of the app shell only — no runtime caching of API/data.
-        globPatterns: ['**/*.{js,css,html,svg}'],
+        globPatterns: ['**/*.{js,css,html,svg,png}'],
       },
     }),
   ],

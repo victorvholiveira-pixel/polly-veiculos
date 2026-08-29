@@ -401,6 +401,37 @@ export interface Database {
         Args: { p_sale_id: string; p_reason: string }
         Returns: Database['public']['Tables']['sales']['Row']
       }
+      create_vehicle: {
+        Args: {
+          p_brand: string
+          p_model: string
+          p_trim?: string | null
+          p_model_year?: number | null
+          p_manufacture_year?: number | null
+          p_plate?: string | null
+          p_plate_format?: string | null
+          p_asking_price?: number | null
+          p_entry_date?: string | null
+          p_observations?: string | null
+        }
+        Returns: Database['public']['Tables']['vehicles']['Row']
+      }
+      update_vehicle: {
+        Args: {
+          p_id: string
+          p_brand: string
+          p_model: string
+          p_trim?: string | null
+          p_model_year?: number | null
+          p_manufacture_year?: number | null
+          p_plate?: string | null
+          p_plate_format?: string | null
+          p_asking_price?: number | null
+          p_entry_date?: string | null
+          p_observations?: string | null
+        }
+        Returns: Database['public']['Tables']['vehicles']['Row']
+      }
     }
   }
 }
