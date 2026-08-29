@@ -46,8 +46,8 @@ describe('InventoryReviewPage', () => {
     expect(await screen.findByText(/modo de demonstração/i)).toBeInTheDocument()
   })
 
-  it('does not show the demo banner when backed by the live API', async () => {
-    mockedFetch.mockResolvedValue({ items: [CANDIDATE], source: 'live' })
+  it('does not show the demo banner when backed by Supabase', async () => {
+    mockedFetch.mockResolvedValue({ items: [CANDIDATE], source: 'supabase' })
     renderPage()
 
     await screen.findByText('Fiat Uno')
@@ -55,7 +55,7 @@ describe('InventoryReviewPage', () => {
   })
 
   it('sends only the corrected fields as a "confirmed" overlay, never touching the raw fields directly (provenance)', async () => {
-    mockedFetch.mockResolvedValue({ items: [CANDIDATE], source: 'live' })
+    mockedFetch.mockResolvedValue({ items: [CANDIDATE], source: 'supabase' })
     mockedDecide.mockResolvedValue(undefined)
     const user = userEvent.setup()
     renderPage()

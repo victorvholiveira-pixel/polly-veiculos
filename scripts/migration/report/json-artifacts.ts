@@ -6,7 +6,7 @@ import type { MigrationSummary } from './summary'
 /**
  * Writes the machine-readable dry-run artifacts (Onda 2 §15). These are
  * inputs for a future review UI and for the eventual real load — NOT
- * production seeds themselves; nothing here is written to the backend.
+ * production seeds themselves; nothing here is written to Supabase.
  */
 export async function writeJsonArtifacts(outDir: string, result: PipelineResult, summary: MigrationSummary): Promise<string[]> {
   await mkdir(outDir, { recursive: true })

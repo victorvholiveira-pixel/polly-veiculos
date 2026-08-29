@@ -1,18 +1,19 @@
 import { useState, type FormEvent } from 'react'
 import { Navigate, useLocation, useNavigate, type Location as RouterLocation } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
+import { supabase } from '@/lib/supabase'
 
 export function LoginPage() {
-  const { user, login } = useAuth()
+  const { session, loading: sessionLoading } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  if (user) {
+  if (!sessionLoading && session) {
     const from = (location.state as { from?: RouterLocation })?.from
     return <Navigate to={from?.pathname ?? '/'} replace />
   }
@@ -22,14 +23,16 @@ export function LoginPage() {
     setSubmitting(true)
     setError(null)
 
-    try {
-      await login(name, password)
-      navigate('/', { replace: true })
-    } catch {
-      setError('Nome ou senha incorretos.')
-    } finally {
-      setSubmitting(false)
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+
+    setSubmitting(false)
+
+    if (signInError) {
+      setError('E-mail ou senha incorretos.')
+      return
     }
+
+    navigate('/', { replace: true })
   }
 
   return (
@@ -44,16 +47,16 @@ export function LoginPage() {
         </div>
 
         <div className="space-y-1">
-          <label htmlFor="name" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-            Seu nome
+          <label htmlFor="email" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+            E-mail
           </label>
           <input
-            id="name"
-            type="text"
-            autoComplete="name"
+            id="email"
+            type="email"
+            autoComplete="email"
             required
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
             className="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-base outline-none focus:border-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-50"
           />
         </div>

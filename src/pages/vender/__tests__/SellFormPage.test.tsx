@@ -62,7 +62,7 @@ describe('SellFormPage', () => {
   it('pre-fills the sale value with the asking price and registers the sale on submit', async () => {
     mockedFetchVehicle.mockResolvedValue(AVAILABLE_VEHICLE)
     mockedFetchSellers.mockResolvedValue([])
-    mockedFetchSettings.mockResolvedValue({ id: 'true', default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
+    mockedFetchSettings.mockResolvedValue({ id: true, default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
     mockedRegisterSale.mockResolvedValue({} as never)
     const user = userEvent.setup()
 
@@ -84,7 +84,7 @@ describe('SellFormPage', () => {
   it('suggests a commission from the configured default percentage, without applying it automatically', async () => {
     mockedFetchVehicle.mockResolvedValue(AVAILABLE_VEHICLE)
     mockedFetchSellers.mockResolvedValue([])
-    mockedFetchSettings.mockResolvedValue({ id: 'true', default_commission_pct: 2, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
+    mockedFetchSettings.mockResolvedValue({ id: true, default_commission_pct: 2, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
 
     renderPage()
 
@@ -96,7 +96,7 @@ describe('SellFormPage', () => {
   it('blocks the sale flow when the vehicle is no longer available', async () => {
     mockedFetchVehicle.mockResolvedValue({ ...AVAILABLE_VEHICLE, status: 'sold' })
     mockedFetchSellers.mockResolvedValue([])
-    mockedFetchSettings.mockResolvedValue({ id: 'true', default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
+    mockedFetchSettings.mockResolvedValue({ id: true, default_commission_pct: null, store_name: 'Polly Veículos', cnpj: null, updated_at: '' })
 
     renderPage()
 

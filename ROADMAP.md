@@ -2,9 +2,8 @@
 
 ## P0 — Operação principal (Estoque → Venda → Comissão → Histórico)
 
-- [x] **Onda 1 — Foundation**: scaffold, autenticação, shell de navegação
-      mobile, PWA básico. *(concluída — schema/RLS originais eram do
-      Supabase; ver Onda 7)*
+- [x] **Onda 1 — Foundation**: scaffold, schema do banco (Supabase),
+      autenticação, shell de navegação mobile, PWA básico. *(concluída)*
 - [x] **Onda 2 — Migration Pipeline (dry-run)**: parser posicional por era de
       layout, classificação de qualidade, deduplicação conservadora com fila
       de revisão humana, relatório de migração. Sem carga em produção.
@@ -27,29 +26,30 @@
 - [x] **Onda 6 — Auditoria, exportação e fechamento**: exportação de dados
       (CSV/JSON de estoque e histórico), trilha de auditoria visível em
       Mais → Auditoria, cadastro/edição de veículo passa a ser sempre
-      auditado (lacuna real fechada). *(concluída — sob a arquitetura
-      Supabase, depois substituída na Onda 7)*
-- [x] **Onda 7 — Migração de backend: Supabase → Google Apps Script +
-      Sheets**: sem projeto Supabase real disponível em nenhum momento,
-      backend inteiro reescrito sobre Apps Script + Sheets (ver
-      `ARCHITECTURE.md`). Frontend e UX preservados — só a camada de dados
-      mudou. Toda regra de negócio (guarda de "sold", placa única,
-      proveniência da migração, auditoria) reimplementada em `gas/Logic.js`
-      e testada via `gas/__tests__/`. *(concluída — falta só o deploy do
-      Web App, que exige uma ação manual única do usuário — ver
-      `GO_LIVE_CHECKLIST.md`)*
+      auditado (lacuna real fechada). *(concluída)*
+- [x] **Onda 7 — Detour: backend Google Apps Script + Sheets** *(implementada
+      e testada, depois abandonada por decisão do usuário — voltar a uma
+      base técnica de aplicação real em vez de planilha como banco de
+      produção; nada dessa onda continua em uso, ver `ARCHITECTURE.md`)*.
+- [x] **Onda 8 — Retorno definitivo ao Supabase**: schema/RLS/RPCs das
+      Ondas 1–6 restaurados (já representavam o mínimo necessário — ver
+      `ARCHITECTURE.md`, "Por que restaurar em vez de reconstruir"),
+      apontados para o projeto definitivo `xzcuhrdhccnforqkovof`. Frontend
+      inalterado. *(concluída — falta só aplicar as migrations contra o
+      projeto real, bloqueado por política de rede deste ambiente, não por
+      credencial — ver `GO_LIVE_CHECKLIST.md`)*
 
 ### Endurecimento futuro (não bloqueia Go-Live)
 
-`Vehicles` ainda aceita escrita de qualquer chamada autenticada por trás de
-`createVehicle_`/`updateVehicle_` (o app só usa essas duas ações, que
-auditam tudo), mas nada impede um acesso à planilha por fora do app de
-contornar isso. Aceitável com uso pessoal e planilha não compartilhada — ver
-"Decisões difíceis de mudar depois" em `ARCHITECTURE.md`.
+`vehicles` ainda aceita INSERT/UPDATE direto de `authenticated` via RLS
+(modelo de "equipe confiável"); o app usa as RPCs auditadas
+`create_vehicle`/`update_vehicle`, mas o caminho direto continua
+tecnicamente aberto. Aceitável com uso pessoal — ver "Decisões difíceis de
+mudar depois" em `ARCHITECTURE.md`.
 
 ### Comissão
 
-Nenhuma fórmula de comissão foi inventada. `AppSettings.default_commission_pct`
+Nenhuma fórmula de comissão foi inventada. `app_settings.default_commission_pct`
 guarda um percentual padrão opcional (configurável em Mais → Configurações),
 usado apenas como sugestão de preenchimento no formulário de venda — sempre
 editável e nunca aplicado automaticamente sem confirmação humana. Uma regra

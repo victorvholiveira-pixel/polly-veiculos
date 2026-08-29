@@ -39,7 +39,7 @@ function toEditState(item: InventoryReviewItem): EditState {
 
 export function InventoryReviewPage() {
   const [items, setItems] = useState<InventoryReviewItem[]>([])
-  const [source, setSource] = useState<'live' | 'demo' | null>(null)
+  const [source, setSource] = useState<'supabase' | 'demo' | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -69,7 +69,7 @@ export function InventoryReviewPage() {
   const safeForBulk = useMemo(() => pending.filter((i) => i.warnings.length === 0), [pending])
 
   const applyDecision = async (item: InventoryReviewItem, decision: 'approved' | 'rejected' | 'edited_and_approved', corrections?: EditState) => {
-    if (source !== 'live') {
+    if (source !== 'supabase') {
       // Demo mode: reflect the choice locally only — nothing is persisted.
       setItems((prev) => prev.map((i) => (i.id === item.id ? { ...i, reviewDecision: decision } : i)))
       setEditingId(null)
@@ -100,7 +100,7 @@ export function InventoryReviewPage() {
   }
 
   const confirmAllSafe = async () => {
-    if (source !== 'live') {
+    if (source !== 'supabase') {
       setItems((prev) => prev.map((i) => (i.warnings.length === 0 && i.reviewDecision === 'pending' ? { ...i, reviewDecision: 'approved' } : i)))
       return
     }
@@ -118,7 +118,7 @@ export function InventoryReviewPage() {
   }
 
   const createInventory = async () => {
-    if (source !== 'live') {
+    if (source !== 'supabase') {
       setBatchResult('Modo de demonstração: a criação do estoque oficial precisa de conexão com o banco.')
       return
     }

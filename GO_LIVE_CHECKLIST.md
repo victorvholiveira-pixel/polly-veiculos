@@ -1,113 +1,96 @@
 # Checklist de Go-Live
 
-Nada aqui deve ser marcado como pronto sem evidência real. Reescrito após a
-Onda 7 (migração de backend para Google Apps Script + Sheets) — os itens que
-dependiam do Supabase real ficam pendentes até o deploy real do Web App,
-mesmo que a implementação já esteja pronta e testada.
+Nada aqui deve ser marcado como pronto sem evidência real. Reescrito na
+Onda 8 (retorno definitivo ao Supabase, projeto `xzcuhrdhccnforqkovof`,
+depois do detour de Google Apps Script na Onda 7).
 
-## Backend (Google Apps Script + Sheets)
+## Banco
 
-- [x] `gas/*.js` implementados e testados via `gas/__tests__/` (Vitest
-      rodando os arquivos reais dentro de um `vm` com mocks das APIs do
-      Apps Script) — 20 testes cobrindo venda/cancelamento/guarda de
-      "sold"/placa única/proveniência/idempotência/auditoria
-- [ ] Projeto Apps Script criado e implantado como Web App na conta Google
-      do usuário (ação manual única — ver `ARCHITECTURE.md`, "Deploy do
-      backend"; não é possível provisionar isso autonomamente)
-- [ ] `setup()` executado uma vez no projeto real (cria a planilha, gera a
-      senha de login e o `ADMIN_SECRET`)
-- [ ] Ações validadas contra o Web App real (não só contra os mocks):
-      login, fetchVehicles, createVehicle, updateVehicle, registerSale,
-      cancelSale, fetchSales, fetchDashboardStats, fetchAuditLog
-- [ ] Ações de revisão (Review Center) validadas contra o Web App real:
-      fetchInventoryCandidates, decideInventoryCandidate,
-      createInitialInventory, fetchAmbiguousSales, decideSale,
-      fetchConflicts, fetchOtherReview, decideMatchCandidate
+- [x] Migrations versionadas e aplicadas com sucesso contra um Postgres real
+      (`npm run db:validate` — via Postgres local, 27/27 asserções; não o
+      projeto real ainda)
+- [ ] Migrations aplicadas contra o projeto Supabase real
+      (`xzcuhrdhccnforqkovof`) — **bloqueado neste ambiente**: o proxy de
+      saída rejeita qualquer conexão a `*.supabase.co`/`api.supabase.com`
+      por política da organização, não por falta de credencial (ver
+      `ARCHITECTURE.md`, "Bloqueio de acesso real ao Supabase"). Precisa
+      rodar de fora deste ambiente — a máquina do usuário ou CI.
+- [x] Constraints (checks, unique indexes, FKs) validadas com inserts reais
+- [x] RLS habilitado em todas as tabelas operacionais, testado por papel
+      (anon vs. authenticated) com inserts reais, não só leitura do SQL
+- [ ] Backup configurado no projeto Supabase real
 
 ## Dados
 
 - [ ] Histórico migrado (`scripts/migration/load-ledger.ts` rodado contra o
-      Web App real — carrega VehicleOccurrences e VehicleMatchCandidates,
-      não Vehicles/Sales)
-- [ ] Estoque atual (17 candidatos) validado por humano, linha a linha, na
-      Central de Revisão — **NÃO** vira estoque oficial automaticamente
-- [ ] Duplicidades tratadas (fila de revisão P1/P3 resolvida ou
-      conscientemente deixada pendente)
+      projeto real)
+- [ ] Estoque validado por humano, linha a linha, na Central de Revisão —
+      **NÃO** vira estoque oficial automaticamente
+- [ ] Duplicidades tratadas (fila de revisão resolvida ou conscientemente
+      deixada pendente)
 - [ ] Comissão: regra de negócio definida com o usuário real (hoje: nenhuma
       regra presumida, ver `MIGRATION.md`)
 
 ## Aplicação
 
-- [x] Login (formulário funcional; senha real só existe após `setup()` no
-      projeto Apps Script real)
-- [x] Estoque (lista, busca, ver, editar — funcional contra os mocks de
-      teste; não validado contra o Web App real ainda)
+- [x] Login (formulário funcional; login de verdade pendente do projeto
+      Supabase real estar acessível)
+- [x] Estoque (lista, busca, ver, editar — funcional; validado só em
+      Postgres local, não no projeto real)
 - [x] Cadastro de veículo
 - [x] Edição de veículo (nunca permite marcar como vendido — ver Segurança)
-- [x] Venda (`registerSale_`, fluxo "Vender" completo — funcional; não
-      validado contra o Web App real)
+- [x] Venda (`register_sale` RPC transacional, fluxo "Vender" completo —
+      funcional; não validado contra o projeto real)
 - [x] Comissão manual por venda (campo livre no formulário de venda; regra
       automática ainda não existe — ver ROADMAP.md)
 - [x] Histórico (vendas reais do app, busca por comprador/placa/marca/modelo)
-- [x] Cancelamento de venda (`cancelSale_`, motivo obrigatório, reverte o
-      veículo para disponível)
-- [x] Filtros (estoque, histórico) — busca textual simples; sem filtro por
-      mês/ano ainda
-- [x] Painel Início com os 6 indicadores aprovados (estoque, valor do
-      estoque, vendas do mês, faturamento do mês, comissão do mês,
-      comparação com o mês anterior) — sem fallback de demonstração
-- [x] Comissão padrão configurável (Mais → Configurações) como sugestão
-      editável por venda — nenhuma regra automática
-- [x] Auditoria (Mais → Auditoria) — leitura do log em linguagem simples:
-      cadastro/edição de veículo, vendas e cancelamentos
-- [x] Exportação de dados (Mais → Configurações) — CSV/JSON de estoque e
-      histórico completos, não só o que a tela tem filtrado no momento
+- [x] Cancelamento de venda (`cancel_sale` RPC, motivo obrigatório, reverte
+      o veículo para disponível)
+- [x] Filtros (estoque, histórico) — busca textual simples
+- [x] Painel Início com os 6 indicadores aprovados
+- [x] Comissão padrão configurável (Mais → Configurações)
+- [x] Auditoria (Mais → Auditoria)
+- [x] Exportação de dados (Mais → Configurações) — CSV/JSON completos
 - [x] PWA instalável (manifest + service worker gerados; ícones são placeholder)
 
 ## Qualidade
 
 - [x] `npm run lint` sem erros (1 warning informativo conhecido)
 - [x] `npm run typecheck` sem erros (TypeScript strict)
-- [x] `npm run test` — testes unitários/componente + backend (`gas/__tests__/`)
-      passando
-- [x] `npm run test:e2e` — smoke tests em navegador real passando (provam a
-      fiação client-side, não login de verdade contra o backend real)
+- [x] `npm run test` — 81 testes unitários/componente passando
+- [x] `npm run test:e2e` — 4/4 smoke tests em navegador real passando (sem
+      backend real ainda — provam a fiação client-side, não login de verdade)
 - [x] `npm run build` — build de produção sem erros
+- [x] `npm run db:validate` — 27/27 asserções contra Postgres 16 local
 
 ## Segurança
 
-- [x] Nenhuma credencial sensível (senha de login, `ADMIN_SECRET`) em
-      código ou em variável `VITE_` — só a URL do Web App é pública
-- [x] `ADMIN_SECRET` nunca exposto ao frontend, só usado por
-      `scripts/migration/load-ledger.ts` (script Node, nunca roda no
-      navegador)
-- [x] Trocar `status` de um veículo para "sold" só é possível por
-      `registerSale_`/`cancelSale_`/`createInitialInventory_` —
-      `updateVehicle_` estruturalmente não aceita esse parâmetro
-- [~] `Vehicles` ainda aceita escrita de qualquer chamada autenticada por
-      trás de `createVehicle_`/`updateVehicle_` (auditadas); nada impede um
-      acesso à planilha por fora do app — não bloqueia o lançamento, ver
-      "Decisões difíceis de mudar depois" em `ARCHITECTURE.md`
+- [ ] Secrets/env auditados no projeto Supabase real de produção
+- [x] Nenhuma `service_role key` em código de frontend
+- [x] RLS ativo em toda tabela operacional, sem policy `true` temporária
+      esquecida
+- [~] `vehicles` ainda permite INSERT/UPDATE direto de `authenticated` por
+      RLS; o app usa só as RPCs auditadas `create_vehicle`/`update_vehicle`
+      — não bloqueia o lançamento, ver "Endurecimento futuro" em ROADMAP.md
 - [ ] Dados privados de cliente confirmados como não expostos publicamente
-      (a validar quando existir dado real de cliente na planilha real)
 - [ ] Confirmar que as credenciais expostas na planilha original foram
-      trocadas pelo usuário (fora do escopo deste projeto, mas é um
-      bloqueio de segurança real — ver `MIGRATION.md`)
+      trocadas pelo usuário (fora do escopo deste projeto, ver `MIGRATION.md`)
 
 ## Produção
 
-- [ ] Web App do Apps Script implantado (ver "Backend" acima)
-- [ ] Frontend implantado (Vercel ou equivalente), `VITE_APPS_SCRIPT_URL`
-      configurada
+- [ ] `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY` reais preenchidos (URL já
+      conhecida: `https://xzcuhrdhccnforqkovof.supabase.co` — falta a anon/
+      publishable key, disponível em Project Settings → API no painel)
+- [ ] Domínio/URL de produção definido (Vercel)
 - [ ] HTTPS (padrão em Vercel, mas confirmar)
 - [ ] Instalação testada num Android real
-- [ ] Smoke test real, com dados reais, contra o Web App de produção
+- [ ] Smoke test real, com dados reais, contra o projeto Supabase de produção
 
-## Cutover da planilha antiga
+## Cutover da planilha
 
-- [ ] Planilha antiga confirmada como não mais escrita operacionalmente
-- [ ] Comunicação ao usuário: planilha antiga agora é só histórico/backup
-- [ ] Cópia da planilha antiga preservada antes do corte final
+- [ ] `migration_started_at` / `migration_completed_at` registrados
+- [ ] Planilha confirmada como não mais escrita operacionalmente
+- [ ] Comunicação ao usuário: planilha agora é só histórico/backup
 
 ---
 

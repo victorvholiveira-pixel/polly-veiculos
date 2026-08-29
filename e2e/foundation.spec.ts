@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 // Smoke tests for Onda 1 (foundation): routing, auth guarding, mobile nav
-// shell. No backend is deployed yet, so these prove the
+// shell. No live Supabase project is linked yet, so these prove the
 // client-side wiring only — not that a real sign-in succeeds end to end.
 
 test('unauthenticated user hitting / is redirected to /login', async ({ page }) => {
@@ -12,7 +12,7 @@ test('unauthenticated user hitting / is redirected to /login', async ({ page }) 
 
 test('login form shows a visible error on rejected credentials', async ({ page }) => {
   await page.goto('/login')
-  await page.getByLabel('Seu nome').fill('Vendedor Teste')
+  await page.getByLabel('E-mail').fill('vendedor@pollyveiculos.com.br')
   await page.getByLabel('Senha').fill('senha-incorreta')
   await page.getByRole('button', { name: 'Entrar' }).click()
 

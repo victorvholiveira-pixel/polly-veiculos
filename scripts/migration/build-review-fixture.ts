@@ -4,9 +4,9 @@
  *
  * Why this exists: normalized_occurrences.json alone is ~1.7 MB — far too
  * large to ship to a mobile app, and not what a real deployment would do
- * anyway (a real deployment queries the backend directly, paginated). This
+ * anyway (a real deployment queries Supabase directly, paginated). This
  * fixture exists ONLY for local/offline preview of the Review Center's UI
- * while no backend is deployed (see src/lib/data/reviewFixture.ts) — it is
+ * while no Supabase project is linked (see src/lib/data/demoMode.ts) — it is
  * explicitly demo data, fetched lazily (not bundled into the JS), and every
  * screen that uses it shows a visible "modo de demonstração" banner.
  *

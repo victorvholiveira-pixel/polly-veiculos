@@ -31,7 +31,7 @@ async function main() {
   const elapsedS = ((Date.now() - start) / 1000).toFixed(1)
 
   console.log('')
-  console.log(`==> Done in ${elapsedS}s. No writes to the backend were made.`)
+  console.log(`==> Done in ${elapsedS}s. No writes to Supabase were made.`)
   console.log(`    Occurrences: ${summary.rows.totalDataRows}`)
   console.log(`    Canonical vehicles (estimated): ${summary.vehicles.canonicalVehiclesEstimated}`)
   console.log(`    Sales detected: ${summary.sales.detected}`)

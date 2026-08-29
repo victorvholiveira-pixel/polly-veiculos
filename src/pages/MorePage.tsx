@@ -6,9 +6,9 @@ export function MorePage() {
   const { user, signOut } = useAuth()
   const [signingOut, setSigningOut] = useState(false)
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     setSigningOut(true)
-    signOut()
+    await signOut()
     // No manual navigation needed: losing the session makes ProtectedRoute
     // redirect to /login on its own.
   }
@@ -46,7 +46,7 @@ export function MorePage() {
 
       <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
         <p className="text-sm text-slate-500 dark:text-slate-400">Conectado como</p>
-        <p className="font-medium text-slate-900 dark:text-slate-50">{user?.name}</p>
+        <p className="font-medium text-slate-900 dark:text-slate-50">{user?.email}</p>
       </div>
 
       <button

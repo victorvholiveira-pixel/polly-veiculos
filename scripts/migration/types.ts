@@ -66,7 +66,7 @@ export interface RawRow {
 /**
  * One occurrence of a vehicle in one monthly sheet — the intermediate
  * representation described in FASE 0.5 / Onda 2 §5. Mirrors (but is not
- * identical to) the VehicleOccurrences sheet shape from gas/Store.js.
+ * identical to) the `vehicle_occurrences` table shape from supabase/migrations.
  */
 export interface NormalizedOccurrence {
   sourceSheet: string

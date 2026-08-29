@@ -1,10 +1,13 @@
-import { callApi } from '@/lib/api'
-import type { AppSettings } from '@/types/api'
+import { supabase } from '@/lib/supabase'
+import type { Database } from '@/types/database'
+import { withTimeout } from './withTimeout'
 
-export type { AppSettings }
+export type AppSettings = Database['public']['Tables']['app_settings']['Row']
 
 export async function fetchAppSettings(): Promise<AppSettings> {
-  return callApi<AppSettings>('fetchAppSettings')
+  const { data, error } = await withTimeout(supabase.from('app_settings').select('*').single())
+  if (error) throw error
+  return data
 }
 
 /**
@@ -13,5 +16,7 @@ export async function fetchAppSettings(): Promise<AppSettings> {
  * ROADMAP.md's "Comissão" section: no calculation rule has been invented.
  */
 export async function updateDefaultCommissionPct(pct: number | null): Promise<AppSettings> {
-  return callApi<AppSettings>('updateDefaultCommissionPct', { pct })
+  const { data, error } = await supabase.from('app_settings').update({ default_commission_pct: pct }).eq('id', true).select().single()
+  if (error) throw error
+  return data
 }

@@ -29,10 +29,24 @@ function renderProtected(initialPath = '/estoque') {
 }
 
 describe('ProtectedRoute', () => {
+  it('shows a loading state while the session is being recovered', () => {
+    mockedUseAuth.mockReturnValue({
+      session: null,
+      user: null,
+      loading: true,
+      signOut: vi.fn(),
+    })
+
+    renderProtected()
+
+    expect(screen.getByText(/carregando/i)).toBeInTheDocument()
+  })
+
   it('redirects to /login when there is no session', () => {
     mockedUseAuth.mockReturnValue({
+      session: null,
       user: null,
-      login: vi.fn(),
+      loading: false,
       signOut: vi.fn(),
     })
 
@@ -43,11 +57,14 @@ describe('ProtectedRoute', () => {
   })
 
   it('renders the protected content when a session exists', () => {
+    // Only the fields ProtectedRoute actually reads (`session`, `loading`) matter here;
+    // a full Session/User object isn't worth constructing for this test.
     mockedUseAuth.mockReturnValue({
-      user: { name: 'Victor' },
-      login: vi.fn(),
+      session: { user: { id: 'u1' } },
+      user: { id: 'u1' },
+      loading: false,
       signOut: vi.fn(),
-    })
+    } as unknown as ReturnType<typeof useAuth>)
 
     renderProtected()
 
