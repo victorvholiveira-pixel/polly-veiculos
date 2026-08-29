@@ -186,9 +186,19 @@ sugestão de preenchimento, nunca aplicada sozinha.
 ## PWA
 
 `vite-plugin-pwa` com `generateSW`, precache do app shell
-(`**/*.{js,css,html,svg,png}`). Ícones em `public/icons/` são
-**placeholders** (monograma "P"), pendentes de assets oficiais — decisão do
-usuário, não algo para inventar. Manifest em `pt-BR`, `display: standalone`.
+(`**/*.{js,css,html,svg,png}`). Ícones em `public/icons/` (Onda 13):
+monograma "P" desenhado como forma geométrica própria (não mais fonte de
+sistema) — bloco+haste arredondados em branco sobre `#0f172a` (mesma cor de
+`background_color`/`theme_color` do manifest), com um traço `emerald-500`
+como assinatura/acento. `favicon.svg` usa o mesmo desenho (vetor, nítido em
+qualquer tamanho). `favicon.svg` **é** a fonte do desenho — qualquer PNG gerado deriva dele.
+`icon-192.png`/`icon-512.png` são esse SVG rasterizado direto; a variante
+"maskable" (`icon-512-maskable.png`) e o `apple-touch-icon.png` (180×180,
+referenciado no `index.html`) usam o mesmo desenho com fundo até a borda
+(sem `rx`) e o monograma reduzido a ~72% centralizado — para caber na
+safe zone circular que Android/iOS aplicam ao mascarar o ícone. Todos
+rasterizados com Chromium real (Playwright), não uma lib de conversão à
+parte. Manifest em `pt-BR`, `display: standalone`.
 
 ## Bloqueio de acesso real ao Supabase (só deste ambiente de desenvolvimento)
 

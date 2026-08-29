@@ -127,8 +127,13 @@ fica para quando o usuário real definir como o pagamento funciona hoje.
 ## P1 — Produtividade
 
 - [x] Exportação de dados (CSV/JSON) — "os dados pertencem à loja".
+- [x] Ícone do app (Onda 13) — monograma "P" desenhado (não mais fonte de
+      sistema), com acento `emerald-500`; `icon-192`/`icon-512`/
+      `icon-512-maskable`/`apple-touch-icon` gerados a partir do
+      `favicon.svg`. Segue como P1: ícones ainda não são a identidade visual
+      final da marca (isso é decisão do usuário, não algo para inventar) —
+      só deixou de ser o "P" cru de fonte de sistema.
 - Melhorias de busca/filtro no Estoque e Histórico além do básico.
-- Assets oficiais de PWA (ícones reais, substituindo o placeholder "P").
 - Ferramenta de merge manual de veículos (para os casos que a migração
   colocar em revisão e forem, de fato, o mesmo carro).
 

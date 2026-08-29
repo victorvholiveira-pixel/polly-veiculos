@@ -109,7 +109,9 @@ depois do detour de Google Apps Script na Onda 7).
 - [x] Comissão padrão configurável (Mais → Configurações)
 - [x] Auditoria (Mais → Auditoria)
 - [x] Exportação de dados (Mais → Configurações) — CSV/JSON completos
-- [x] PWA instalável (manifest + service worker gerados; ícones são placeholder)
+- [x] PWA instalável (manifest + service worker gerados; ícone é um
+      monograma "P" desenhado — não mais fonte de sistema — mas ainda não é
+      necessariamente a identidade visual final da marca, decisão do usuário)
 
 ## Qualidade
 
