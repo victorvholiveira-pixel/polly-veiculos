@@ -14,6 +14,7 @@ import { ConflictsReviewPage } from '@/pages/review/ConflictsReviewPage'
 import { InventoryReviewPage } from '@/pages/review/InventoryReviewPage'
 import { OtherReviewPage } from '@/pages/review/OtherReviewPage'
 import { ReviewCenterIndexPage } from '@/pages/review/ReviewCenterIndexPage'
+import { SettingsPage } from '@/pages/SettingsPage'
 import { SellFormPage } from '@/pages/vender/SellFormPage'
 import { SellPickVehiclePage } from '@/pages/vender/SellPickVehiclePage'
 
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
       { path: '/vender/:vehicleId', element: <SellFormPage /> },
       { path: '/historico', element: <HistoryPage /> },
       { path: '/mais', element: <MorePage /> },
+      { path: '/mais/configuracoes', element: <SettingsPage /> },
       { path: '/mais/revisao', element: <ReviewCenterIndexPage /> },
       { path: '/mais/revisao/estoque', element: <InventoryReviewPage /> },
       { path: '/mais/revisao/conflitos', element: <ConflictsReviewPage /> },

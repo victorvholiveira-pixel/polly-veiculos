@@ -34,6 +34,11 @@ até ser genuinamente verdade.
 - [x] Histórico (vendas reais do app, busca por comprador/placa/marca/modelo)
 - [x] Cancelamento de venda (`cancel_sale` RPC, motivo obrigatório, reverte o veículo para disponível)
 - [x] Filtros (estoque, histórico) — busca textual simples; sem filtro por mês/ano ainda
+- [x] Painel Início com os 6 indicadores aprovados (estoque, valor do estoque,
+      vendas do mês, faturamento do mês, comissão do mês, comparação com o
+      mês anterior) — dado real, sem fallback de demonstração
+- [x] Comissão padrão configurável (Mais → Configurações) como sugestão
+      editável por venda — nenhuma regra automática
 - [x] PWA instalável (manifest + service worker gerados; ícones são placeholder)
 
 ## Qualidade

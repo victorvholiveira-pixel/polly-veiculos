@@ -376,6 +376,20 @@ begin
     end;
   end;
 
+  -- 24) app_settings: authenticated can read and update the singleton row
+  --     (used by the Onda 5 "comissão padrão" setting) but never insert a
+  --     second row.
+  update app_settings set default_commission_pct = 2.5 where id = true;
+  if (select default_commission_pct from app_settings where id = true) <> 2.5 then
+    raise exception 'FAIL: authenticated could not update app_settings';
+  end if;
+  begin
+    insert into app_settings (id, default_commission_pct) values (true, 1);
+    raise exception 'FAIL: authenticated inserted into app_settings directly';
+  exception when insufficient_privilege then
+    raise notice 'PASS: app_settings has no direct insert policy for authenticated, and is updatable';
+  end;
+
   perform set_config('role', 'postgres', true);
   raise notice '=== ALL ASSERTIONS PASSED ===';
 end

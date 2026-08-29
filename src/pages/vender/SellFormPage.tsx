@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { createSeller, fetchActiveSellers, registerSale, type Seller } from '@/lib/data/sales'
+import { fetchAppSettings } from '@/lib/data/settings'
 import { fetchVehicle, type Vehicle } from '@/lib/data/vehicles'
 
 const NEW_SELLER_OPTION = '__new__'
@@ -38,11 +39,16 @@ export function SellFormPage() {
 
   useEffect(() => {
     if (!vehicleId) return
-    Promise.all([fetchVehicle(vehicleId), fetchActiveSellers()])
-      .then(([v, s]) => {
+    Promise.all([fetchVehicle(vehicleId), fetchActiveSellers(), fetchAppSettings().catch(() => null)])
+      .then(([v, s, settings]) => {
         setVehicle(v)
         setSellers(s)
         if (v?.asking_price) setSaleValue(String(v.asking_price))
+        // Só sugere um ponto de partida — nunca aplica sozinho, e o campo
+        // continua livre para o usuário mudar ou apagar (ROADMAP.md, "Comissão").
+        if (settings?.default_commission_pct && v?.asking_price) {
+          setCommission(((v.asking_price * settings.default_commission_pct) / 100).toFixed(2))
+        }
       })
       .catch(() => setLoadError('Não foi possível carregar os dados agora. Confira a conexão e tente de novo.'))
       .finally(() => setLoading(false))
@@ -150,7 +156,7 @@ export function SellFormPage() {
           value={commission}
           onChange={setCommission}
           type="number"
-          hint="Ainda não temos uma regra automática — preencha só se já souber o valor."
+          hint="Sugestão a partir da comissão padrão configurada em Mais → Configurações — edite ou apague à vontade."
         />
 
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">

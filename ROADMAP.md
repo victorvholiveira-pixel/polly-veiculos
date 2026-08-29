@@ -19,10 +19,11 @@
       app, busca, cancelamento com motivo obrigatório). Comissão fica manual
       por venda — nenhuma regra automática foi inventada (ver "Comissão"
       abaixo). *(concluída)*
-- [ ] **Onda 5 — Dashboard + Comissão configurável + acabamento**: painel
+- [x] **Onda 5 — Dashboard + Comissão configurável + acabamento**: painel
       Início com os 6 indicadores, comissão padrão configurável em
-      `app_settings` (sempre editável por venda), revisão de UX/copy em
-      todo o app.
+      `app_settings` (Mais → Configurações, sempre editável por venda),
+      revisão de UX/copy em todo o app, remoção do componente de
+      placeholder já sem uso. *(concluída)*
 - [ ] **Onda 6 — Supabase real + Go-Live**: aplicar migrations no projeto
       real (bloqueado neste ambiente — ver relatório da onda), exportação de
       dados, trilha de auditoria visível, ícones PWA reais, auditoria final
