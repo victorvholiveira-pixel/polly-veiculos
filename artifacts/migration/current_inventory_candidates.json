@@ -1,0 +1,317 @@
+[
+  {
+    "vehicleCandidateId": "veh_00904",
+    "brand": "Chevrolet",
+    "model": "Montana",
+    "version": "1.3 Turbo premier",
+    "year": 2025,
+    "plate": null,
+    "value": 124900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 11,
+    "confidence": "medium",
+    "warnings": [
+      "no plate recorded for this vehicle across any occurrence"
+    ],
+    "priorMonthsSeen": [
+      "2026-04-01",
+      "2026-05-01",
+      "2026-06-01",
+      "2026-07-01",
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_00905",
+    "brand": "Toyota",
+    "model": "Etios",
+    "version": "1.0 expression",
+    "year": 2018,
+    "plate": null,
+    "value": 29900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 12,
+    "confidence": "medium",
+    "warnings": [
+      "plate does not match a known format: \"ELam 5G72\"",
+      "no plate recorded for this vehicle across any occurrence"
+    ],
+    "priorMonthsSeen": [
+      "2026-04-01",
+      "2026-05-01",
+      "2026-06-01",
+      "2026-07-01",
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_00929",
+    "brand": "Ford",
+    "model": "Fiesta",
+    "version": "automático",
+    "year": 2016,
+    "plate": "GCA0B64",
+    "value": 56900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 32,
+    "confidence": "medium",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-04-01",
+      "2026-05-01",
+      "2026-06-01",
+      "2026-07-01",
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_00941",
+    "brand": "Chevrolet",
+    "model": "Onix",
+    "version": "1.0 sedan Plus",
+    "year": 2023,
+    "plate": "SHC3I47",
+    "value": null,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 10,
+    "confidence": "medium",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-05-01",
+      "2026-06-01",
+      "2026-07-01",
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_00947",
+    "brand": "Jeep",
+    "model": "Renegade",
+    "version": "1.8 Sport",
+    "year": 2021,
+    "plate": null,
+    "value": 82900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 29,
+    "confidence": "medium",
+    "warnings": [
+      "plate does not match a known format: \"GAK 1C885\"",
+      "no plate recorded for this vehicle across any occurrence"
+    ],
+    "priorMonthsSeen": [
+      "2026-05-01",
+      "2026-06-01",
+      "2026-07-01",
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_00959",
+    "brand": "Chevrolet",
+    "model": "Agile",
+    "version": "LTZ 1.4",
+    "year": 2011,
+    "plate": "EYR7I73",
+    "value": 37900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 8,
+    "confidence": "high",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-06-01",
+      "2026-07-01",
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_00966",
+    "brand": "Hyundai",
+    "model": "I30",
+    "version": "2.0 autom",
+    "year": 2010,
+    "plate": "EEY3832",
+    "value": null,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 16,
+    "confidence": "medium",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-06-01",
+      "2026-07-01",
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_00978",
+    "brand": "Renault",
+    "model": "Sandero",
+    "version": "1.0 expression",
+    "year": 2019,
+    "plate": "QOB2G36",
+    "value": 44900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 6,
+    "confidence": "high",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-07-01",
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_00985",
+    "brand": "Chevrolet",
+    "model": "Onix",
+    "version": "1.4 LT aut.",
+    "year": 2018,
+    "plate": "GBT5244",
+    "value": null,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 21,
+    "confidence": "medium",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-07-01",
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_00998",
+    "brand": null,
+    "model": null,
+    "version": "LTZ 1.8",
+    "year": 2019,
+    "plate": null,
+    "value": null,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 9,
+    "confidence": "medium",
+    "warnings": [
+      "neither a known model nor a known brand recognized in the description",
+      "no plate recorded for this vehicle across any occurrence",
+      "brand could not be parsed with confidence"
+    ],
+    "priorMonthsSeen": [
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_01001",
+    "brand": "Renault",
+    "model": "Sandero",
+    "version": "expression 1.0",
+    "year": null,
+    "plate": null,
+    "value": 44900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 15,
+    "confidence": "medium",
+    "warnings": [
+      "no plate recorded for this vehicle across any occurrence"
+    ],
+    "priorMonthsSeen": [
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_01002",
+    "brand": "Ford",
+    "model": "Fiesta",
+    "version": "hetch 1.0",
+    "year": 2011,
+    "plate": "EQW1124",
+    "value": 25900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 17,
+    "confidence": "high",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_01003",
+    "brand": null,
+    "model": null,
+    "version": "1.6 S",
+    "year": 2012,
+    "plate": "FAQ8807",
+    "value": 32900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 19,
+    "confidence": "high",
+    "warnings": [
+      "neither a known model nor a known brand recognized in the description",
+      "brand could not be parsed with confidence"
+    ],
+    "priorMonthsSeen": [
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_01005",
+    "brand": "Ford",
+    "model": "Ka",
+    "version": "2026-05-01",
+    "year": 2015,
+    "plate": "FKJ2D64",
+    "value": 42900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 23,
+    "confidence": "high",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_01008",
+    "brand": "Volkswagen",
+    "model": "Gol",
+    "version": "1.0 8v",
+    "year": 2006,
+    "plate": "DRS9287",
+    "value": 19900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 26,
+    "confidence": "high",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_01010",
+    "brand": "Honda",
+    "model": "Elite moto",
+    "version": "125cc 2024",
+    "year": 2024,
+    "plate": null,
+    "value": 14900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 28,
+    "confidence": "medium",
+    "warnings": [
+      "no plate recorded for this vehicle across any occurrence"
+    ],
+    "priorMonthsSeen": [
+      "2026-08-01"
+    ]
+  },
+  {
+    "vehicleCandidateId": "veh_01013",
+    "brand": "Honda",
+    "model": "Fit",
+    "version": "1.5 Ex",
+    "year": 2011,
+    "plate": "EVM8G56",
+    "value": 53900,
+    "sourceSheet": "AGO 2026",
+    "sourceRow": 34,
+    "confidence": "high",
+    "warnings": [],
+    "priorMonthsSeen": [
+      "2026-08-01"
+    ]
+  }
+]

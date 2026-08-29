@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-08-29T01:15:10.181Z",
+  "workbook": {
+    "totalSheets": 56,
+    "usedSheets": 50,
+    "ignoredSheets": [
+      {
+        "name": "Cópia de SET 22",
+        "reason": "duplicate",
+        "detail": "Byte-for-byte duplicate of \"SET 22\"."
+      },
+      {
+        "name": "Cópia de NOVEMBRO ",
+        "reason": "duplicate",
+        "detail": "Byte-for-byte duplicate of \"NOV 22\"."
+      },
+      {
+        "name": "INFORMAÇÃO ",
+        "reason": "sensitive",
+        "detail": "Excluded non-operational sensitive worksheet."
+      },
+      {
+        "name": "Página16",
+        "reason": "empty",
+        "detail": "Sheet is entirely empty (A1 is null)."
+      },
+      {
+        "name": "Página14",
+        "reason": "empty",
+        "detail": "Sheet is entirely empty (A1 is null)."
+      },
+      {
+        "name": "Página13",
+        "reason": "empty",
+        "detail": "Sheet is entirely empty (A1 is null)."
+      }
+    ],
+    "unclassifiedSheets": [],
+    "periodFrom": "2022-07-01",
+    "periodTo": "2026-08-01"
+  },
+  "rows": {
+    "totalDataRows": 1521,
+    "ignoredAsTotalsOrHeaders": 219
+  },
+  "vehicles": {
+    "occurrences": 1521,
+    "canonicalVehiclesEstimated": 1023,
+    "autoMatchesTier1": 908,
+    "autoMatchesTier2": 88,
+    "reviewCandidates": 70,
+    "conflicts": 5
+  },
+  "plates": {
+    "old": 495,
+    "mercosul": 417,
+    "invalid": 25,
+    "missing": 584
+  },
+  "dates": {
+    "valid": 602,
+    "invalidPlaceholderDay": 7,
+    "invalidYearDigits": 4,
+    "implausibleYear": 0,
+    "missing": 908
+  },
+  "sales": {
+    "detected": 888,
+    "validDate": 602,
+    "invalidDate": 23,
+    "ambiguous": 263
+  },
+  "currentInventory": {
+    "count": 17,
+    "totalValue": 612700,
+    "withWarnings": 7
+  },
+  "reviewQueue": {
+    "totalEntries": 529,
+    "byReason": {
+      "plausible_but_unconfident_vehicle_match": 70,
+      "no_identity_signal": 455,
+      "plate_claimed_by_multiple_open_vehicles": 4
+    }
+  }
+}

@@ -1,0 +1,2826 @@
+[
+  {
+    "occurrenceA": "AGOS 22#22",
+    "occurrenceB": "veh_00032:last_occurrence",
+    "tier": 3,
+    "score": 0.65,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+      "value changed by 5.6%",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2009 vs 2011",
+      "value moved 5.6% — larger than a typical single-month markdown"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "SET 22#6",
+    "occurrenceB": "veh_00032:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+      "same year: 2011",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 22#7",
+    "occurrenceB": "veh_00036:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Jeep",
+      "similar parsed model: \"Renegade\" ~ \"Renegade\"",
+      "same year: 2019",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 22#8",
+    "occurrenceB": "veh_00037:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Toyota",
+      "similar parsed model: \"Corolla\" ~ \"Corolla\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "SET 22#10",
+    "occurrenceB": "veh_00039:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "SET 22#11",
+    "occurrenceB": "veh_00044:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Nissan",
+      "similar parsed model: \"March\" ~ \"March\"",
+      "same year: 2013",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 22#12",
+    "occurrenceB": "veh_00045:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Crossfox\" ~ \"Crossfox\"",
+      "same year: 2006",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 22#13",
+    "occurrenceB": "veh_00047:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+      "same year: 2009",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 22#16",
+    "occurrenceB": "veh_00050:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2013"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "SET 22#19",
+    "occurrenceB": "veh_00045:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Fox\" ~ \"Crossfox\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2009 vs 2006"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "SET 22#20",
+    "occurrenceB": "veh_00055:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2014",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "value changed by 15.5% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "SET 22#33",
+    "occurrenceB": "veh_00055:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2014",
+      "value changed by 24.2% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "OUT 22#5",
+    "occurrenceB": "veh_00032:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+      "same year: 2011",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "OUT 22#7",
+    "occurrenceB": "veh_00058:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "OUT 22#8",
+    "occurrenceB": "veh_00045:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Crossfox\" ~ \"Crossfox\"",
+      "same year: 2006",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "OUT 22#9",
+    "occurrenceB": "veh_00047:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+      "same year: 2009",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "OUT 22#12",
+    "occurrenceB": "veh_00059:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "same year: 2016",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "NOV 22#6",
+    "occurrenceB": "veh_00076:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "NOV 22#7",
+    "occurrenceB": "veh_00047:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+      "same year: 2009",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "NOV 22#8",
+    "occurrenceB": "veh_00059:last_occurrence",
+    "tier": 3,
+    "score": 0.65,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "value changed by 11.6%",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2014 vs 2016",
+      "value moved 11.6% — larger than a typical single-month markdown"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "NOV 22#17",
+    "occurrenceB": "veh_00086:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Corsa\" ~ \"Corsa\"",
+      "same year: 2007",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Dez22#5",
+    "occurrenceB": "veh_00088:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Dez22#6",
+    "occurrenceB": "veh_00047:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+      "same year: 2009",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Dez22#9",
+    "occurrenceB": "NOV 22#13",
+    "tier": 3,
+    "score": 0.4,
+    "reasonsFor": [
+      "same normalized plate: GEP7063"
+    ],
+    "reasonsAgainst": [
+      "plate matches but parsed brand conflicts: \"Toyota\" vs \"Jeep\" — treated as a data conflict, not auto-merged"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JAN 2023#5",
+    "occurrenceB": "veh_00101:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JAN 2023#10",
+    "occurrenceB": "veh_00107:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"City\" ~ \"City\"",
+      "same year: 2009",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JAN 2023#11",
+    "occurrenceB": "veh_00108:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Duster\" ~ \"Duster\"",
+      "same year: 2015",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "FEV 2023#6",
+    "occurrenceB": "veh_00118:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Kwid\" ~ \"Kwid\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "FEV 2023#9",
+    "occurrenceB": "veh_00107:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"City\" ~ \"City\"",
+      "same year: 2009",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "FEV 2023#10",
+    "occurrenceB": "veh_00108:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Duster\" ~ \"Duster\"",
+      "same year: 2015",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "MARCO23#10",
+    "occurrenceB": "veh_00108:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Duster\" ~ \"Duster\"",
+      "same year: 2015",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "MARCO23#23",
+    "occurrenceB": "veh_00136:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"City\" ~ \"City\"",
+      "same year: 2013",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "MARCO23#30",
+    "occurrenceB": "veh_00148:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Spacefox\" ~ \"Fox\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2010 vs 2012"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Abril 23#9",
+    "occurrenceB": "veh_00108:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Duster\" ~ \"Duster\"",
+      "same year: 2015",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Abril 23#29",
+    "occurrenceB": "veh_00139:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Abril 23#29",
+    "occurrenceB": "veh_00141:last_occurrence",
+    "tier": 3,
+    "score": 0.55,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "same year: 2018",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "model text differs: \"Fit\" vs \"City\""
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Maio 2023#6",
+    "occurrenceB": "veh_00108:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Duster\" ~ \"Duster\"",
+      "same year: 2015",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Maio 2023#13",
+    "occurrenceB": "veh_00174:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2018",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Maio 2023#13",
+    "occurrenceB": "veh_00141:last_occurrence",
+    "tier": 3,
+    "score": 0.7000000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "model text differs: \"Fit\" vs \"City\""
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Maio 2023#13",
+    "occurrenceB": "veh_00139:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "value changed by 60.1% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2023#6",
+    "occurrenceB": "veh_00108:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Duster\" ~ \"Duster\"",
+      "same year: 2015",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JUN 2023#11",
+    "occurrenceB": "veh_00177:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JUN 2023#20",
+    "occurrenceB": "veh_00191:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Punto\" ~ \"Punto\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2015"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2023#21",
+    "occurrenceB": "veh_00185:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Peugeot",
+      "similar parsed model: \"2008\" ~ \"2008\"",
+      "same year: 2008",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "value changed by 23.9% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUL 2023#7",
+    "occurrenceB": "veh_00177:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "AGO 2023#12",
+    "occurrenceB": "veh_00212:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Tucson\" ~ \"Tucson\"",
+      "same year: 2012",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "AGO 2023#16",
+    "occurrenceB": "veh_00219:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2019",
+      "value essentially unchanged (2.4% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 2023#9",
+    "occurrenceB": "veh_00219:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2019",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 2023#12",
+    "occurrenceB": "veh_00228:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Citroën",
+      "similar parsed model: \"C3\" ~ \"C3\"",
+      "same year: 2011",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 2023#18",
+    "occurrenceB": "veh_00237:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Tucson\" ~ \"Tucson\"",
+      "same year: 2013",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 2023#30",
+    "occurrenceB": "veh_00234:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Onix\" ~ \"Onix\"",
+      "same year: 2019",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "SET 2023#30",
+    "occurrenceB": "veh_00249:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Onix\" ~ \"Onix\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2019 vs 2015"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "SET 2023#32",
+    "occurrenceB": "veh_00219:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2011 vs 2019"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "OUT 2023#6",
+    "occurrenceB": "veh_00219:last_occurrence",
+    "tier": 3,
+    "score": 0.7000000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "same year: 2019",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "model text differs: \"City\" vs \"Fit\""
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "OUT 2023#8",
+    "occurrenceB": "veh_00228:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Citroën",
+      "similar parsed model: \"C3\" ~ \"C3\"",
+      "same year: 2011",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "OUT 2023#12",
+    "occurrenceB": "veh_00237:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Tucson\" ~ \"Tucson\"",
+      "same year: 2013",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "OUT 2023#18",
+    "occurrenceB": "veh_00234:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Onix\" ~ \"Onix\"",
+      "same year: 2019",
+      "value essentially unchanged (3.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "OUT 2023#19",
+    "occurrenceB": "veh_00252:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2011",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "OUT 2023#19",
+    "occurrenceB": "veh_00219:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2011 vs 2019"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Nov 2023#13",
+    "occurrenceB": "veh_00260:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Civic\" ~ \"Civic\"",
+      "same year: 2014",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Nov 2023#16",
+    "occurrenceB": "veh_00267:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Corsa\" ~ \"Corsa\"",
+      "same year: 2005",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Nov 2023#18",
+    "occurrenceB": "veh_00272:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Idea\" ~ \"Idea\"",
+      "same year: 2014",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Nov 2023#23",
+    "occurrenceB": "veh_00281:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Duster\" ~ \"Duster\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2014 vs 2021",
+      "value changed by 44.4% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Nov 2023#26",
+    "occurrenceB": "veh_00257:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2010 vs 2011"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Nov 2023#26",
+    "occurrenceB": "veh_00273:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "value changed by 31.5% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Nov 2023#28",
+    "occurrenceB": "veh_00260:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Civic\" ~ \"Civic\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2018 vs 2014"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Dez2023#13",
+    "occurrenceB": "veh_00287:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Spacefox\" ~ \"Spacefox\"",
+      "same year: 2009",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Dez2023#16",
+    "occurrenceB": "veh_00287:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Fox\" ~ \"Spacefox\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2012 vs 2009"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Dez2023#16",
+    "occurrenceB": "veh_00294:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Fox\" ~ \"Spacefox\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2012 vs 2009"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JAN24#8",
+    "occurrenceB": "veh_00294:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Spacefox\" ~ \"Spacefox\"",
+      "same year: 2009",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JAN24#17",
+    "occurrenceB": "veh_00307:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Siena\" ~ \"Siena\"",
+      "same year: 2015",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JAN24#21",
+    "occurrenceB": "veh_00306:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+      "same year: 2012",
+      "value essentially unchanged (2.3% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "FEV24#15",
+    "occurrenceB": "veh_00321:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Celta\" ~ \"Celta\"",
+      "same year: 2005",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "value changed by 15.1% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "FEV24#20",
+    "occurrenceB": "veh_00330:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2015 vs 2019",
+      "value changed by 20.0% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "MARC24#11",
+    "occurrenceB": "veh_00341:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Celta\" ~ \"Celta\"",
+      "same year: 2005",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "MARC24#29",
+    "occurrenceB": "veh_00326:last_occurrence",
+    "tier": 3,
+    "score": 0.7000000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "same year: 2014",
+      "value essentially unchanged (1.8% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "model text differs: \"Fit\" vs \"City\""
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "A B R 24#14",
+    "occurrenceB": "veh_00376:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2014",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "M A I24#13",
+    "occurrenceB": "veh_00394:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Fiesta\" ~ \"Fiesta\"",
+      "same year: 2014",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "J U N 24#27",
+    "occurrenceB": "veh_00447:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Siena\" ~ \"Siena\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2012 vs 2011"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Sete2024#19",
+    "occurrenceB": "veh_00493:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Classic\" ~ \"Classic\"",
+      "same year: 2005",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "NOV 2024#12",
+    "occurrenceB": "veh_00528:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Onix\" ~ \"Onix\"",
+      "same year: 2019",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "NOV 2024#14",
+    "occurrenceB": "veh_00537:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Corsa\" ~ \"Corsa\"",
+      "same year: 2006",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "NOV 2024#21",
+    "occurrenceB": "veh_00548:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2017 vs 2016"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Dez 2024#9",
+    "occurrenceB": "veh_00548:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "same year: 2016",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Dez 2024#13",
+    "occurrenceB": "veh_00552:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "same year: 2017",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Dez 2024#15",
+    "occurrenceB": "veh_00553:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2005",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Dez 2024#17",
+    "occurrenceB": "veh_00555:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"500\" ~ \"500\"",
+      "same year: 2012",
+      "value essentially unchanged (2.3% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Dez 2024#18",
+    "occurrenceB": "veh_00556:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Nissan",
+      "similar parsed model: \"Versa\" ~ \"Versa\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Dez 2024#26",
+    "occurrenceB": "veh_00571:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2016",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Dez 2024#26",
+    "occurrenceB": "veh_00553:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2005",
+      "value changed by 159.9% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JAN 2025#7",
+    "occurrenceB": "veh_00574:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Jeep",
+      "similar parsed model: \"Renegade\" ~ \"Renegade\"",
+      "same year: 2021",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JAN 2025#12",
+    "occurrenceB": "veh_00573:last_occurrence",
+    "tier": 3,
+    "score": 0.65,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "value changed by 8.6%",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2015 vs 2016",
+      "value moved 8.6% — larger than a typical single-month markdown"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JAN 2025#12",
+    "occurrenceB": "veh_00553:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2015 vs 2005",
+      "value changed by 137.5% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JAN 2025#12",
+    "occurrenceB": "veh_00571:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2015 vs 2016"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JAN 2025#15",
+    "occurrenceB": "JAN 2025#6",
+    "tier": 3,
+    "score": 0.4,
+    "reasonsFor": [
+      "same normalized plate: STW7I69"
+    ],
+    "reasonsAgainst": [
+      "plate matches but parsed brand conflicts: \"Hyundai\" vs \"Chevrolet\" — treated as a data conflict, not auto-merged"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "FEV 2025#6",
+    "occurrenceB": "FEV 2025#6",
+    "tier": 3,
+    "score": 0.5,
+    "reasonsFor": [
+      "both associated with normalized plate STW7I69"
+    ],
+    "reasonsAgainst": [
+      "more than one open vehicle currently claims this exact plate — conflict, not auto-resolved"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "FEV 2025#6",
+    "occurrenceB": "FEV 2025#6",
+    "tier": 3,
+    "score": 0.5,
+    "reasonsFor": [
+      "both associated with normalized plate STW7I69"
+    ],
+    "reasonsAgainst": [
+      "more than one open vehicle currently claims this exact plate — conflict, not auto-resolved"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "FEV 2025#11",
+    "occurrenceB": "veh_00585:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2012",
+      "value essentially unchanged (2.3% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "FEV 2025#12",
+    "occurrenceB": "veh_00586:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2015",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "FEV 2025#21",
+    "occurrenceB": "veh_00574:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Jeep",
+      "similar parsed model: \"Renegade\" ~ \"Renegade\"",
+      "same year: 2021",
+      "value essentially unchanged (1.2% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "FEV 2025#28",
+    "occurrenceB": "veh_00590:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Corsa\" ~ \"Corsa\"",
+      "same year: 2001",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "MAR 2025#10",
+    "occurrenceB": "veh_00607:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Toyota",
+      "similar parsed model: \"Corolla\" ~ \"Corolla\"",
+      "same year: 2017",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "MAR 2025#11",
+    "occurrenceB": "veh_00574:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Jeep",
+      "similar parsed model: \"Renegade\" ~ \"Renegade\"",
+      "same year: 2021",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "MAI 2025#22",
+    "occurrenceB": "veh_00648:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Ecosport\" ~ \"Ecosport\"",
+      "same year: 2012",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "MAI 2025#28",
+    "occurrenceB": "veh_00653:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2013"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "MAI 2025#28",
+    "occurrenceB": "veh_00670:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2013"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "MAI 2025#31",
+    "occurrenceB": "veh_00661:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Classic\" ~ \"Classic\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2010 vs 2014"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2025#13",
+    "occurrenceB": "veh_00646:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"I30\" ~ \"I30\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2012 vs 2010"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2025#18",
+    "occurrenceB": "veh_00674:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Classic\" ~ \"Classic\"",
+      "same year: 2010",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2025#24",
+    "occurrenceB": "veh_00691:last_occurrence",
+    "tier": 3,
+    "score": 0.55,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "same year: 2016",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "model text differs: \"Onix\" vs \"Spin\"",
+      "value changed by 21.3% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2025#28",
+    "occurrenceB": "veh_00671:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2016",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2025#28",
+    "occurrenceB": "veh_00670:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2013",
+      "value changed by 40.1% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2025#28",
+    "occurrenceB": "veh_00672:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2013",
+      "value changed by 20.7% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2025#31",
+    "occurrenceB": "veh_00674:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Classic\" ~ \"Classic\"",
+      "same year: 2010",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUN 2025#31",
+    "occurrenceB": "veh_00693:last_occurrence",
+    "tier": 3,
+    "score": 0.55,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "same year: 2010",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "model text differs: \"Classic\" vs \"Agile\"",
+      "value changed by 26.5% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": " JUL 2025#19",
+    "occurrenceB": "veh_00690:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Nissan",
+      "similar parsed model: \"Versa\" ~ \"Versa\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": " JUL 2025#25",
+    "occurrenceB": "veh_00695:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Siena\" ~ \"Siena\"",
+      "same year: 2015",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": " JUL 2025#31",
+    "occurrenceB": "veh_00698:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Classic\" ~ \"Classic\"",
+      "same year: 2010",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Agos 2025#13",
+    "occurrenceB": "veh_00690:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Nissan",
+      "similar parsed model: \"Versa\" ~ \"Versa\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 2025#11",
+    "occurrenceB": "veh_00690:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Nissan",
+      "similar parsed model: \"Versa\" ~ \"Versa\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "SET 2025#23",
+    "occurrenceB": "SET 2025#10",
+    "tier": 3,
+    "score": 0.4,
+    "reasonsFor": [
+      "same normalized plate: FJK2B63"
+    ],
+    "reasonsAgainst": [
+      "plate matches but parsed brand conflicts: \"Chevrolet\" vs \"Ford\" — treated as a data conflict, not auto-merged"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "OUT 2025#13",
+    "occurrenceB": "veh_00756:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Fit\" ~ \"Fit\"",
+      "same year: 2014",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "OUT 2025#30",
+    "occurrenceB": "veh_00755:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Mobi\" ~ \"Mobi\"",
+      "same year: 2023",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "NOV 2025#19",
+    "occurrenceB": "veh_00777:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Fox\" ~ \"Fox\"",
+      "same year: 2014",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "NOV 2025#21",
+    "occurrenceB": "veh_00779:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Focus\" ~ \"Focus\"",
+      "same year: 2010",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "NOV 2025#25",
+    "occurrenceB": "veh_00781:last_occurrence",
+    "tier": 3,
+    "score": 0.65,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "value changed by 11.0%",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2022 vs 2019",
+      "value moved 11.0% — larger than a typical single-month markdown"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "NOV 2025#25",
+    "occurrenceB": "veh_00796:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2022 vs 2014"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "NOV 2025#30",
+    "occurrenceB": "veh_00755:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Mobi\" ~ \"Mobi\"",
+      "same year: 2023",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "DEZ 2025#12",
+    "occurrenceB": "veh_00795:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Spin\" ~ \"Spin\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2020"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "DEZ 2025#15",
+    "occurrenceB": "veh_00798:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Palio\" ~ \"Palio\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "DEZ 2025#17",
+    "occurrenceB": "veh_00755:last_occurrence",
+    "tier": 3,
+    "score": 0.5,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "value essentially unchanged (3.1% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "model text differs: \"Strada\" vs \"Mobi\"",
+      "year differs: 2014 vs 2023"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "DEZ 2025#19",
+    "occurrenceB": "veh_00777:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Fox\" ~ \"Fox\"",
+      "same year: 2014",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "DEZ 2025#25",
+    "occurrenceB": "veh_00802:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Hyundai",
+      "similar parsed model: \"Hb20\" ~ \"Hb20\"",
+      "same year: 2022",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "DEZ 2025#30",
+    "occurrenceB": "veh_00755:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Mobi\" ~ \"Mobi\"",
+      "same year: 2023",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "jan2026#12",
+    "occurrenceB": "veh_00813:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Spin\" ~ \"Spin\"",
+      "same year: 2016",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "jan2026#17",
+    "occurrenceB": "veh_00777:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Fox\" ~ \"Fox\"",
+      "same year: 2014",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "jan2026#31",
+    "occurrenceB": "veh_00777:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Fox\" ~ \"Fox\"",
+      "value essentially unchanged (2.3% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2013 vs 2014"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "fev2026#7",
+    "occurrenceB": "veh_00777:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Fox\" ~ \"Fox\"",
+      "same year: 2014",
+      "value essentially unchanged (4.6% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "fev2026#14",
+    "occurrenceB": "veh_00835:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Fiesta\" ~ \"Fiesta\"",
+      "same year: 2011",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "fev2026#32",
+    "occurrenceB": "veh_00857:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2014 vs 2019",
+      "value changed by 22.3% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "mar2026#7",
+    "occurrenceB": "veh_00777:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Fox\" ~ \"Fox\"",
+      "same year: 2014",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "mar2026#14",
+    "occurrenceB": "veh_00857:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+      "same year: 2019",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "mar2026#19",
+    "occurrenceB": "veh_00864:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+      "same year: 2014",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "mar2026#20",
+    "occurrenceB": "veh_00865:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Uno\" ~ \"Uno\"",
+      "same year: 2011",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "mar2026#24",
+    "occurrenceB": "veh_00848:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Siena\" ~ \"Siena\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2014 vs 2016"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "mar2026#25",
+    "occurrenceB": "veh_00848:last_occurrence",
+    "tier": 3,
+    "score": 0.5,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "value essentially unchanged (2.2% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "model text differs: \"Palio\" vs \"Siena\"",
+      "year differs: 2015 vs 2016"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "mar2026#34",
+    "occurrenceB": "veh_00777:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Spacefox\" ~ \"Fox\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2018 vs 2014"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "mar2026#36",
+    "occurrenceB": "veh_00835:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Ford",
+      "similar parsed model: \"Fiesta\" ~ \"Fiesta\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2011"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "abril2026#27",
+    "occurrenceB": "veh_00884:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Logan\" ~ \"Logan\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "abril2026#33",
+    "occurrenceB": "veh_00890:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Spacefox\" ~ \"Spacefox\"",
+      "same year: 2018",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "abril2026#33",
+    "occurrenceB": "veh_00777:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Volkswagen",
+      "similar parsed model: \"Spacefox\" ~ \"Fox\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2018 vs 2014",
+      "value changed by 38.2% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "abril2026#39",
+    "occurrenceB": "veh_00911:last_occurrence",
+    "tier": 3,
+    "score": 0.5,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "value essentially unchanged (3.1% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "model text differs: \"Cruze\" vs \"Onix\"",
+      "year differs: 2013 vs 2023"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "abril2026#40",
+    "occurrenceB": "veh_00905:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Toyota",
+      "similar parsed model: \"Etios\" ~ \"Etios\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2014 vs 2018"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Maio2026#11",
+    "occurrenceB": "veh_00904:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Montana\" ~ \"Montana\"",
+      "same year: 2025",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Maio2026#12",
+    "occurrenceB": "veh_00905:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Toyota",
+      "similar parsed model: \"Etios\" ~ \"Etios\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Maio2026#38",
+    "occurrenceB": "veh_00926:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Jeep",
+      "similar parsed model: \"Renegade\" ~ \"Renegade\"",
+      "same year: 2021",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "Maio2026#39",
+    "occurrenceB": "veh_00927:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Cruze\" ~ \"Cruze\"",
+      "same year: 2013",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "Maio2026#43",
+    "occurrenceB": "veh_00942:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Fiat",
+      "similar parsed model: \"Uno\" ~ \"Uno\"",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2016 vs 2021"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUNHO 2026#9",
+    "occurrenceB": "veh_00941:last_occurrence",
+    "tier": 3,
+    "score": 0.6,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Onix\" ~ \"Onix\"",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "year differs: 2015 vs 2023"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JUNHO 2026#11",
+    "occurrenceB": "veh_00904:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Montana\" ~ \"Montana\"",
+      "same year: 2025",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JUNHO 2026#12",
+    "occurrenceB": "veh_00905:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Toyota",
+      "similar parsed model: \"Etios\" ~ \"Etios\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JUNHO 2026#39",
+    "occurrenceB": "veh_00947:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Jeep",
+      "similar parsed model: \"Renegade\" ~ \"Renegade\"",
+      "same year: 2021",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JUNHO 2026#40",
+    "occurrenceB": "veh_00927:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Cruze\" ~ \"Cruze\"",
+      "same year: 2013",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JULHO 2026#11",
+    "occurrenceB": "veh_00904:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Montana\" ~ \"Montana\"",
+      "same year: 2025",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JULHO 2026#12",
+    "occurrenceB": "veh_00905:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Toyota",
+      "similar parsed model: \"Etios\" ~ \"Etios\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JULHO 2026#14",
+    "occurrenceB": "veh_00962:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Civic\" ~ \"Civic\"",
+      "same year: 2006",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JULHO 2026#15",
+    "occurrenceB": "veh_00965:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JULHO 2026#15",
+    "occurrenceB": "veh_00978:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "JULHO 2026#29",
+    "occurrenceB": "veh_00947:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Jeep",
+      "similar parsed model: \"Renegade\" ~ \"Renegade\"",
+      "same year: 2021",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "JULHO 2026#30",
+    "occurrenceB": "veh_00927:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Cruze\" ~ \"Cruze\"",
+      "same year: 2013",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "AGO 2026#11",
+    "occurrenceB": "veh_00904:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Montana\" ~ \"Montana\"",
+      "same year: 2025",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "AGO 2026#12",
+    "occurrenceB": "veh_00905:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Toyota",
+      "similar parsed model: \"Etios\" ~ \"Etios\"",
+      "same year: 2018",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "AGO 2026#14",
+    "occurrenceB": "veh_00962:last_occurrence",
+    "tier": 3,
+    "score": 0.8,
+    "reasonsFor": [
+      "same parsed brand: Honda",
+      "similar parsed model: \"Civic\" ~ \"Civic\"",
+      "same year: 2006",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [
+      "value changed by 36.9% — too large to be confident"
+    ],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "AGO 2026#15",
+    "occurrenceB": "veh_00978:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the same month sheet"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "AGO 2026#15",
+    "occurrenceB": "veh_00981:last_occurrence",
+    "tier": 3,
+    "score": 0.75,
+    "reasonsFor": [
+      "same parsed brand: Renault",
+      "similar parsed model: \"Sandero\" ~ \"Sandero\"",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "candidate_review",
+    "autoMatchAllowed": false
+  },
+  {
+    "occurrenceA": "AGO 2026#29",
+    "occurrenceB": "veh_00947:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Jeep",
+      "similar parsed model: \"Renegade\" ~ \"Renegade\"",
+      "same year: 2021",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  },
+  {
+    "occurrenceA": "AGO 2026#30",
+    "occurrenceB": "veh_00927:last_occurrence",
+    "tier": 2,
+    "score": 0.9500000000000001,
+    "reasonsFor": [
+      "same parsed brand: Chevrolet",
+      "similar parsed model: \"Cruze\" ~ \"Cruze\"",
+      "same year: 2013",
+      "value essentially unchanged (0.0% difference)",
+      "appears in the consecutive month"
+    ],
+    "reasonsAgainst": [],
+    "suggestedDecision": "auto_match",
+    "autoMatchAllowed": true
+  }
+]

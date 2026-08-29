@@ -38,3 +38,7 @@ blob-report
 # Local-only Postgres cluster used to validate migrations without Docker
 # (see ARCHITECTURE.md — never a substitute for the real Supabase project)
 .local-pg/
+
+# The legacy spreadsheet itself is never committed — only the pipeline code
+# and its generated artifacts (artifacts/migration/) are.
+data/source/
