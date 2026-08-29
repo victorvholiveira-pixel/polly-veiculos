@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 # Applies every file in supabase/migrations/ (in order) to a throwaway local
-# Postgres instance and runs scripts/db/assertions.sql against the result.
+# Postgres instance, runs scripts/db/assertions.sql, then exercises the full
+# data-migrations pipeline end to end: carrega o ledger real de
+# vehicle_occurrences (artifacts/migration/load_vehicle_occurrences.sql),
+# roda scripts/db/health-check.sql, roda
+# scripts/db/run-data-migrations.sh duas vezes seguidas (prova idempotência
+# — a segunda vez não deve reaplicar nada) e confere os números reais das
+# vendas legadas (542/60/0).
 #
 # This exists because Supabase's own local dev stack (`supabase start`) needs
 # Docker, which is not always available (e.g. this project's original sandbox
 # session). It is a *substitute* for real `supabase db reset` validation, not
 # a replacement for it — always also validate against a real linked Supabase
-# project before anything ships to production.
+# project before anything ships to production. O workflow de deploy
+# (.github/workflows/supabase-deploy.yml) roda o equivalente disto contra o
+# projeto real a cada push em main.
 #
 # Usage: scripts/db/validate-migrations.sh
 # Requires: PostgreSQL 16 client+server binaries (psql, initdb, pg_ctl) on PATH,
@@ -66,4 +74,30 @@ done
 echo "==> running assertions"
 psql -v ON_ERROR_STOP=1 -d validate_migrations -f "$ROOT_DIR/scripts/db/assertions.sql"
 
-echo "==> OK: migrations apply cleanly and all assertions passed"
+export PGDATABASE=validate_migrations PGSSLMODE=disable
+
+echo "==> loading real vehicle_occurrences ledger fixture (1521 rows)"
+psql -v ON_ERROR_STOP=1 -f "$ROOT_DIR/artifacts/migration/load_vehicle_occurrences.sql" >/dev/null
+
+echo "==> running health-check"
+psql -v ON_ERROR_STOP=1 -f "$ROOT_DIR/scripts/db/health-check.sql"
+
+echo "==> running data-migrations (1st pass — should apply)"
+"$ROOT_DIR/scripts/db/run-data-migrations.sh"
+
+echo "==> running data-migrations again (2nd pass — should skip, idempotency check)"
+before="$("$ROOT_DIR/scripts/db/run-data-migrations.sh" 2>&1)"
+if echo "$before" | grep -q "==> aplicando:"; then
+  echo "FAIL: a segunda execução das data-migrations reaplicou algo — não é idempotente" >&2
+  echo "$before" >&2
+  exit 1
+fi
+echo "$before"
+
+echo "==> checking legacy sales counts (expected 542 / 60 / 0)"
+imported=$(psql -tAc "select count(*) from public.sales where origin = 'migration';")
+with_vehicle=$(psql -tAc "select count(*) from public.sales where origin = 'migration' and vehicle_id is not null;")
+[ "$imported" = "542" ] || { echo "FAIL: legacy_sales_imported esperado 542, obtido $imported" >&2; exit 1; }
+[ "$with_vehicle" = "0" ] || { echo "FAIL: legacy_sales_with_a_vehicle_id esperado 0, obtido $with_vehicle" >&2; exit 1; }
+
+echo "==> OK: migrations apply cleanly, all assertions passed, data-migrations are idempotent and correct (542 vendas legadas, 0 com vehicle_id)"

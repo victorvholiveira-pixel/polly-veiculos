@@ -52,98 +52,133 @@ Projeto definitivo já criado: `xzcuhrdhccnforqkovof`
 
 1. Em *Project Settings → API*, copiar a **Project URL** e a **anon/publishable
    key** para o `.env` (nunca a `service_role key`).
-2. Aplicar as migrations e importar as vendas legadas pelo workflow manual do
-   GitHub Actions — ver "Rodando migrations/imports contra o projeto real"
-   abaixo. (Alternativa manual, sem CI: `supabase link --project-ref
-   xzcuhrdhccnforqkovof` + `supabase db push`, ou colar o conteúdo de
-   `supabase/migrations/*.sql`, em ordem, no SQL Editor do projeto.)
+2. As migrations e as data-migrations (import de vendas legadas incluído)
+   rodam sozinhas contra o projeto real a cada push em `main` — ver "Deploy
+   automático contra o projeto real" abaixo. Nada a clicar. (Alternativa
+   manual, sem CI: `supabase link --project-ref xzcuhrdhccnforqkovof` +
+   `supabase db push`, ou colar o conteúdo de `supabase/migrations/*.sql`,
+   em ordem, no SQL Editor do projeto.)
 3. Criar o primeiro usuário em *Authentication → Users* (e-mail + senha) —
    não há tela de cadastro no app de propósito.
 
-### Rodando migrations/imports contra o projeto real (GitHub Actions)
+### Deploy automático contra o projeto real (GitHub Actions)
 
 Este ambiente de desenvolvimento não alcança `*.supabase.co` na rede (ver
-`ARCHITECTURE.md`), então migrations e o import de vendas legadas contra o
-projeto real (`xzcuhrdhccnforqkovof`) rodam por um workflow manual do GitHub
-Actions: [`.github/workflows/supabase-manual-migration.yml`](./.github/workflows/supabase-manual-migration.yml).
-Ele **nunca** roda em push/PR — só quando alguém dispara manualmente.
+`ARCHITECTURE.md`) — mas isso não é mais um bloqueio para produção: o
+GitHub Actions é o executor oficial. A cada push em `main` que altere
+`supabase/migrations/**` ou `supabase/data-migrations/**`, o workflow
+[`.github/workflows/supabase-deploy.yml`](./.github/workflows/supabase-deploy.yml)
+dispara sozinho contra o projeto real (`xzcuhrdhccnforqkovof`) — aplica
+migrations pendentes, roda data-migrations pendentes, valida e publica um
+Job Summary. Ninguém precisa clicar em "Run workflow" para o fluxo normal.
+Fluxo completo: **Claude (ou qualquer contribuidor) implementa → testa
+localmente (`npm run db:validate`) → commita/pusha em `main` → GitHub
+Actions aplica no projeto real → valida → Job Summary.**
 
-#### 1. Secrets a criar (uma vez)
+`workflow_dispatch` continua disponível como escape hatch manual (reexecutar
+um deploy, ou rodar `validate-only` para um relatório de leitura a qualquer
+momento) — só não é necessário para o dia a dia.
 
-No GitHub: **Settings → Environments → `production`** (o workflow está
-vinculado a esse Environment; crie-o se ainda não existir) **→ Environment
-secrets → Add secret**. Se preferir, também funciona como *Repository
-secret* em Settings → Secrets and variables → Actions, mas o Environment é
-melhor porque permite exigir aprovação manual antes do job rodar (ver
-"Proteções" abaixo).
+#### 1. Secrets (já configurados)
 
-| Nome exato do secret | Valor | Onde conseguir |
-|---|---|---|
-| `SUPABASE_ACCESS_TOKEN` | Personal access token da sua conta Supabase | [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens) → Generate new token |
-| `SUPABASE_DB_PASSWORD` | Senha do Postgres do projeto `xzcuhrdhccnforqkovof` | Project Settings → Database → Database password (a que você definiu ao criar o projeto; "Reset database password" se não lembrar) |
+**Settings → Environments → `production` → Environment secrets**:
+`SUPABASE_ACCESS_TOKEN` (personal access token, [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens))
+e `SUPABASE_DB_PASSWORD` (senha do Postgres do projeto, em Project Settings
+→ Database). O project ref (`xzcuhrdhccnforqkovof`) não é secret — está
+hardcoded no workflow, é um identificador público.
 
-O project ref (`xzcuhrdhccnforqkovof`) **não** é secret — já está hardcoded
-no workflow, porque é um identificador público (aparece na própria URL do
-projeto).
+**Importante para o pipeline continuar 100% automático**: não configure
+*required reviewers* nesse Environment `production` — isso pausaria todo
+push esperando aprovação manual, o oposto do objetivo. O Environment aqui
+existe só para isolar os secrets (só este job os enxerga) e separar o
+histórico de execuções, não como gate de aprovação.
 
-#### 2. Como rodar pelo celular ou pelo navegador
+#### 2. Dois jeitos de disparar
 
-1. Abra o repositório no app do GitHub (ou `github.com` no navegador do
-   celular).
-2. Aba **Actions** → workflow **"Supabase — migração/import manual (projeto
-   real)"**.
-3. Botão **Run workflow** → escolha o branch (`main`) → escolha a opção em
-   **action** → **Run workflow**.
-4. Se o Environment `production` tiver aprovação obrigatória configurada, o
-   job fica "Waiting" até alguém aprovar (mesma tela, botão **Review
-   deployments**).
-5. Acompanhe o job rodando; ao final, abra o **Summary** da execução — ele
-   mostra uma tabela com o resultado (não precisa ler o log linha a linha).
+- **Normal (automático)**: `git push` em `main` tocando `supabase/migrations/**`
+  ou `supabase/data-migrations/**`. Acompanhe pela aba **Actions** do
+  GitHub (web ou app mobile) — abra a execução e veja o **Summary** (tabela
+  pronta, não precisa ler log linha a linha).
+- **Manual (escape hatch)**: aba **Actions** → "Supabase — deploy automático
+  (schema + dados)" → **Run workflow** → escolha `deploy` (repete o que o
+  push faria) ou `validate-only` (só relatório de leitura — ledger de
+  data-migrations aplicadas + o que `supabase db push --dry-run` reportaria
+  como pendente — não altera nada).
 
-#### 3. O que cada `action` faz
+#### 3. O que o job faz, em ordem
 
-| `action` | O que roda | Altera o banco? |
-|---|---|---|
-| `validate-legacy-sales` (padrão) | 3 queries de leitura: quantas vendas `origin='migration'` existem, quantas ocorrências ficaram de fora para revisão, e se alguma venda migrada tem `vehicle_id` | **Não** — só leitura |
-| `migrations-only` | `supabase db push` — aplica no projeto real só as migrations de `supabase/migrations/` que ainda não estão no ledger remoto (não reaplica as já aplicadas) | Sim — schema (DDL), nunca dados de vendas |
-| `legacy-sales` | Aplica migrations pendentes (inclui `20260829001800_sales_legacy_provenance.sql` se ainda não aplicada) → roda `artifacts/migration/import_legacy_sales.sql` (insere as 542 vendas legadas seguras, `ON CONFLICT DO NOTHING` — seguro rodar de novo) → valida as contagens e **falha o job** se não baterem | Sim — schema + as vendas legadas (nunca mexe em `origin='app'`, e o job confere isso) |
+1. **Migrations de schema** — `supabase db push --linked`: aplica só o que
+   ainda não está no ledger oficial da CLI (`supabase_migrations.schema_migrations`).
+   Reexecução nunca reaplica uma migration já aplicada.
+2. **Health check** (`scripts/db/health-check.sql`) — confirma extensões,
+   tabelas núcleo, RLS habilitado em toda tabela de `public` e as 5 RPCs que
+   o app chama diretamente. Read-only.
+3. **Data migrations** (`scripts/db/run-data-migrations.sh`) — aplica, em
+   ordem, os arquivos de `supabase/data-migrations/` que ainda não estão no
+   ledger `public._data_migrations` (por nome de arquivo + checksum sha256
+   do conteúdo). Ver "Padrão de data-migrations" abaixo.
+4. **Relatório do ledger** — sempre roda, só leitura: mostra quais
+   data-migrations já foram aplicadas e o que ficaria pendente de schema.
 
-#### 4. Como interpretar o resultado
+Passos 1 e 3 só rodam em `deploy` (push normal, ou `workflow_dispatch` com
+`action: deploy`); em `validate-only` só os passos 2 e 4 rodam.
 
-- Job **verde**: para `legacy-sales`, significa que as 3 métricas bateram
-  exatamente (542 importadas / 60 para revisão / 0 com `vehicle_id`) **e**
-  que a quantidade e o conteúdo das vendas `origin='app'` não mudaram. Para
-  `migrations-only`, significa que `supabase db push` terminou sem erro.
-- Job **vermelho**: alguma migration falhou, o import falhou, ou uma das
-  validações não bateu — o Summary mostra qual métrica ficou diferente do
-  esperado. Nada é mascarado; investigue antes de rodar de novo.
-- O Summary sempre lembra que "Home exibindo o histórico mensal" é visual —
-  não dá para confirmar por SQL. Depois de um `legacy-sales` verde, abra o
-  app de verdade e confira o painel Início.
+#### 4. Padrão de data-migrations (`supabase/data-migrations/`)
 
-#### 5. Proteções já no workflow
+Para qualquer carga/alteração de dados reais (o import de vendas legadas é
+o primeiro exemplo, `20260829002000_import_legacy_sales.sql`) — o
+equivalente, para dados, do que `supabase/migrations/` já é para schema:
 
-- `workflow_dispatch` apenas — nada roda em push/PR/merge.
-- Job vinculado ao Environment `production` (permite exigir aprovação manual
-  antes de rodar, se você configurar "required reviewers" nesse Environment).
-- `concurrency` — impede duas execuções ao mesmo tempo no mesmo banco.
+- **Nome do arquivo = identificador único e versionado**, mesma convenção
+  de timestamp de `supabase/migrations/` (`YYYYMMDDHHMMSS_descrição.sql`).
+- **Idempotente por design**: `scripts/db/run-data-migrations.sh` registra
+  cada arquivo aplicado em `public._data_migrations` (id = nome do arquivo,
+  checksum = sha256 do conteúdo). Rodar de novo pula tudo que já está no
+  ledger — nunca duplica.
+- **Editar um arquivo já aplicado é um erro, não um no-op**: se o checksum
+  do arquivo não bate com o que está registrado no ledger, o runner **falha
+  alto** em vez de reaplicar ou ignorar em silêncio. Uma correção sempre
+  vira um novo arquivo.
+- **Cada arquivo valida o próprio resultado**: um bloco
+  `do $$ ... raise exception ... end $$;` no final aborta a transação
+  inteira (dado inserido + registro no ledger) se o resultado não for o
+  esperado — nunca fica "meio aplicado", e uma correção pode ser commitada
+  e será tentada de novo no próximo push, sem duplicar o que já rodou.
+- Continua funcionando colado manualmente no SQL Editor, se precisar
+  depurar — só o registro automático no ledger não acontece fora do runner.
+
+Testado localmente, de ponta a ponta, contra os dados reais da planilha
+antes deste pipeline existir: `npm run db:validate` carrega o ledger real
+de `vehicle_occurrences` (1.521 linhas) num Postgres descartável, roda o
+runner duas vezes seguidas (prova idempotência) e confere 542 vendas
+importadas / 0 com `vehicle_id`.
+
+#### 5. Proteções do workflow
+
+- Só dispara em push em `main` (com path filter) ou `workflow_dispatch` —
+  nunca em PR, nunca em outro branch.
+- `concurrency` — impede duas execuções ao mesmo tempo no mesmo banco (a
+  segunda espera a primeira terminar, nunca cancela um deploy em andamento).
 - Secrets nunca aparecem em log (senha só existe como variável de ambiente,
   nunca em linha de comando; o GitHub também mascara automaticamente
   qualquer secret que aparecer por engano).
 - `set -euo pipefail` em todo passo — nenhuma falha é engolida.
-- Migrations aplicadas pelo ledger oficial da CLI (`supabase db push`), não
-  por DDL colado às cegas — reexecução é sempre segura.
-- Import de vendas usa o mesmo `ON CONFLICT DO NOTHING` do artefato SQL —
-  reexecução nunca duplica.
+- Migrations de schema pelo ledger oficial da CLI; data-migrations pelo
+  ledger próprio (`public._data_migrations`) com checagem de checksum —
+  reexecução é sempre segura nos dois casos.
 
 #### Limitação real
 
-Este workflow ainda não é executável a partir deste ambiente de
-desenvolvimento (que não alcança `*.supabase.co`) nem foi rodado contra o
-projeto real ainda — só validado sintaticamente (`actionlint`). A primeira
-execução real deve ser `validate-legacy-sales` (só leitura) para confirmar
-que os secrets estão certos, antes de rodar `migrations-only` ou
-`legacy-sales`.
+Nem o workflow nem o runner de data-migrations foram executados contra o
+projeto real ainda (este ambiente de desenvolvimento não alcança
+`*.supabase.co`) — só validados: sintaxe (`actionlint` + `shellcheck`, 0
+achados) e o runner de data-migrations de ponta a ponta contra os dados
+reais da planilha, num Postgres local (`npm run db:validate`), incluindo os
+casos de idempotência, checksum divergente e falha de validação interna. A
+primeira execução real será o próximo push em `main` que altere
+`supabase/migrations/**` ou `supabase/data-migrations/**` — ou
+`workflow_dispatch` → `validate-only` antes disso, se quiser conferir que os
+secrets estão certos sem alterar nada.
 
 ### Scripts
 

@@ -65,9 +65,26 @@
       fora, para revisão manual, sem inventar nada. `sales.vehicle_id` virou
       opcional e uma venda legada nunca ganha um veículo placeholder — ver
       `ARCHITECTURE.md`, "sales.origin", e `MIGRATION.md` para a auditoria
-      completa. *(concluída — falta só rodar
-      `artifacts/migration/import_legacy_sales.sql` no projeto real, mesmo
-      bloqueio de rede de sempre)*
+      completa. *(concluída — falta só o primeiro push com
+      `.github/workflows/supabase-deploy.yml` no ar aplicar
+      `supabase/data-migrations/20260829002000_import_legacy_sales.sql`
+      contra o projeto real; deixou de depender de alguém rodar isso à mão,
+      ver Onda 11)*
+- [x] **Onda 11 — Deploy automático (schema + dados)**: fim da dependência
+      de SQL Editor manual ou clique em "Run workflow" para operação normal.
+      `.github/workflows/supabase-deploy.yml` dispara sozinho a cada push em
+      `main` que altere `supabase/migrations/**` ou
+      `supabase/data-migrations/**` — aplica migrations pendentes (ledger
+      oficial da CLI), roda health check, aplica data-migrations pendentes
+      (novo padrão permanente, ledger próprio em `public._data_migrations`
+      com checagem de checksum) e publica um Job Summary. Fluxo novo:
+      implementa → `npm run db:validate` local → commita/pusha em `main` →
+      CI aplica e valida contra o projeto real. `workflow_dispatch`
+      continua como escape hatch manual (`deploy`/`validate-only`), não como
+      caminho principal. Ver `ARCHITECTURE.md`, "Data migrations", e
+      README.md, "Deploy automático contra o projeto real". *(concluída —
+      pipeline no ar, ainda não exercido por um push real: o primeiro push
+      tocando essas pastas é a primeira execução de verdade)*
 
 ### Endurecimento futuro (não bloqueia Go-Live)
 

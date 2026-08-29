@@ -126,8 +126,9 @@ Duas constraints garantem que uma venda nunca fica em um estado ambíguo:
 `sales_migration_requires_occurrence` (origin='migration' →
 source_occurrence_id obrigatório) — nunca os dois, nunca nenhum dos dois.
 `sales_source_occurrence_uk` (unique) é o que torna o importador idempotente:
-rodar `artifacts/migration/import_legacy_sales.sql` mais de uma vez nunca
-duplica uma venda.
+rodar `supabase/data-migrations/20260829002000_import_legacy_sales.sql` mais
+de uma vez nunca duplica uma venda (e o ledger de data-migrations, ver
+"Data migrations" abaixo, nem chega a tentar rodar de novo).
 
 `sales_one_active_per_vehicle_uk` (índice único parcial em `vehicle_id`)
 não precisou mudar — Postgres nunca considera dois `NULL` iguais num índice
@@ -189,35 +190,90 @@ sugestão de preenchimento, nunca aplicada sozinha.
 **placeholders** (monograma "P"), pendentes de assets oficiais — decisão do
 usuário, não algo para inventar. Manifest em `pt-BR`, `display: standalone`.
 
-## Bloqueio de acesso real ao Supabase
+## Bloqueio de acesso real ao Supabase (só deste ambiente de desenvolvimento)
 
-Confirmado repetidamente, incluindo nesta onda: este ambiente **não
-consegue alcançar `api.supabase.com` nem `*.supabase.co` na rede** — o
-proxy de saída rejeita a conexão por política da organização (mesmo
-resultado para `vercel.com`, `example.com` e outros domínios fora de uma
-lista pequena permitida: registro npm, GitHub, PyPI, API da Anthropic). Não
-é uma questão de falta de credencial — mesmo com uma `service_role key` em
-mãos, não haveria como completar a chamada de rede daqui. Isso é diferente
-do bloqueio original das Ondas 1/3/6 (que era só falta de credencial/CLI
-autenticada) — é um bloqueio de rede do ambiente de execução, então só pode
-ser resolvido rodando as migrations/testes de fora deste ambiente (a
-própria máquina do usuário, ou CI do GitHub).
+Confirmado repetidamente: este ambiente de desenvolvimento (onde o Claude
+roda) **não consegue alcançar `api.supabase.com` nem `*.supabase.co` na
+rede** — o proxy de saída rejeita a conexão por política da organização
+(mesmo resultado para `vercel.com`, `example.com` e outros domínios fora de
+uma lista pequena permitida: registro npm, GitHub, PyPI, API da Anthropic).
+Não é uma questão de falta de credencial — mesmo com uma `service_role key`
+em mãos, não haveria como completar a chamada de rede daqui.
+
+Isso deixou de ser um bloqueio de produção a partir da Onda 11: o GitHub
+Actions — que roda em runners fora deste ambiente e não tem essa
+restrição — é o executor oficial de deploy contra o projeto real. Ver
+`.github/workflows/supabase-deploy.yml` e README.md, "Deploy automático
+contra o projeto real". O fluxo passou a ser: implementa e valida aqui
+(sempre contra Postgres local, nunca contra o projeto real, por este
+bloqueio) → commita/pusha em `main` → o pipeline de CI aplica e valida
+contra o projeto real, sem depender deste ambiente alcançar
+`*.supabase.co` em nenhum momento.
 
 ## Validação das migrations sem Docker
 
-`scripts/db/validate-migrations.sh`:
+`scripts/db/validate-migrations.sh` (rodado tanto localmente quanto — na
+prática, com os mesmos passos — pelo pipeline de CI antes de considerar um
+deploy bem-sucedido):
 
 1. Sobe um Postgres 16 local descartável (via `initdb`/`pg_ctl`, sem Docker).
 2. Aplica `scripts/db/stub-auth.sql` — um stub mínimo do schema `auth` e das
    roles `anon`/`authenticated`/`service_role` que um projeto Supabase real
    já fornece.
 3. Aplica todos os arquivos de `supabase/migrations/` em ordem.
-4. Roda `scripts/db/assertions.sql` — 27 asserções testando constraints,
+4. Roda `scripts/db/assertions.sql` — 33 asserções testando constraints,
    RLS por papel e o comportamento das 5 RPCs com inserts reais.
+5. Carrega o ledger real de `vehicle_occurrences`
+   (`artifacts/migration/load_vehicle_occurrences.sql`, 1.521 linhas) e roda
+   `scripts/db/health-check.sql` + `scripts/db/run-data-migrations.sh` duas
+   vezes seguidas, confirmando idempotência e as contagens reais (542
+   vendas legadas, 0 com `vehicle_id`) — ver "Data migrations" abaixo.
 
 Isso é um **substituto**, não uma validação equivalente a rodar contra um
-projeto Supabase real — sempre validar de novo contra o projeto real antes
-de qualquer ida a produção (ver `GO_LIVE_CHECKLIST.md`).
+projeto Supabase real — o pipeline de CI sempre roda de novo contra o
+projeto real antes de qualquer coisa ser considerada em produção (ver
+`GO_LIVE_CHECKLIST.md`).
+
+## Data migrations
+
+`supabase/migrations/` versiona *schema* (DDL) e é gerenciado pelo ledger
+oficial da Supabase CLI (`supabase_migrations.schema_migrations`).
+`supabase/data-migrations/` é o padrão equivalente para *dados* — cargas ou
+alterações de linhas reais que não fazem sentido como DDL versionado
+(o import de vendas legadas, `20260829002000_import_legacy_sales.sql`, é o
+primeiro exemplo).
+
+Por que um mecanismo separado em vez de só colocar tudo em
+`supabase/migrations/`: `supabase db push` (a ferramenta certa para DDL) só
+sabe aplicar/pular arquivo inteiro contra o ledger da CLI — não dá para uma
+migration validar o próprio resultado e abortar sem "consumir" a entrada do
+ledger se algo der errado. Para dados reais (onde um resultado errado é bem
+mais caro que schema errado), queríamos: id único e versionado por
+convenção de nome, idempotência garantida por um ledger próprio (não só por
+`ON CONFLICT` dentro do SQL), detecção de arquivo editado depois de
+aplicado, e uma migration de dados que só é considerada "aplicada" se a
+própria validação dela passar.
+
+Como funciona (`scripts/db/run-data-migrations.sh`, chamado tanto pelo CI
+quanto por `npm run db:validate`):
+
+- Ledger em `public._data_migrations` (RLS habilitado, sem nenhuma policy —
+  só o role `postgres`/superuser que o runner usa enxerga essa tabela;
+  criada por `supabase/migrations/20260829001900_data_migrations_ledger.sql`,
+  então entra no schema normalmente via `db push`).
+- Para cada arquivo em `supabase/data-migrations/`, em ordem: se o nome já
+  está no ledger com o mesmo checksum (sha256 do conteúdo), pula. Se está no
+  ledger com checksum **diferente**, falha alto — nunca reaplica nem ignora
+  em silêncio um arquivo editado depois de já ter rodado; a correção certa é
+  sempre um novo arquivo.
+- Se não está no ledger, roda o arquivo inteiro dentro de uma transação e só
+  registra no ledger (mesma transação) se ele chegar ao fim sem erro. Cada
+  arquivo é responsável por validar o próprio resultado — ver o bloco
+  `do $$ ... raise exception ... end $$;` no fim de
+  `20260829002000_import_legacy_sales.sql` — então uma falha de validação
+  aborta a transação inteira (dado + registro no ledger juntos) e o mesmo
+  arquivo será tentado de novo automaticamente no próximo deploy, sem
+  duplicar o que já rodou com sucesso antes dessa tentativa.
 
 ## Bundle
 

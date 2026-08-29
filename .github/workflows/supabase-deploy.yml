@@ -1,0 +1,166 @@
+name: Supabase — deploy automático (schema + dados)
+
+# Executor oficial de produção do Polly: dispara sozinho a cada push em
+# `main` que toque em supabase/migrations/** ou supabase/data-migrations/**
+# — não precisa clicar em nada para a operação normal (aplicar migrations,
+# rodar uma nova data-migration idempotente). `workflow_dispatch` continua
+# disponível só como escape hatch manual (reexecutar, ou rodar
+# `validate-only` sem esperar um push).
+#
+# Nunca roda em PR nem em outro branch — só push em main.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "supabase/migrations/**"
+      - "supabase/data-migrations/**"
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "deploy = aplica tudo que estiver pendente. validate-only = só relatório de leitura, não altera nada."
+        required: true
+        type: choice
+        default: deploy
+        options:
+          - deploy
+          - validate-only
+
+permissions:
+  contents: read
+
+# Duas execuções nunca mexem no mesmo banco ao mesmo tempo — mesmo se dois
+# pushes em main acontecerem em sequência rápida, o segundo espera o
+# primeiro terminar (nunca cancela um deploy em andamento).
+concurrency:
+  group: supabase-deploy-xzcuhrdhccnforqkovof
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: >-
+      ${{ github.event_name == 'push' && 'deploy (push em main)' || github.event.inputs.action }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Vinculado ao Environment "production". IMPORTANTE: para este pipeline
+    # continuar 100% automático (sem clique nenhum a cada push), este
+    # Environment NÃO deve ter "required reviewers" configurado — isso
+    # pausaria todo push esperando aprovação manual, o oposto do objetivo.
+    # Ele existe aqui por causa do isolamento de secrets (só jobs que
+    # declaram este Environment enxergam SUPABASE_ACCESS_TOKEN/
+    # SUPABASE_DB_PASSWORD) e do histórico de execuções separado, não para
+    # gate de aprovação — ver README.md, "Deploy automático contra o
+    # projeto real".
+    environment: production
+    env:
+      # Não é segredo: identificador público do projeto (já aparece na URL
+      # `https://xzcuhrdhccnforqkovof.supabase.co`). Só os dois abaixo são
+      # credenciais reais.
+      PROJECT_REF: xzcuhrdhccnforqkovof
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar Supabase CLI (ação oficial)
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Instalar cliente psql
+        run: |
+          set -euo pipefail
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends postgresql-client
+
+      # Autentica com SUPABASE_ACCESS_TOKEN (mecanismo oficial da CLI para
+      # CI) e liga este checkout ao projeto real via project-ref + senha do
+      # Postgres. Se o token, o project-ref ou a senha estiverem errados, o
+      # job falha aqui — antes de qualquer SQL rodar.
+      - name: Autenticar e conectar ao projeto Supabase real
+        run: |
+          set -euo pipefail
+          supabase link --project-ref "$PROJECT_REF" --password "$SUPABASE_DB_PASSWORD"
+
+      - name: Exportar variáveis de conexão Postgres (para os passos com psql)
+        run: |
+          set -euo pipefail
+          {
+            echo "PGHOST=db.${PROJECT_REF}.supabase.co"
+            echo "PGPORT=5432"
+            echo "PGUSER=postgres"
+            echo "PGDATABASE=postgres"
+            echo "PGSSLMODE=require"
+          } >> "$GITHUB_ENV"
+          echo "PGPASSWORD=$SUPABASE_DB_PASSWORD" >> "$GITHUB_ENV"
+
+      # 1) Migrations de schema — só as que ainda não estão no ledger oficial
+      # da CLI (supabase_migrations.schema_migrations). Reexecução nunca
+      # reaplica uma já aplicada.
+      - name: Aplicar migrations de schema pendentes
+        if: github.event_name == 'push' || github.event.inputs.action == 'deploy'
+        run: |
+          set -euo pipefail
+          supabase db push --linked | tee /tmp/db-push.log
+          {
+            echo "### Migrations de schema"
+            echo ""
+            echo '```'
+            cat /tmp/db-push.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # 2) Health check pós-schema — read-only, mas roda sempre (também em
+      # validate-only) porque é barato e útil como sinal de saúde geral.
+      - name: Health check pós-schema
+        run: |
+          set -euo pipefail
+          psql -v ON_ERROR_STOP=1 -f scripts/db/health-check.sql | tee /tmp/health-check.log
+          {
+            echo "### Health check"
+            echo ""
+            echo '```'
+            cat /tmp/health-check.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # 3) Data migrations — padrão permanente em supabase/data-migrations/.
+      # scripts/db/run-data-migrations.sh só aplica o que ainda não está no
+      # ledger public._data_migrations (por nome de arquivo + checksum);
+      # cada arquivo valida o próprio resultado e aborta a transação (sem
+      # registrar no ledger) se algo não bater — nunca fica "meio aplicado".
+      - name: Aplicar data-migrations pendentes
+        if: github.event_name == 'push' || github.event.inputs.action == 'deploy'
+        run: |
+          set -euo pipefail
+          chmod +x scripts/db/run-data-migrations.sh
+          scripts/db/run-data-migrations.sh | tee /tmp/data-migrations.log
+          {
+            echo "### Data migrations"
+            echo ""
+            echo '```'
+            cat /tmp/data-migrations.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Só leitura, roda sempre: mostra o estado atual do ledger de dados e
+      # das migrations pendentes, sem alterar nada. Em `validate-only` é a
+      # única coisa que este job faz.
+      - name: Relatório do ledger (sempre, só leitura)
+        run: |
+          set -euo pipefail
+          applied=$(psql -tAc "select coalesce(string_agg(id, E'\n' order by id), '(nenhuma)') from public._data_migrations;")
+          pending_schema=$(supabase db push --linked --dry-run 2>&1 || true)
+          {
+            echo "### Ledger de data-migrations aplicadas"
+            echo ""
+            echo '```'
+            echo "$applied"
+            echo '```'
+            echo ""
+            echo "### supabase db push --dry-run (o que ficaria pendente de schema)"
+            echo ""
+            echo '```'
+            echo "$pending_schema"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

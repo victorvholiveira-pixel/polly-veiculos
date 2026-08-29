@@ -10,15 +10,14 @@ depois do detour de Google Apps Script na Onda 7).
       (`npm run db:validate` — via Postgres local, 33/33 asserções; não o
       projeto real ainda)
 - [ ] Migrations aplicadas contra o projeto Supabase real
-      (`xzcuhrdhccnforqkovof`) — **bloqueado neste ambiente**: o proxy de
-      saída rejeita qualquer conexão a `*.supabase.co`/`api.supabase.com`
-      por política da organização, não por falta de credencial (ver
-      `ARCHITECTURE.md`, "Bloqueio de acesso real ao Supabase"). Precisa
-      rodar de fora deste ambiente — a máquina do usuário ou CI. Caminho
-      recomendado agora: workflow manual `.github/workflows/supabase-manual-migration.yml`
-      (`action: migrations-only`, pelo GitHub Actions — ver README.md,
-      "Rodando migrations/imports contra o projeto real"). Ainda não
-      executado contra o projeto real.
+      (`xzcuhrdhccnforqkovof`) — este ambiente de desenvolvimento não
+      alcança `*.supabase.co` na rede (ver `ARCHITECTURE.md`, "Bloqueio de
+      acesso real ao Supabase"), mas **isso não é mais um bloqueio de
+      produção**: `.github/workflows/supabase-deploy.yml` aplica migrations
+      pendentes automaticamente a cada push em `main` que toque
+      `supabase/migrations/**` (ver README.md, "Deploy automático contra o
+      projeto real"). Ainda não executado de verdade — falta o primeiro
+      push com este pipeline no ar.
 - [x] Constraints (checks, unique indexes, FKs) validadas com inserts reais
 - [x] RLS habilitado em todas as tabelas operacionais, testado por papel
       (anon vs. authenticated) com inserts reais, não só leitura do SQL
@@ -49,38 +48,37 @@ depois do detour de Google Apps Script na Onda 7).
       da Supabase Studio pode ter particularidades que não dá para testar
       sem rede real), lotes idempotentes (re-rodar um lote não duplica).
 - [ ] Artefato(s) executado(s) contra o projeto Supabase real
-      (`xzcuhrdhccnforqkovof`) — falta o usuário rodar pelo painel (CSV
-      primeiro; lotes SQL pequenos como alternativa) e confirmar os mesmos
-      counts. Caminho recomendado agora: mesmo workflow manual do GitHub
-      Actions citado acima (dá pra disparar pelo celular, sem precisar
-      colar nada no painel) — ver README.md.
+      (`xzcuhrdhccnforqkovof`) — falta o primeiro push com o pipeline
+      automático no ar (mesmo `.github/workflows/supabase-deploy.yml`
+      citado acima; alternativa manual continua existindo: CSV pelo Table
+      Editor, ou lotes SQL pequenos)
 - [ ] Estoque validado por humano, linha a linha, na Central de Revisão —
       **NÃO** vira estoque oficial automaticamente
 - [ ] Duplicidades tratadas (fila de revisão resolvida ou conscientemente
       deixada pendente)
 - [ ] Comissão: regra de negócio definida com o usuário real (hoje: nenhuma
       regra presumida, ver `MIGRATION.md`)
-- [x] Vendas legadas auditadas e artefato de importação gerado
-      (`artifacts/migration/import_legacy_sales.sql`, Onda 10): das 602
-      ocorrências `sale_classification='sale_detected'`, 542 têm os dois
-      campos obrigatórios de `sales` (data e valor) e um par plausível de
-      data (não-futura) — essas viram `sales.origin='migration'`, sem
-      `vehicle_id`, sem veículo placeholder. As outras 60 (58 sem valor, 2
-      com data de 2028 por erro de digitação na planilha) ficam de fora,
-      para revisão manual — ver `MIGRATION.md`. Validado ponta a ponta
-      contra Postgres 16 local com o ledger real: 542 importadas, 0 com
-      vehicle_id, idempotente ao rodar duas vezes.
-- [ ] Artefato de vendas legadas executado contra o projeto Supabase real
-      (`xzcuhrdhccnforqkovof`) — falta rodar
-      `artifacts/migration/import_legacy_sales.sql` (roda inteiramente a
-      partir do `vehicle_occurrences` já carregado, sem depender de nenhum
-      arquivo externo — só depende do item anterior de carga do ledger já
-      ter rodado). Duas formas: colar no SQL Editor, **ou** disparar o
-      workflow manual `.github/workflows/supabase-manual-migration.yml`
-      com `action: legacy-sales` (aplica a migration
-      `20260829001800_sales_legacy_provenance.sql`, importa e já valida os
-      3 números — 542/60/0 — falhando o job se algum não bater; ver
-      README.md).
+- [x] Vendas legadas auditadas e data-migration criada
+      (`supabase/data-migrations/20260829002000_import_legacy_sales.sql`,
+      Onda 10 — primeira data-migration do padrão permanente descrito em
+      ARCHITECTURE.md): das 602 ocorrências `sale_classification='sale_detected'`,
+      542 têm os dois campos obrigatórios de `sales` (data e valor) e um
+      par plausível de data (não-futura) — essas viram
+      `sales.origin='migration'`, sem `vehicle_id`, sem veículo placeholder.
+      As outras 60 (58 sem valor, 2 com data de 2028 por erro de digitação
+      na planilha) ficam de fora, para revisão manual — ver `MIGRATION.md`.
+      Validado ponta a ponta contra Postgres 16 local com o ledger real,
+      via `scripts/db/run-data-migrations.sh` (o mesmo runner que o CI
+      usa): 542 importadas, 0 com vehicle_id, idempotente ao rodar duas
+      vezes, e a validação interna do arquivo (bloco `raise exception`)
+      testada tanto no caminho feliz quanto abortando de propósito.
+- [ ] Data-migration de vendas legadas executada contra o projeto Supabase
+      real (`xzcuhrdhccnforqkovof`) — falta o primeiro push com
+      `.github/workflows/supabase-deploy.yml` no ar (aplica a migration
+      `20260829001800_sales_legacy_provenance.sql` + a data-migration
+      acima automaticamente, e falha o job se as contagens não baterem;
+      ver README.md, "Deploy automático contra o projeto real"). Depende do
+      item anterior (carga do ledger) já ter rodado no projeto real.
 
 ## Aplicação
 
@@ -116,7 +114,9 @@ depois do detour de Google Apps Script na Onda 7).
 - [x] `npm run test:e2e` — 4/4 smoke tests em navegador real passando (sem
       backend real ainda — provam a fiação client-side, não login de verdade)
 - [x] `npm run build` — build de produção sem erros
-- [x] `npm run db:validate` — 33/33 asserções contra Postgres 16 local
+- [x] `npm run db:validate` — 33/33 asserções + health check + runner de
+      data-migrations (idempotência e contagens 542/0 confirmadas) contra
+      Postgres 16 local
 
 ## Segurança
 

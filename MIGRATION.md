@@ -117,7 +117,9 @@ campos que `sales` exige (`sale_date`, `sale_value` — ambos `not null`):
 
 - **542 têm os dois campos e uma data plausível** (não-futura) — essas
   viram `sales.origin='migration'` via
-  `artifacts/migration/import_legacy_sales.sql`.
+  `supabase/data-migrations/20260829002000_import_legacy_sales.sql`
+  (aplicada automaticamente pelo pipeline de CI — ver ARCHITECTURE.md,
+  "Data migrations").
 - **58 não têm valor de venda registrado** na planilha original
   (`value_parsed is null`) — nunca inventado, ficam de fora.
 - **2 têm data de venda no futuro**: `2028-05-10` e `2028-07-12`, ambas em
