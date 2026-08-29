@@ -24,6 +24,7 @@
  */
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 import type { NormalizedOccurrence } from './types'
 
@@ -31,7 +32,7 @@ const ROOT = path.resolve(import.meta.dirname, '..', '..')
 const ARTIFACTS_DIR = path.join(ROOT, 'artifacts', 'migration')
 const BATCH_SIZE = 200
 
-function toDbRow(o: NormalizedOccurrence) {
+export function toDbRow(o: NormalizedOccurrence) {
   return {
     source_sheet: o.sourceSheet,
     source_row: o.sourceRow,
@@ -65,7 +66,7 @@ function toDbRow(o: NormalizedOccurrence) {
   }
 }
 
-function classifySale(o: NormalizedOccurrence): string {
+export function classifySale(o: NormalizedOccurrence): string {
   if (o.saleDateValidation === 'valid') return 'sale_detected'
   const strongEvidence = Boolean(o.buyerRaw) || o.valueValidation === 'valid' || Boolean(o.plateRaw)
   return strongEvidence ? 'sale_detected_with_invalid_date' : 'sale_ambiguous'
@@ -97,7 +98,12 @@ async function main() {
   console.log('==> Done. vehicles/sales were not touched.')
 }
 
-main().catch((err: unknown) => {
-  console.error('load-ledger failed:', err)
-  process.exitCode = 1
-})
+// Only run when executed directly (`tsx load-ledger.ts`) — importing this
+// module elsewhere (e.g. export-ledger-sql.ts, reusing toDbRow/classifySale)
+// must never trigger a live network upsert as a side effect of the import.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main().catch((err: unknown) => {
+    console.error('load-ledger failed:', err)
+    process.exitCode = 1
+  })
+}

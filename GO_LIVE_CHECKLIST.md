@@ -22,8 +22,21 @@ depois do detour de Google Apps Script na Onda 7).
 
 ## Dados
 
-- [ ] Histórico migrado (`scripts/migration/load-ledger.ts` rodado contra o
-      projeto real)
+- [x] Artefato SQL de carga do ledger gerado (`artifacts/migration/load_vehicle_occurrences.sql`,
+      via `npm run migration:export-ledger-sql` — mesmo mapeamento de
+      `load-ledger.ts`, só que escrito como SQL em vez de chamada de rede,
+      porque este ambiente não alcança `*.supabase.co`). Validado rodando
+      contra um Postgres 16 local com as migrations reais aplicadas: 1.521
+      ocorrências, 17 candidatos de estoque no período mais recente,
+      602/23/263 vendas por classificação — todos batendo com
+      `migration_summary.json`; 0 linhas vindas da aba sensível "INFORMAÇÃO";
+      0 `sales`/`vehicles` criados (nada é confirmado automaticamente).
+      Idempotente (testado rodando duas vezes seguidas, sem duplicar nem
+      falhar).
+- [ ] Artefato executado contra o projeto Supabase real (`xzcuhrdhccnforqkovof`)
+      — falta colar `artifacts/migration/load_vehicle_occurrences.sql` no SQL
+      Editor do projeto; o próprio arquivo já traz, no final, as queries de
+      validação de contagem
 - [ ] Estoque validado por humano, linha a linha, na Central de Revisão —
       **NÃO** vira estoque oficial automaticamente
 - [ ] Duplicidades tratadas (fila de revisão resolvida ou conscientemente
