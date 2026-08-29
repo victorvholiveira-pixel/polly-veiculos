@@ -1,7 +1,18 @@
 @import 'tailwindcss';
 
+/* Tema travado em light por decisão do usuário: sem isso, o Tailwind aplica
+   `dark:` automaticamente a partir de `prefers-color-scheme` do
+   sistema/navegador — o app ficava escuro em qualquer aparelho com tema
+   escuro no SO, mesmo sem nenhum toggle no app. Trocando a estratégia para
+   "class" (em vez de "media"), `dark:` só passa a valer se algum
+   ancestral tiver a classe `.dark` — nunca acontece aqui, então o app
+   sempre renderiza light. As classes `dark:` continuam no código, prontas
+   para um toggle manual futuro se um dia fizer sentido — não precisam ser
+   removidas para isso funcionar. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 html,
