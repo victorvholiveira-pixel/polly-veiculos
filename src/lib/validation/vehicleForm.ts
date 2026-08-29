@@ -8,6 +8,7 @@ export interface VehicleFormState {
   year: string
   plate: string
   value: string
+  entryDate: string
 }
 
 export type VehicleFormErrors = Partial<Record<keyof VehicleFormState, string>>
@@ -36,6 +37,11 @@ export function validateVehicleForm(state: VehicleFormState): VehicleFormErrors 
   if (state.value) {
     const value = Number(state.value)
     if (!Number.isFinite(value) || value < 0) errors.value = 'Valor inválido'
+  }
+
+  if (state.entryDate) {
+    const today = new Date().toISOString().slice(0, 10)
+    if (state.entryDate > today) errors.entryDate = 'Data de entrada não pode ser no futuro'
   }
 
   return errors

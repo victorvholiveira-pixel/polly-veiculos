@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { validateVehicleForm, type VehicleFormState } from '../vehicleForm'
 
-const BASE: VehicleFormState = { brand: 'Fiat', model: 'Uno', trim: '', year: '', plate: '', value: '' }
+const BASE: VehicleFormState = { brand: 'Fiat', model: 'Uno', trim: '', year: '', plate: '', value: '', entryDate: '' }
 
 describe('validateVehicleForm', () => {
   it('requires brand and model', () => {
@@ -41,5 +41,16 @@ describe('validateVehicleForm', () => {
 
   it('accepts a positive value', () => {
     expect(validateVehicleForm({ ...BASE, value: '25900' }).value).toBeUndefined()
+  })
+
+  it('rejects an entry date in the future', () => {
+    const tomorrow = new Date(Date.now() + 86_400_000).toISOString().slice(0, 10)
+    expect(validateVehicleForm({ ...BASE, entryDate: tomorrow }).entryDate).toBeTruthy()
+  })
+
+  it('accepts a past or today entry date', () => {
+    const today = new Date().toISOString().slice(0, 10)
+    expect(validateVehicleForm({ ...BASE, entryDate: today }).entryDate).toBeUndefined()
+    expect(validateVehicleForm({ ...BASE, entryDate: '2024-01-15' }).entryDate).toBeUndefined()
   })
 })

@@ -38,6 +38,15 @@
       inalterado. *(concluída — falta só aplicar as migrations contra o
       projeto real, bloqueado por política de rede deste ambiente, não por
       credencial — ver `GO_LIVE_CHECKLIST.md`)*
+- [x] **Onda 9 — Dashboard executivo (Início)**: painel reestruturado com
+      KPIs principais e secundários, gráfico de vendas dos últimos 6 meses
+      (SVG/CSS simples, sem lib de gráficos), estoque envelhecido (+30/+60
+      dias), destaques do período, últimas movimentações (via `audit_log`) e
+      comparação com o mês anterior quando há base real. Tudo a partir de
+      `vehicles`/`sales`/`audit_log` — nenhuma tabela ou view nova. Corrigido
+      no caminho: `update_vehicle` zerava `entry_date` silenciosamente por
+      nunca reenviá-lo — agora o formulário de veículo tem o campo e o RPC
+      sempre recebe o valor atual. *(concluída)*
 
 ### Endurecimento futuro (não bloqueia Go-Live)
 

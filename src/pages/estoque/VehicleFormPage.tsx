@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { createVehicle, fetchVehicle, updateVehicle, type VehicleFormInput } from '@/lib/data/vehicles'
 import { validateVehicleForm, type VehicleFormState as FormState } from '@/lib/validation/vehicleForm'
 
-const EMPTY: FormState = { brand: '', model: '', trim: '', year: '', plate: '', value: '' }
+const EMPTY: FormState = { brand: '', model: '', trim: '', year: '', plate: '', value: '', entryDate: '' }
 
 export function VehicleFormPage() {
   const { id } = useParams<{ id: string }>()
@@ -28,6 +28,7 @@ export function VehicleFormPage() {
           year: v.model_year?.toString() ?? '',
           plate: v.plate ?? '',
           value: v.asking_price?.toString() ?? '',
+          entryDate: v.entry_date ?? '',
         })
       })
       .finally(() => setLoading(false))
@@ -46,6 +47,7 @@ export function VehicleFormPage() {
       model_year: state.year ? Number(state.year) : null,
       plate: state.plate ? state.plate.toUpperCase().replace(/[^A-Z0-9]/g, '') : null,
       asking_price: state.value ? Number(state.value) : null,
+      entry_date: state.entryDate || null,
     }
 
     setSubmitting(true)
@@ -77,6 +79,13 @@ export function VehicleFormPage() {
           <TextField label="Placa" value={state.plate} error={errors.plate} onChange={(v) => setState({ ...state, plate: v })} />
         </div>
         <TextField label="Valor anunciado (R$)" value={state.value} error={errors.value} onChange={(v) => setState({ ...state, value: v })} type="number" />
+        <TextField
+          label="Data de entrada no estoque (opcional)"
+          value={state.entryDate}
+          error={errors.entryDate}
+          onChange={(v) => setState({ ...state, entryDate: v })}
+          type="date"
+        />
 
         {submitError && <p role="alert" className="text-sm text-red-600 dark:text-red-400">{submitError}</p>}
 

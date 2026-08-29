@@ -3,7 +3,8 @@ import { describe, expect, it, vi } from 'vitest'
 import { AuditLogPage } from '../AuditLogPage'
 import { fetchAuditLog, type AuditLogEntry } from '@/lib/data/audit'
 
-vi.mock('@/lib/data/audit', () => ({
+vi.mock('@/lib/data/audit', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/data/audit')>()),
   fetchAuditLog: vi.fn(),
 }))
 

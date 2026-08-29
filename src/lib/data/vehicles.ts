@@ -37,6 +37,7 @@ export interface VehicleFormInput {
   manufacture_year?: number | null
   plate?: string | null
   asking_price?: number | null
+  entry_date?: string | null
   observations?: string | null
 }
 
@@ -56,6 +57,7 @@ export async function createVehicle(input: VehicleFormInput): Promise<Vehicle> {
     p_manufacture_year: input.manufacture_year ?? null,
     p_plate: input.plate ?? null,
     p_asking_price: input.asking_price ?? null,
+    p_entry_date: input.entry_date ?? null,
     p_observations: input.observations ?? null,
   })
   if (error) throw error
@@ -67,6 +69,12 @@ export async function createVehicle(input: VehicleFormInput): Promise<Vehicle> {
  * update_vehicle — the RPC structurally cannot change it, on top of the DB
  * trigger vehicles_guard_sold_transition already rejecting a direct move to
  * 'sold' regardless of caller. Also audit-logged (before/after), like create.
+ *
+ * `p_entry_date` MUST always be passed explicitly: update_vehicle sets
+ * entry_date = p_entry_date unconditionally (it's a real edit, not a
+ * partial patch), so omitting it silently wipes a vehicle's entry date on
+ * every save — always read the current value from the form and send it
+ * back, even when the user didn't touch that field.
  */
 export async function updateVehicle(id: string, input: VehicleFormInput): Promise<Vehicle> {
   const { data, error } = await supabase.rpc('update_vehicle', {
@@ -78,6 +86,7 @@ export async function updateVehicle(id: string, input: VehicleFormInput): Promis
     p_manufacture_year: input.manufacture_year ?? null,
     p_plate: input.plate ?? null,
     p_asking_price: input.asking_price ?? null,
+    p_entry_date: input.entry_date ?? null,
     p_observations: input.observations ?? null,
   })
   if (error) throw error

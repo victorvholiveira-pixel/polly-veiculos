@@ -1,20 +1,5 @@
 import { useEffect, useState } from 'react'
-import { fetchAuditLog, type AuditLogEntry } from '@/lib/data/audit'
-
-const ENTITY_LABELS: Record<AuditLogEntry['entity_type'], string> = {
-  vehicle: 'Veículo',
-  sale: 'Venda',
-  vehicle_occurrence: 'Revisão da migração',
-  settings: 'Configurações',
-}
-
-const ACTION_LABELS: Record<string, string> = {
-  vehicle_created: 'Veículo cadastrado',
-  vehicle_updated: 'Veículo editado',
-  sale_registered: 'Venda registrada',
-  sale_cancelled: 'Venda cancelada',
-  created_from_migration: 'Criado a partir da migração',
-}
+import { AUDIT_ACTION_LABELS, AUDIT_ENTITY_LABELS, fetchAuditLog, type AuditLogEntry } from '@/lib/data/audit'
 
 function fmtDateTime(iso: string): string {
   return new Date(iso).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })
@@ -53,9 +38,9 @@ export function AuditLogPage() {
             <div className="flex items-start justify-between gap-2">
               <div>
                 <p className="text-sm font-medium text-slate-900 dark:text-slate-50">
-                  {ACTION_LABELS[entry.action] ?? entry.action}
+                  {AUDIT_ACTION_LABELS[entry.action] ?? entry.action}
                 </p>
-                <p className="text-xs text-slate-400">{ENTITY_LABELS[entry.entity_type]}</p>
+                <p className="text-xs text-slate-400">{AUDIT_ENTITY_LABELS[entry.entity_type]}</p>
               </div>
               <p className="text-xs text-slate-400">{fmtDateTime(entry.created_at)}</p>
             </div>

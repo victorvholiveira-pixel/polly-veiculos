@@ -71,7 +71,11 @@ depois do detour de Google Apps Script na Onda 7).
 - [x] Cancelamento de venda (`cancel_sale` RPC, motivo obrigatório, reverte
       o veículo para disponível)
 - [x] Filtros (estoque, histórico) — busca textual simples
-- [x] Painel Início com os 6 indicadores aprovados
+- [x] Painel Início — dashboard executivo (Onda 9): KPIs principais/secundários,
+      gráfico de 6 meses, estoque envelhecido, destaques, últimas
+      movimentações; validado com screenshots reais (mobile, claro/escuro,
+      skeleton, estado vazio) contra dados simulados — o projeto real ainda
+      não tem vendas para validar com dado 100% de produção
 - [x] Comissão padrão configurável (Mais → Configurações)
 - [x] Auditoria (Mais → Auditoria)
 - [x] Exportação de dados (Mais → Configurações) — CSV/JSON completos
