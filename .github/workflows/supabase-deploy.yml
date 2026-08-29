@@ -160,9 +160,12 @@ jobs:
         if: always()
         run: |
           set +e
-          migration_list=$(supabase migration list --linked 2>&1)
-          applied=$(psql -tAc "select coalesce(string_agg(id, E'\n' order by id), '(nenhuma)') from public._data_migrations;" 2>&1)
-          pending_schema=$(supabase db push --linked --dry-run 2>&1)
+          echo "=== supabase migration list --linked ==="
+          migration_list=$(supabase migration list --linked 2>&1 | tee /dev/stderr)
+          echo "=== ledger de data-migrations ==="
+          applied=$(psql -tAc "select coalesce(string_agg(id, E'\n' order by id), '(nenhuma)') from public._data_migrations;" 2>&1 | tee /dev/stderr)
+          echo "=== supabase db push --dry-run ==="
+          pending_schema=$(supabase db push --linked --dry-run 2>&1 | tee /dev/stderr)
           set -e
           {
             echo "### supabase migration list --linked (local vs. ledger remoto)"
