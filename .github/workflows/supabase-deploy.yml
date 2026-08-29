@@ -103,6 +103,26 @@ jobs:
           } >> "$GITHUB_ENV"
           echo "PGPASSWORD=$SUPABASE_DB_PASSWORD" >> "$GITHUB_ENV"
 
+      # TEMP — reparo único do ledger remoto: confirmado por inspeção direta
+      # (objeto a objeto, run 33277567201) que o schema real já reflete as
+      # migrations 20260829000100–20260829001800 (aplicadas manualmente antes
+      # deste pipeline existir), mas supabase_migrations.schema_migrations
+      # está vazio para todas elas. `migration repair --status applied` só
+      # grava linhas no ledger, não roda SQL — por isso só marca as versões
+      # que a inspeção confirmou presentes; 20260829001900 fica de fora de
+      # propósito, para o próximo passo (`db push`) aplicá-la de verdade.
+      # Remover este passo depois desta execução — não é operação recorrente.
+      - name: "TEMP: reparar ledger remoto (bootstrap único, ver ARCHITECTURE.md)"
+        if: github.event.inputs.action == 'deploy'
+        run: |
+          set -euo pipefail
+          supabase migration repair --status applied --linked \
+            20260829000100 20260829000200 20260829000300 20260829000400 \
+            20260829000500 20260829000600 20260829000700 20260829000800 \
+            20260829000900 20260829001000 20260829001100 20260829001200 \
+            20260829001300 20260829001400 20260829001500 20260829001600 \
+            20260829001700 20260829001800
+
       # 1) Migrations de schema — só as que ainda não estão no ledger oficial
       # da CLI (supabase_migrations.schema_migrations). Reexecução nunca
       # reaplica uma já aplicada.
@@ -166,28 +186,6 @@ jobs:
           applied=$(psql -tAc "select coalesce(string_agg(id, E'\n' order by id), '(nenhuma)') from public._data_migrations;" 2>&1 | tee /dev/stderr)
           echo "=== supabase db push --dry-run ==="
           pending_schema=$(supabase db push --linked --dry-run 2>&1 | tee /dev/stderr)
-          echo "=== TEMP: diagnostico objeto-a-objeto por migration (remover apos investigacao) ==="
-          psql -x -c "
-            select
-              (select to_regclass('public.vehicles')) is not null as m0200_vehicles,
-              (select to_regclass('public.vehicle_occurrences')) is not null as m0300_vehicle_occurrences,
-              (select to_regclass('public.vehicle_match_candidates')) is not null as m0400_vehicle_match_candidates,
-              (select to_regclass('public.sellers')) is not null as m0500_sellers,
-              (select to_regclass('public.sales')) is not null as m0600_sales,
-              (select to_regclass('public.app_settings')) is not null as m0700_app_settings,
-              (select to_regclass('public.audit_log')) is not null as m0800_audit_log,
-              exists(select 1 from information_schema.columns where table_schema='public' and table_name='vehicle_occurrences' and column_name='sale_date_parsed') as m0900_parsed_fields,
-              exists(select 1 from information_schema.columns where table_schema='public' and table_name='vehicle_occurrences' and column_name='review_decision') as m1000_review_overlay,
-              exists(select 1 from information_schema.columns where table_schema='public' and table_name='vehicle_match_candidates' and column_name='decision') as m1100_decision,
-              exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname='vehicles_guard_sold_transition') as m1200_sold_guard,
-              (select to_regclass('public.migration_import_batches')) is not null as m1300_import_batches,
-              exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname='create_initial_inventory') as m1400_create_initial_inventory,
-              exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname='register_sale') as m1500_register_sale,
-              exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname='cancel_sale') as m1600_cancel_sale,
-              exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname='create_vehicle') as m1700_create_vehicle,
-              exists(select 1 from information_schema.columns where table_schema='public' and table_name='sales' and column_name='origin') as m1800_sales_origin,
-              (select to_regclass('public._data_migrations')) is not null as m1900_data_migrations_ledger
-          " 2>&1 | tee /dev/stderr
           set -e
           {
             echo "### supabase migration list --linked (local vs. ledger remoto)"
