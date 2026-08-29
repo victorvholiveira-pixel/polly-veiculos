@@ -55,12 +55,22 @@ export function VehicleDetailPage() {
         </div>
       )}
 
-      <Link
-        to={`/estoque/${vehicle.id}/editar`}
-        className="block w-full rounded-lg border border-slate-300 py-2.5 text-center text-base font-medium text-slate-700 dark:border-slate-700 dark:text-slate-200"
-      >
-        Editar
-      </Link>
+      <div className="space-y-2">
+        {vehicle.status === 'available' && (
+          <Link
+            to={`/vender/${vehicle.id}`}
+            className="block w-full rounded-lg bg-slate-900 py-2.5 text-center text-base font-medium text-white dark:bg-slate-50 dark:text-slate-900"
+          >
+            Vender
+          </Link>
+        )}
+        <Link
+          to={`/estoque/${vehicle.id}/editar`}
+          className="block w-full rounded-lg border border-slate-300 py-2.5 text-center text-base font-medium text-slate-700 dark:border-slate-700 dark:text-slate-200"
+        >
+          Editar
+        </Link>
+      </div>
     </div>
   )
 }

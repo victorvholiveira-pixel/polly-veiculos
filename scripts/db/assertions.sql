@@ -270,6 +270,112 @@ begin
     raise notice 'PASS: create_initial_inventory is idempotent on re-run';
   end;
 
+  -- 18) register_sale: happy path — vehicle becomes sold, sale row created,
+  --     audit_log written. Also exercises the RPC's own opt-in of the guard.
+  declare
+    v_sale_vehicle uuid;
+    v_sale record;
+  begin
+    insert into vehicles (brand, model, status) values ('Sale', 'Vehicle', 'available') returning id into v_sale_vehicle;
+
+    select * into v_sale from register_sale(
+      p_vehicle_id := v_sale_vehicle,
+      p_sale_date := current_date,
+      p_sale_value := 45000,
+      p_customer_name := 'Cliente Teste',
+      p_commission_amount := 900
+    );
+
+    if v_sale.status <> 'completed' then
+      raise exception 'FAIL: register_sale did not create a completed sale';
+    end if;
+    if (select status from vehicles where id = v_sale_vehicle) <> 'sold' then
+      raise exception 'FAIL: register_sale did not mark the vehicle as sold';
+    end if;
+    if not exists (select 1 from audit_log where entity_type = 'sale' and entity_id = v_sale.id and action = 'sale_registered') then
+      raise exception 'FAIL: register_sale left no audit_log entry';
+    end if;
+    raise notice 'PASS: register_sale creates the sale, marks the vehicle sold, and audits it';
+
+    -- 19) register_sale: rejects a vehicle that is not available
+    begin
+      perform register_sale(p_vehicle_id := v_sale_vehicle, p_sale_date := current_date, p_sale_value := 1000);
+      raise exception 'FAIL: register_sale accepted a vehicle that is not available';
+    exception when others then
+      if sqlerrm like 'register_sale: vehicle is not available%' then
+        raise notice 'PASS: register_sale rejects a non-available vehicle';
+      else
+        raise;
+      end if;
+    end;
+
+    -- 20) register_sale: rejects a negative sale_value
+    declare
+      v_another_vehicle uuid;
+    begin
+      insert into vehicles (brand, model, status) values ('Sale', 'Vehicle 2', 'available') returning id into v_another_vehicle;
+      begin
+        perform register_sale(p_vehicle_id := v_another_vehicle, p_sale_date := current_date, p_sale_value := -500);
+        raise exception 'FAIL: register_sale accepted a negative sale_value';
+      exception when others then
+        if sqlerrm like 'register_sale: sale_value must not be negative%' then
+          raise notice 'PASS: register_sale rejects a negative sale_value';
+        else
+          raise;
+        end if;
+      end;
+    end;
+
+    -- 21) cancel_sale: happy path — sale cancelled, vehicle reverts to
+    --     available, audit_log written.
+    declare
+      v_cancelled record;
+    begin
+      select * into v_cancelled from cancel_sale(v_sale.id, 'Negócio desfeito pelo cliente');
+      if v_cancelled.status <> 'cancelled' or v_cancelled.cancelled_reason is null or v_cancelled.cancelled_at is null then
+        raise exception 'FAIL: cancel_sale did not soft-cancel the sale correctly';
+      end if;
+      if (select status from vehicles where id = v_sale_vehicle) <> 'available' then
+        raise exception 'FAIL: cancel_sale did not revert the vehicle to available';
+      end if;
+      if not exists (select 1 from audit_log where entity_type = 'sale' and entity_id = v_sale.id and action = 'sale_cancelled') then
+        raise exception 'FAIL: cancel_sale left no audit_log entry';
+      end if;
+      raise notice 'PASS: cancel_sale reverts the sale and the vehicle, and audits it';
+
+      -- 22) cancel_sale: rejects cancelling an already-cancelled sale
+      begin
+        perform cancel_sale(v_sale.id, 'Tentativa duplicada');
+        raise exception 'FAIL: cancel_sale accepted an already-cancelled sale';
+      exception when others then
+        if sqlerrm like 'cancel_sale: sale is not active%' then
+          raise notice 'PASS: cancel_sale rejects an already-cancelled sale';
+        else
+          raise;
+        end if;
+      end;
+    end;
+
+    -- 23) cancel_sale: requires a non-empty reason
+    declare
+      v_reason_vehicle uuid;
+      v_reason_sale record;
+    begin
+      insert into vehicles (brand, model, status) values ('Sale', 'Vehicle 3', 'available') returning id into v_reason_vehicle;
+      select * into v_reason_sale from register_sale(p_vehicle_id := v_reason_vehicle, p_sale_date := current_date, p_sale_value := 1000);
+      begin
+        perform cancel_sale(v_reason_sale.id, '');
+        raise exception 'FAIL: cancel_sale accepted an empty reason';
+      exception when others then
+        if sqlerrm like 'cancel_sale: a reason is required%' then
+          raise notice 'PASS: cancel_sale rejects an empty reason';
+        else
+          raise;
+        end if;
+      end;
+    end;
+  end;
+
   perform set_config('role', 'postgres', true);
   raise notice '=== ALL ASSERTIONS PASSED ===';
 end

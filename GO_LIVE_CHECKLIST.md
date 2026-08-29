@@ -26,14 +26,14 @@ até ser genuinamente verdade.
 ## Aplicação
 
 - [x] Login (formulário funcional; login de verdade pendente de projeto Supabase real)
-- [ ] Estoque (hoje: shell/placeholder)
-- [ ] Cadastro de veículo
-- [ ] Edição de veículo
-- [ ] Venda (hoje: shell/placeholder — RPC ainda não implementada)
-- [ ] Comissão (bloqueada pela regra de negócio pendente)
-- [ ] Histórico (hoje: shell/placeholder)
-- [ ] Cancelamento de venda
-- [ ] Filtros (estoque, histórico)
+- [x] Estoque (lista, busca, ver, editar — funcional; validado só em Postgres local, não no projeto real)
+- [x] Cadastro de veículo
+- [x] Edição de veículo (nunca permite marcar como vendido — ver Segurança)
+- [x] Venda (`register_sale` RPC transacional, fluxo "Vender" completo — funcional; não validado contra o projeto real)
+- [x] Comissão manual por venda (campo livre no formulário de venda; regra automática ainda não existe — ver ROADMAP.md)
+- [x] Histórico (vendas reais do app, busca por comprador/placa/marca/modelo)
+- [x] Cancelamento de venda (`cancel_sale` RPC, motivo obrigatório, reverte o veículo para disponível)
+- [x] Filtros (estoque, histórico) — busca textual simples; sem filtro por mês/ano ainda
 - [x] PWA instalável (manifest + service worker gerados; ícones são placeholder)
 
 ## Qualidade

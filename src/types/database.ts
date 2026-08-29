@@ -380,6 +380,27 @@ export interface Database {
         Args: { p_batch_label: string }
         Returns: Array<{ created_vehicle_id: string; source_sheet: string; source_row: number }>
       }
+      register_sale: {
+        Args: {
+          p_vehicle_id: string
+          p_sale_date: string
+          p_sale_value: number
+          p_customer_name?: string | null
+          p_customer_phone?: string | null
+          p_seller_id?: string | null
+          p_deal_type?: string | null
+          p_trade_in_description?: string | null
+          p_channel?: string | null
+          p_commission_amount?: number | null
+          p_commission_percentage?: number | null
+          p_observations?: string | null
+        }
+        Returns: Database['public']['Tables']['sales']['Row']
+      }
+      cancel_sale: {
+        Args: { p_sale_id: string; p_reason: string }
+        Returns: Database['public']['Tables']['sales']['Row']
+      }
     }
   }
 }

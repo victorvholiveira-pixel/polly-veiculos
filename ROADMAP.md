@@ -4,38 +4,42 @@
 
 - [x] **Onda 1 — Foundation**: scaffold, schema do banco + RLS, autenticação,
       shell de navegação mobile, PWA básico. *(concluída)*
-- [ ] **Onda 2 — Migration Pipeline (dry-run)**: parser posicional por era de
+- [x] **Onda 2 — Migration Pipeline (dry-run)**: parser posicional por era de
       layout, classificação de qualidade, deduplicação conservadora com fila
-      de revisão humana, relatório de migração. Sem carga em produção ainda.
-- [ ] **Onda 3 — Cutover + Estoque**: tela de revisão humana do estoque
-      candidato (as ~17 linhas de AGO/2026 e o restante do histórico
-      resolvido), aprovação linha a linha, carga final do estoque real.
-      Tela de Estoque real (listar, buscar, editar, ver).
-- [ ] **Onda 4 — Fluxo Vender**: RPC transacional de venda/cancelamento,
-      formulário de venda, tela de Estoque ganha a ação "Vender". *Depende de
-      uma conversa com o usuário real sobre como a comissão funciona hoje —
-      ver "Pendência de negócio" abaixo.*
-- [ ] **Onda 5 — Histórico + Comissão**: telas reais de Histórico (filtro por
-      mês/ano/veículo/placa/cliente) e Comissão, usando dados migrados e
-      vendas ao vivo.
-- [ ] **Onda 6 — Dashboard**: os 6 indicadores aprovados (veículos em estoque,
-      valor do estoque, vendas do mês, faturamento do mês, comissão do mês,
-      comparação com mês anterior).
-- [ ] **Go-Live**: auditoria final por `GO_LIVE_CHECKLIST.md`, cutover da
-      planilha (planilha vira histórico/backup, nunca mais fonte operacional).
+      de revisão humana, relatório de migração. Sem carga em produção.
+      *(concluída)*
+- [x] **Onda 3 — Cutover parcial + Estoque**: Central de Revisão da migração
+      (estoque candidato, conflitos, vendas ambíguas, demais itens), ação
+      explícita "Criar estoque inicial", Estoque real (listar, buscar,
+      editar, ver, cadastrar). Fecha a pendência de segurança de vendas via
+      UPDATE direto. *(concluída)*
+- [x] **Onda 4 — Venda + cancelamento + histórico operacional**: RPCs
+      transacionais `register_sale`/`cancel_sale`, fluxo "Vender" (escolher
+      veículo → formulário → confirmar), tela de Histórico real (vendas do
+      app, busca, cancelamento com motivo obrigatório). Comissão fica manual
+      por venda — nenhuma regra automática foi inventada (ver "Comissão"
+      abaixo). *(concluída)*
+- [ ] **Onda 5 — Dashboard + Comissão configurável + acabamento**: painel
+      Início com os 6 indicadores, comissão padrão configurável em
+      `app_settings` (sempre editável por venda), revisão de UX/copy em
+      todo o app.
+- [ ] **Onda 6 — Supabase real + Go-Live**: aplicar migrations no projeto
+      real (bloqueado neste ambiente — ver relatório da onda), exportação de
+      dados, trilha de auditoria visível, ícones PWA reais, auditoria final
+      por `GO_LIVE_CHECKLIST.md`.
 
-### Pendência de negócio (bloqueia parte da Onda 4)
+### Comissão
 
-Nenhuma regra de comissão foi encontrada na planilha ao nível de transação
-(ver `MIGRATION.md`). Antes de implementar qualquer cálculo automático,
-precisamos entender com o vendedor real como o pagamento funciona hoje. Até
-lá, o banco já está preparado para guardar `commission_amount`,
-`commission_percentage` e `commission_rule_snapshot` por venda, sem regra
-presumida.
+Nenhuma fórmula de comissão foi inventada. `app_settings.default_commission_pct`
+guarda um percentual padrão opcional (configurável em /mais), usado apenas
+como sugestão de preenchimento no formulário de venda — sempre editável e
+nunca aplicado automaticamente sem confirmação humana. Uma regra de cálculo
+automática de verdade (por vendedor, por faixa de valor, etc.) fica para
+quando o usuário real definir como o pagamento funciona hoje.
 
 ## P1 — Produtividade
 
-- Exportação de dados (CSV/JSON) — "os dados pertencem à loja".
+- [ ] Exportação de dados (CSV/JSON) — "os dados pertencem à loja".
 - Melhorias de busca/filtro no Estoque e Histórico além do básico.
 - Assets oficiais de PWA (ícones reais, substituindo o placeholder "P").
 - Ferramenta de merge manual de veículos (para os casos que a migração

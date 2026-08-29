@@ -6,7 +6,6 @@ import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
 import { MorePage } from '@/pages/MorePage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
-import { SellPage } from '@/pages/SellPage'
 import { StockListPage } from '@/pages/estoque/StockListPage'
 import { VehicleDetailPage } from '@/pages/estoque/VehicleDetailPage'
 import { VehicleFormPage } from '@/pages/estoque/VehicleFormPage'
@@ -15,6 +14,8 @@ import { ConflictsReviewPage } from '@/pages/review/ConflictsReviewPage'
 import { InventoryReviewPage } from '@/pages/review/InventoryReviewPage'
 import { OtherReviewPage } from '@/pages/review/OtherReviewPage'
 import { ReviewCenterIndexPage } from '@/pages/review/ReviewCenterIndexPage'
+import { SellFormPage } from '@/pages/vender/SellFormPage'
+import { SellPickVehiclePage } from '@/pages/vender/SellPickVehiclePage'
 
 export const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
@@ -30,7 +31,8 @@ export const router = createBrowserRouter([
       { path: '/estoque/novo', element: <VehicleFormPage /> },
       { path: '/estoque/:id', element: <VehicleDetailPage /> },
       { path: '/estoque/:id/editar', element: <VehicleFormPage /> },
-      { path: '/vender', element: <SellPage /> },
+      { path: '/vender', element: <SellPickVehiclePage /> },
+      { path: '/vender/:vehicleId', element: <SellFormPage /> },
       { path: '/historico', element: <HistoryPage /> },
       { path: '/mais', element: <MorePage /> },
       { path: '/mais/revisao', element: <ReviewCenterIndexPage /> },
