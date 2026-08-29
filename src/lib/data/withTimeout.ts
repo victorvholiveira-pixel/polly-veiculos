@@ -20,3 +20,19 @@ export function withTimeout<T>(promise: PromiseLike<T>, ms = 3000): Promise<T> {
     )
   })
 }
+
+/**
+ * True only for errors that mean Supabase itself could not be reached — our
+ * own withTimeout() timeout above, or a fetch-level network failure (no
+ * connection, DNS, offline). A `PostgrestError` is a real response FROM
+ * Supabase — even when it's an error one (RLS denial, missing column, bad
+ * query) — and must never be treated as "unreachable": doing so would mask a
+ * real permission/schema bug behind a misleading offline/demo state instead
+ * of surfacing it.
+ */
+export function isUnreachableError(err: unknown): boolean {
+  if (!(err instanceof Error)) return false
+  if (err.name === 'PostgrestError') return false
+  if (err.message.startsWith('Timed out after')) return true
+  return err instanceof TypeError
+}

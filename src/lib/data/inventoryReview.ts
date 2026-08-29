@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase'
 import type { ReviewDecision } from '@/types/database'
 import { loadReviewFixture } from './reviewFixture'
-import { withTimeout } from './withTimeout'
+import { isUnreachableError, withTimeout } from './withTimeout'
 
 export interface InventoryReviewItem {
   /** Real vehicle_occurrences.id when backed by Supabase, a synthetic "sheet#row" key in demo mode. */
@@ -74,7 +74,8 @@ export async function fetchInventoryCandidates(): Promise<InventoryReviewResult>
         reviewDecision: row.review_decision,
       })),
     }
-  } catch {
+  } catch (err) {
+    if (!isUnreachableError(err)) throw err
     const fixture = await loadReviewFixture()
     return {
       source: 'demo',

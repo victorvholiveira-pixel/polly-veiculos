@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase'
 import type { ReviewDecision } from '@/types/database'
 import { loadReviewFixture } from './reviewFixture'
-import { withTimeout } from './withTimeout'
+import { isUnreachableError, withTimeout } from './withTimeout'
 
 export interface AmbiguousSaleItem {
   id: string
@@ -51,7 +51,8 @@ export async function fetchAmbiguousSales(): Promise<AmbiguousSaleResult> {
         reviewDecision: row.review_decision,
       })),
     }
-  } catch {
+  } catch (err) {
+    if (!isUnreachableError(err)) throw err
     const fixture = await loadReviewFixture()
     return {
       source: 'demo',

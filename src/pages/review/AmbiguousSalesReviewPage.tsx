@@ -28,7 +28,13 @@ export function AmbiguousSalesReviewPage() {
         setItems(result.items)
         setSource(result.source)
       })
-      .catch(() => setError('Não foi possível carregar as vendas incertas agora.'))
+      .catch((err: unknown) =>
+        setError(
+          err instanceof Error
+            ? `Não foi possível carregar as vendas incertas: ${err.message}`
+            : 'Não foi possível carregar as vendas incertas agora.',
+        ),
+      )
       .finally(() => setLoading(false))
   }
 

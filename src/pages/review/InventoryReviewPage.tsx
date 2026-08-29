@@ -56,7 +56,13 @@ export function InventoryReviewPage() {
         setSource(result.source)
         setError(null)
       })
-      .catch(() => setError('Não foi possível carregar os candidatos de estoque agora.'))
+      .catch((err: unknown) =>
+        setError(
+          err instanceof Error
+            ? `Não foi possível carregar os candidatos de estoque: ${err.message}`
+            : 'Não foi possível carregar os candidatos de estoque agora.',
+        ),
+      )
       .finally(() => setLoading(false))
   }
 
