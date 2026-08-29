@@ -33,10 +33,21 @@ depois do detour de Google Apps Script na Onda 7).
       0 `sales`/`vehicles` criados (nada é confirmado automaticamente).
       Idempotente (testado rodando duas vezes seguidas, sem duplicar nem
       falhar).
-- [ ] Artefato executado contra o projeto Supabase real (`xzcuhrdhccnforqkovof`)
-      — falta colar `artifacts/migration/load_vehicle_occurrences.sql` no SQL
-      Editor do projeto; o próprio arquivo já traz, no final, as queries de
-      validação de contagem
+- [x] Artefatos mobile-friendly gerados (`npm run migration:export-ledger-mobile`):
+      `artifacts/migration/load_vehicle_occurrences.csv` (um arquivo, para
+      Table Editor → Import data from CSV — sem colar nada) e
+      `artifacts/migration/sql-batches/occurrences_NNN_of_016.sql` (16
+      arquivos independentes e idempotentes de ~100 linhas, para quando o
+      import de CSV não preservar os dois campos jsonb corretamente). Ambos
+      os caminhos validados contra Postgres 16 local com as migrations
+      reais: mesmos counts do artefato SQL único (1.521/17/602/23/263/0/0),
+      round-trip de jsonb íntegro (`\copy` padrão do Postgres — o importador
+      da Supabase Studio pode ter particularidades que não dá para testar
+      sem rede real), lotes idempotentes (re-rodar um lote não duplica).
+- [ ] Artefato(s) executado(s) contra o projeto Supabase real
+      (`xzcuhrdhccnforqkovof`) — falta o usuário rodar pelo painel (CSV
+      primeiro; lotes SQL pequenos como alternativa) e confirmar os mesmos
+      counts
 - [ ] Estoque validado por humano, linha a linha, na Central de Revisão —
       **NÃO** vira estoque oficial automaticamente
 - [ ] Duplicidades tratadas (fila de revisão resolvida ou conscientemente

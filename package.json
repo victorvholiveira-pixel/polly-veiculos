@@ -15,6 +15,7 @@
     "migration:dry-run": "tsx scripts/migration/run-dry-run.ts",
     "migration:load-ledger": "tsx scripts/migration/load-ledger.ts",
     "migration:export-ledger-sql": "tsx scripts/migration/export-ledger-sql.ts",
+    "migration:export-ledger-mobile": "tsx scripts/migration/export-ledger-mobile.ts",
     "migration:build-review-fixture": "tsx scripts/migration/build-review-fixture.ts"
   },
   "dependencies": {

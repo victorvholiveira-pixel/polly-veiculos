@@ -71,6 +71,7 @@ Projeto definitivo já criado: `xzcuhrdhccnforqkovof`
 | `npm run db:validate` | Aplica as migrations a um Postgres local descartável e valida constraints/RLS (ver `ARCHITECTURE.md`) |
 | `npm run migration:load-ledger` | Carrega os artefatos da migração no Supabase real (`SUPABASE_URL`/`SUPABASE_SERVICE_ROLE_KEY`) |
 | `npm run migration:export-ledger-sql` | Gera `artifacts/migration/load_vehicle_occurrences.sql` — mesma carga acima, como SQL pronto para colar no SQL Editor do Supabase, para quando não há rede até `*.supabase.co` |
+| `npm run migration:export-ledger-mobile` | Mesma carga, em formato para operar pelo celular: `load_vehicle_occurrences.csv` (Table Editor → Import data from CSV, um arquivo, sem colar nada) + `sql-batches/occurrences_NNN_of_016.sql` (lotes pequenos, independentes e idempotentes, como alternativa se o CSV não preservar os campos jsonb) |
 
 ## Segurança dos dados da planilha histórica
 
