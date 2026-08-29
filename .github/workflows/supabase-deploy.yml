@@ -82,13 +82,22 @@ jobs:
           set -euo pipefail
           supabase link --project-ref "$PROJECT_REF" --password "$SUPABASE_DB_PASSWORD"
 
-      - name: Exportar variáveis de conexão Postgres (para os passos com psql)
+      # A conexão "direta" (db.<ref>.supabase.co:5432) só resolve em IPv6, e
+      # runners do GitHub Actions não têm rota de saída IPv6 — confirmado na
+      # prática (primeira execução real: "Network is unreachable"). O
+      # Session Pooler (Supavisor, porta 5432, compatível com IPv4) é o
+      # caminho oficial da própria Supabase para CI/ambientes serverless;
+      # precisa da região do projeto, que a Management API devolve.
+      - name: Descobrir a região do projeto e exportar conexão via Session Pooler (IPv4)
         run: |
           set -euo pipefail
+          region=$(curl -sS -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" \
+            "https://api.supabase.com/v1/projects" \
+            | jq -er --arg ref "$PROJECT_REF" '.[] | select(.id == $ref) | .region')
           {
-            echo "PGHOST=db.${PROJECT_REF}.supabase.co"
+            echo "PGHOST=aws-0-${region}.pooler.supabase.com"
             echo "PGPORT=5432"
-            echo "PGUSER=postgres"
+            echo "PGUSER=postgres.${PROJECT_REF}"
             echo "PGDATABASE=postgres"
             echo "PGSSLMODE=require"
           } >> "$GITHUB_ENV"
@@ -143,16 +152,26 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # Só leitura, roda sempre: mostra o estado atual do ledger de dados e
-      # das migrations pendentes, sem alterar nada. Em `validate-only` é a
-      # única coisa que este job faz.
-      - name: Relatório do ledger (sempre, só leitura)
+      # Só leitura, e roda SEMPRE — inclusive se um passo anterior falhou
+      # (`if: always()`), porque é exatamente nesse caso que o relatório
+      # mais importa: mostrar o estado real do banco para diagnosticar o
+      # que quebrou, sem exigir acesso manual ao projeto para investigar.
+      - name: Relatório do ledger (sempre roda, mesmo se algo falhou acima; só leitura)
+        if: always()
         run: |
-          set -euo pipefail
-          applied=$(psql -tAc "select coalesce(string_agg(id, E'\n' order by id), '(nenhuma)') from public._data_migrations;")
-          pending_schema=$(supabase db push --linked --dry-run 2>&1 || true)
+          set +e
+          migration_list=$(supabase migration list --linked 2>&1)
+          applied=$(psql -tAc "select coalesce(string_agg(id, E'\n' order by id), '(nenhuma)') from public._data_migrations;" 2>&1)
+          pending_schema=$(supabase db push --linked --dry-run 2>&1)
+          set -e
           {
-            echo "### Ledger de data-migrations aplicadas"
+            echo "### supabase migration list --linked (local vs. ledger remoto)"
+            echo ""
+            echo '```'
+            echo "$migration_list"
+            echo '```'
+            echo ""
+            echo "### Ledger de data-migrations aplicadas (public._data_migrations)"
             echo ""
             echo '```'
             echo "$applied"

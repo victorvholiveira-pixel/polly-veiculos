@@ -234,6 +234,26 @@ projeto Supabase real — o pipeline de CI sempre roda de novo contra o
 projeto real antes de qualquer coisa ser considerada em produção (ver
 `GO_LIVE_CHECKLIST.md`).
 
+## Conexão do CI ao Postgres real: Session Pooler, não conexão direta
+
+Descoberto na primeira execução real do pipeline (Onda 11): a conexão
+"direta" do Supabase (`db.<project-ref>.supabase.co:5432`) só resolve
+endereço IPv6, e os runners hospedados do GitHub Actions **não têm rota de
+saída IPv6** — `psql` contra esse host falha com "Network is unreachable".
+`supabase link`/`db push` não sofrem disso porque, por padrão (sem
+`--skip-pooler`), já usam o Session Pooler (Supavisor) internamente — só os
+passos deste projeto que usam `psql` diretamente (health check,
+data-migrations) precisavam do mesmo tratamento.
+
+O workflow resolve isso sozinho: consulta a Management API
+(`GET /v1/projects`, autenticada com `SUPABASE_ACCESS_TOKEN`) para achar a
+região do projeto, e monta `PGHOST=aws-0-<região>.pooler.supabase.com` com
+`PGUSER=postgres.<project-ref>` — o formato oficial do Session Pooler, que
+é compatível com IPv4. Porta 5432 (session mode, uma conexão dedicada por
+sessão) em vez de 6543 (transaction mode) — session mode se comporta como
+uma conexão Postgres normal (transações, `\i`, tudo que os scripts usam);
+transaction mode tem restrições que quebrariam isso.
+
 ## Data migrations
 
 `supabase/migrations/` versiona *schema* (DDL) e é gerenciado pelo ledger
