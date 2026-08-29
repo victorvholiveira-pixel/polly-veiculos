@@ -123,6 +123,37 @@ export function InventoryReviewPage() {
     }
   }
 
+  // TEMPORÁRIO — ferramenta de cutover (ver conversa/commit). Confirma TODOS
+  // os pendentes com os dados exatamente como vieram da planilha, avisos
+  // inclusive — nenhuma correção automática. Diferente de "Confirmar todos
+  // sem avisos" (que só pega os sem aviso), esta existe só para destravar o
+  // cutover do estoque atual quando o ambiente de operação (SQL Editor pelo
+  // celular) não é confiável para revisar item a item. Remover este botão e
+  // esta função depois que o cutover for confirmado.
+  const confirmAllPendingForCutover = async () => {
+    if (source !== 'supabase') {
+      setItems((prev) => prev.map((i) => (i.reviewDecision === 'pending' ? { ...i, reviewDecision: 'approved' } : i)))
+      return
+    }
+    setBatchBusy(true)
+    const total = pending.length
+    let confirmed = 0
+    try {
+      for (const item of pending) {
+        await decideInventoryCandidate(item.id, { decision: 'approved' })
+        confirmed += 1
+      }
+      setBatchResult(`${confirmed} de ${total} candidato(s) confirmado(s) como estão, sem alteração de dados.`)
+      load()
+    } catch {
+      setError(
+        `Confirmação em lote parou depois de ${confirmed} de ${total}. Os que já foram confirmados continuam salvos — pode rodar de novo para o restante.`,
+      )
+    } finally {
+      setBatchBusy(false)
+    }
+  }
+
   const createInventory = async () => {
     if (source !== 'supabase') {
       setBatchResult('Modo de demonstração: a criação do estoque oficial precisa de conexão com o banco.')
@@ -165,6 +196,24 @@ export function InventoryReviewPage() {
             className="rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-medium text-white disabled:opacity-50 dark:bg-slate-50 dark:text-slate-900"
           >
             Confirmar todos sem avisos
+          </button>
+        </div>
+      )}
+
+      {/* TEMPORÁRIO — ferramenta de cutover, remover depois de usar uma vez. */}
+      {pending.length > 0 && (
+        <div className="space-y-1.5 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 dark:border-amber-900 dark:bg-amber-950">
+          <p className="text-xs text-amber-900 dark:text-amber-200">
+            Ferramenta de cutover: confirma os {pending.length} pendentes de uma vez, exatamente como estão (avisos
+            inclusive). Nada é corrigido automaticamente — ajuste depois em Estoque → Editar se precisar.
+          </p>
+          <button
+            type="button"
+            onClick={confirmAllPendingForCutover}
+            disabled={batchBusy}
+            className="w-full rounded-lg border border-amber-400 bg-white py-2 text-sm font-medium text-amber-900 disabled:opacity-50 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200"
+          >
+            {batchBusy ? 'Confirmando…' : `Confirmar todos os pendentes (${pending.length})`}
           </button>
         </div>
       )}

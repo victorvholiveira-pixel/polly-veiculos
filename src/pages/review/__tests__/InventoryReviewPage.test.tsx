@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { InventoryReviewPage } from '../InventoryReviewPage'
 import { decideInventoryCandidate, fetchInventoryCandidates, type InventoryReviewItem } from '@/lib/data/inventoryReview'
 
@@ -39,6 +39,10 @@ function renderPage() {
 }
 
 describe('InventoryReviewPage', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('shows the demo banner when the data layer falls back to the offline fixture', async () => {
     mockedFetch.mockResolvedValue({ items: [CANDIDATE], source: 'demo' })
     renderPage()
@@ -83,5 +87,21 @@ describe('InventoryReviewPage', () => {
     renderPage()
 
     expect(await screen.findByText('1 sem nenhum aviso')).toBeInTheDocument()
+  })
+
+  it('cutover tool: confirms every pending candidate as-is, warnings included, with no corrections', async () => {
+    const withWarning: InventoryReviewItem = { ...CANDIDATE, id: 'occ-2', warnings: ['placa ausente'] }
+    mockedFetch.mockResolvedValue({ items: [CANDIDATE, withWarning], source: 'supabase' })
+    mockedDecide.mockResolvedValue(undefined)
+    const user = userEvent.setup()
+    renderPage()
+
+    await screen.findAllByText('Fiat Uno')
+    await user.click(screen.getByRole('button', { name: /Confirmar todos os pendentes \(2\)/ }))
+
+    await waitFor(() => expect(mockedDecide).toHaveBeenCalledTimes(2))
+    expect(mockedDecide).toHaveBeenNthCalledWith(1, 'occ-1', { decision: 'approved' })
+    expect(mockedDecide).toHaveBeenNthCalledWith(2, 'occ-2', { decision: 'approved' })
+    expect(await screen.findByText(/2 de 2 candidato\(s\) confirmado\(s\) como estão/)).toBeInTheDocument()
   })
 })
