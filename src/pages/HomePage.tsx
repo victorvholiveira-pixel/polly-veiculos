@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Badge } from '@/components/ui/Badge'
+import { Card } from '@/components/ui/Card'
+import { SkeletonBlock } from '@/components/ui/Skeleton'
 import { buildSalesHistoryView, fetchDashboardStats, type DashboardStats, type SalesRangeSelection } from '@/lib/data/dashboard'
-
-function fmtBRL(n: number): string {
-  return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-}
+import { fmtBRL } from '@/lib/format'
 
 function fmtCompactBRL(n: number): string {
   return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', notation: 'compact', maximumFractionDigits: 1 })
@@ -443,14 +443,6 @@ function AgingCard({ stats }: { stats: DashboardStats }) {
   )
 }
 
-function Badge({ tone, children }: { tone: 'danger' | 'warning'; children: ReactNode }) {
-  const cls =
-    tone === 'danger'
-      ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300'
-      : 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
-  return <span className={`rounded-full px-2 py-0.5 font-medium ${cls}`}>{children}</span>
-}
-
 // --- Destaques ---------------------------------------------------------
 
 function HighlightsCard({ stats }: { stats: DashboardStats }) {
@@ -529,11 +521,7 @@ function RecentActivityCard({ stats }: { stats: DashboardStats }) {
   )
 }
 
-// --- Skeleton / building blocks --------------------------------------------
-
-function Card({ children }: { children: ReactNode }) {
-  return <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">{children}</section>
-}
+// --- Skeleton ----------------------------------------------------------------
 
 function HomeSkeleton() {
   return (
@@ -554,8 +542,4 @@ function HomeSkeleton() {
       <SkeletonBlock className="h-40" />
     </div>
   )
-}
-
-function SkeletonBlock({ className }: { className: string }) {
-  return <div className={`animate-pulse rounded-2xl bg-slate-200 dark:bg-slate-800 ${className}`} />
 }

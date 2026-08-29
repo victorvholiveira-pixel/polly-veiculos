@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { Card } from '@/components/ui/Card'
+import { SkeletonBlock } from '@/components/ui/Skeleton'
+import { fmtBRL, fmtDateLong } from '@/lib/format'
+import { daysInStockFor } from '@/lib/data/stockSummary'
 import { fetchVehicle, type Vehicle } from '@/lib/data/vehicles'
-
-function fmtBRL(n: number | null): string {
-  return n === null ? 'Não informado' : n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-}
 
 const statusLabel: Record<Vehicle['status'], string> = {
   available: 'Disponível',
@@ -26,9 +26,23 @@ export function VehicleDetailPage() {
       .finally(() => setLoading(false))
   }, [id])
 
-  if (loading) return <p className="text-slate-500 dark:text-slate-400">Carregando…</p>
+  if (loading) {
+    return (
+      <div className="space-y-4" aria-hidden="true">
+        <SkeletonBlock className="h-9 w-2/3" />
+        <SkeletonBlock className="h-10 w-1/2" />
+        <SkeletonBlock className="h-40" />
+        <SkeletonBlock className="h-12" />
+        <SkeletonBlock className="h-12" />
+      </div>
+    )
+  }
   if (error) return <p role="alert" className="text-sm text-red-600 dark:text-red-400">{error}</p>
   if (!vehicle) return <p className="text-slate-500 dark:text-slate-400">Veículo não encontrado.</p>
+
+  const days = daysInStockFor(vehicle, new Date())
+  const daysColor = days === null ? 'text-slate-500 dark:text-slate-400' : days >= 60 ? 'text-red-600 dark:text-red-400' : days >= 30 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400'
+  const statusColor = vehicle.status === 'available' ? 'text-emerald-600 dark:text-emerald-400' : vehicle.status === 'reserved' ? 'text-amber-600 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'
 
   return (
     <div className="space-y-4">
@@ -39,20 +53,24 @@ export function VehicleDetailPage() {
         {vehicle.trim && <p className="text-slate-500 dark:text-slate-400">{vehicle.trim}</p>}
       </div>
 
-      <p className="text-3xl font-semibold text-slate-900 dark:text-slate-50">{fmtBRL(vehicle.asking_price)}</p>
+      <p className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">{vehicle.asking_price !== null ? fmtBRL(vehicle.asking_price) : 'Preço não informado'}</p>
 
-      <dl className="grid grid-cols-2 gap-3 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-        <Field label="Ano" value={vehicle.model_year?.toString() ?? '—'} />
-        <Field label="Placa" value={vehicle.plate ?? '—'} />
-        <Field label="Status" value={statusLabel[vehicle.status]} />
-        <Field label="Origem" value={vehicle.origin === 'manual' ? 'Cadastrado no app' : 'Migrado da planilha'} />
-      </dl>
+      <Card>
+        <dl className="grid grid-cols-2 gap-4">
+          <Field label="Ano" value={vehicle.model_year?.toString() ?? '—'} />
+          <Field label="Placa" value={vehicle.plate ?? '—'} />
+          <Field label="Status" value={statusLabel[vehicle.status]} valueClassName={statusColor} />
+          <Field label="Dias em estoque" value={days !== null ? `${days} ${days === 1 ? 'dia' : 'dias'}` : '—'} valueClassName={daysColor} />
+          <Field label="Entrada" value={vehicle.entry_date ? fmtDateLong(vehicle.entry_date) : 'Não informada'} />
+          <Field label="Origem" value={vehicle.origin === 'manual' ? 'Cadastrado no app' : 'Migrado da planilha'} />
+        </dl>
+      </Card>
 
       {vehicle.observations && (
-        <div>
+        <Card>
           <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Observações</p>
-          <p className="text-sm text-slate-500 dark:text-slate-400">{vehicle.observations}</p>
-        </div>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{vehicle.observations}</p>
+        </Card>
       )}
 
       <div className="space-y-2">
@@ -75,11 +93,11 @@ export function VehicleDetailPage() {
   )
 }
 
-function Field({ label, value }: { label: string; value: string }) {
+function Field({ label, value, valueClassName }: { label: string; value: string; valueClassName?: string }) {
   return (
     <div>
       <dt className="text-xs text-slate-400">{label}</dt>
-      <dd className="text-sm font-medium text-slate-900 dark:text-slate-50">{value}</dd>
+      <dd className={`text-sm font-semibold ${valueClassName ?? 'text-slate-900 dark:text-slate-50'}`}>{value}</dd>
     </div>
   )
 }

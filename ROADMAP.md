@@ -86,6 +86,26 @@
       infraestrutura só visíveis contra o projeto de verdade (IPv6 do
       Session Pooler, ledger da CLI vazio apesar do schema já existir) —
       ver ARCHITECTURE.md)*
+- [x] **Onda 12 — Estoque no nível da Home**: redesenho completo da página
+      Estoque, com exploração prévia no Figma (3 direções mobile-first
+      comparadas; direção "Denso por dados" escolhida — hero em card único,
+      filtro+ordenação compactos, cards de 3 linhas com preço em destaque).
+      Resumo executivo (veículos, valor total, ticket médio, idade média,
+      +30/+60 dias — reaproveitando `computeAging` da Home, sem duas contas
+      divergentes para o mesmo número), busca instantânea, chips de filtro
+      (Todos/Disponíveis/Reservados/+30/+60, escondidos quando a contagem é
+      zero), ordenação por bottom sheet (`Card`/`Badge`/`Skeleton`/`ActionSheet`
+      extraídos para `src/components/ui/` — a Home também passou a usar os
+      mesmos primitivos, sem duplicar), card redesenhado (marca/modelo/versão,
+      ano·placa, preço, status + dias em estoque coloridos por severidade,
+      data de entrada — nunca uma idade inventada), ação principal (tocar =
+      ver detalhes) e menu contextual para Editar/Vender. Avaliada e
+      descartada a visão compacta/detalhada separada — o card único já
+      resolve densidade sem duplicar código de renderização. Detalhe do
+      veículo harmonizado (mesmo `Card`, dias em estoque, entrada). Testado
+      com dados reais rodando no navegador (Playwright contra o build de
+      produção, sessão simulada — este ambiente não alcança o Supabase real),
+      não só mocks do Figma.
 
 ### Endurecimento futuro (não bloqueia Go-Live)
 
