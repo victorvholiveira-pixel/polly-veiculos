@@ -1,0 +1,212 @@
+name: Supabase — migração/import manual (projeto real)
+
+# Só roda quando alguém dispara manualmente pelo GitHub (web ou app mobile).
+# Nunca roda em push/PR — evita qualquer alteração automática no banco real.
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "O que executar contra o projeto Supabase real (xzcuhrdhccnforqkovof)"
+        required: true
+        type: choice
+        default: validate-legacy-sales
+        options:
+          - legacy-sales
+          - migrations-only
+          - validate-legacy-sales
+
+permissions:
+  contents: read
+
+# Evita duas execuções concorrentes mexendo no mesmo banco ao mesmo tempo.
+concurrency:
+  group: supabase-manual-migration
+  cancel-in-progress: false
+
+jobs:
+  run:
+    name: "${{ github.event.inputs.action }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Vincula este job ao Environment "production" do repositório. Se o
+    # Environment tiver "required reviewers" configurado (Settings →
+    # Environments → production), toda execução fica pendente de aprovação
+    # antes de tocar no banco real — ver GO_LIVE_CHECKLIST.md.
+    environment: production
+    env:
+      # Não é segredo: é o identificador público do projeto (já aparece na
+      # URL pública `https://xzcuhrdhccnforqkovof.supabase.co` e em vários
+      # arquivos deste repo). Só os dois abaixo é que são credenciais reais.
+      PROJECT_REF: xzcuhrdhccnforqkovof
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar Supabase CLI (ação oficial)
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Instalar cliente psql
+        run: |
+          set -euo pipefail
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends postgresql-client
+
+      # Autentica com SUPABASE_ACCESS_TOKEN (mecanismo oficial da CLI para
+      # CI, sem `supabase login` interativo) e liga este checkout ao projeto
+      # real via project-ref + senha do Postgres. Isso já serve como o
+      # "confirma acesso real" do fluxo: se o token, o project-ref ou a
+      # senha estiverem errados, o job falha aqui, antes de qualquer SQL.
+      - name: Autenticar e conferir acesso real ao projeto Supabase
+        run: |
+          set -euo pipefail
+          supabase link --project-ref "$PROJECT_REF" --password "$SUPABASE_DB_PASSWORD"
+          echo "Link OK com o projeto $PROJECT_REF."
+
+      # Aplica só as migrations que ainda não estão no ledger remoto
+      # (tabela supabase_migrations.schema_migrations, mantida pela própria
+      # CLI). Migration já aplicada nunca é reaplicada — reexecutar este job
+      # é seguro. Roda para `migrations-only` e para `legacy-sales` (a
+      # migration 20260829001800_sales_legacy_provenance.sql, que o import
+      # de vendas legadas depende, está em supabase/migrations/ e entra
+      # aqui automaticamente, na ordem certa).
+      - name: Aplicar migrations pendentes (ledger oficial da CLI)
+        if: github.event.inputs.action == 'migrations-only' || github.event.inputs.action == 'legacy-sales'
+        run: |
+          set -euo pipefail
+          supabase db push --linked | tee /tmp/db-push.log
+          {
+            echo "### Migrations aplicadas"
+            echo ""
+            echo '```'
+            cat /tmp/db-push.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Snapshot de vendas do app ANTES de mexer em qualquer coisa, para
+      # provar depois que nenhuma venda do app foi alterada pelo import.
+      - name: "Snapshot: vendas do app antes do import"
+        if: github.event.inputs.action == 'legacy-sales'
+        run: |
+          set -euo pipefail
+          export PGHOST="db.${PROJECT_REF}.supabase.co" PGPORT=5432 PGUSER=postgres PGDATABASE=postgres
+          export PGPASSWORD="$SUPABASE_DB_PASSWORD" PGSSLMODE=require
+          count=$(psql -v ON_ERROR_STOP=1 -tAc "select count(*) from public.sales where origin = 'app';")
+          checksum=$(psql -v ON_ERROR_STOP=1 -tAc "select coalesce(md5(string_agg(id::text || sale_date::text || sale_value::text, ',' order by id)), 'empty') from public.sales where origin = 'app';")
+          echo "APP_SALES_BEFORE=$count" >> "$GITHUB_ENV"
+          echo "APP_SALES_CHECKSUM_BEFORE=$checksum" >> "$GITHUB_ENV"
+          echo "Vendas do app antes: $count"
+
+      # O próprio artifacts/migration/import_legacy_sales.sql já é o mesmo
+      # SQL pensado para ser colado no SQL Editor: um INSERT idempotente
+      # (ON CONFLICT DO NOTHING via a constraint sales_source_occurrence_uk)
+      # seguido das queries de conferência. `psql -f` roda o arquivo
+      # inteiro, statement a statement, com ON_ERROR_STOP=1 — qualquer erro
+      # para o job imediatamente, sem mascarar.
+      - name: "legacy-sales: importar vendas históricas de alta confiança"
+        if: github.event.inputs.action == 'legacy-sales'
+        run: |
+          set -euo pipefail
+          export PGHOST="db.${PROJECT_REF}.supabase.co" PGPORT=5432 PGUSER=postgres PGDATABASE=postgres
+          export PGPASSWORD="$SUPABASE_DB_PASSWORD" PGSSLMODE=require
+          psql -v ON_ERROR_STOP=1 -f artifacts/migration/import_legacy_sales.sql
+
+      # As 3 validações pedidas. Compara com os valores esperados e falha o
+      # job (exit != 0) se qualquer uma não bater — nada aqui é "melhor
+      # esforço": ou os 3 números batem, ou o job vermelho avisa.
+      - name: "legacy-sales: validar contagens e falhar se não bater"
+        if: github.event.inputs.action == 'legacy-sales'
+        run: |
+          set -euo pipefail
+          export PGHOST="db.${PROJECT_REF}.supabase.co" PGPORT=5432 PGUSER=postgres PGDATABASE=postgres
+          export PGPASSWORD="$SUPABASE_DB_PASSWORD" PGSSLMODE=require
+
+          imported=$(psql -v ON_ERROR_STOP=1 -tAc "select count(*) from public.sales where origin = 'migration';")
+          left_out=$(psql -v ON_ERROR_STOP=1 -tAc "
+            select count(*)
+            from public.vehicle_occurrences o
+            where o.observed_status = 'sold'
+              and o.sale_classification = 'sale_detected'
+              and (
+                o.sale_date_parsed is null
+                or o.sale_date_parsed > current_date
+                or coalesce(o.confirmed_value, o.value_parsed) is null
+              )
+              and not exists (select 1 from public.sales s where s.source_occurrence_id = o.id);
+          ")
+          with_vehicle=$(psql -v ON_ERROR_STOP=1 -tAc "select count(*) from public.sales where origin = 'migration' and vehicle_id is not null;")
+
+          app_after=$(psql -v ON_ERROR_STOP=1 -tAc "select count(*) from public.sales where origin = 'app';")
+          app_checksum_after=$(psql -v ON_ERROR_STOP=1 -tAc "select coalesce(md5(string_agg(id::text || sale_date::text || sale_value::text, ',' order by id)), 'empty') from public.sales where origin = 'app';")
+
+          fail=0
+          [ "$imported" = "542" ]     || { echo "::error::legacy_sales_imported esperado 542, obtido $imported"; fail=1; }
+          [ "$left_out" = "60" ]      || { echo "::error::left_out_for_review esperado 60, obtido $left_out"; fail=1; }
+          [ "$with_vehicle" = "0" ]   || { echo "::error::legacy_sales_with_a_vehicle_id esperado 0, obtido $with_vehicle"; fail=1; }
+          [ "$app_after" = "$APP_SALES_BEFORE" ] || { echo "::error::vendas do app mudou de quantidade: antes=$APP_SALES_BEFORE depois=$app_after"; fail=1; }
+          [ "$app_checksum_after" = "$APP_SALES_CHECKSUM_BEFORE" ] || { echo "::error::vendas do app foram alteradas (checksum mudou)"; fail=1; }
+
+          {
+            echo "### Validação — import de vendas legadas"
+            echo ""
+            echo "| Métrica | Esperado | Obtido | OK? |"
+            echo "|---|---|---|---|"
+            echo "| legacy_sales_imported | 542 | $imported | $([ "$imported" = "542" ] && echo ✅ || echo ❌) |"
+            echo "| left_out_for_review | 60 | $left_out | $([ "$left_out" = "60" ] && echo ✅ || echo ❌) |"
+            echo "| legacy_sales_with_a_vehicle_id | 0 | $with_vehicle | $([ "$with_vehicle" = "0" ] && echo ✅ || echo ❌) |"
+            echo "| vendas do app (quantidade) | $APP_SALES_BEFORE | $app_after | $([ "$app_after" = "$APP_SALES_BEFORE" ] && echo ✅ || echo ❌) |"
+            echo "| vendas do app (checksum) | inalterado | $([ "$app_checksum_after" = "$APP_SALES_CHECKSUM_BEFORE" ] && echo "inalterado" || echo "MUDOU") | $([ "$app_checksum_after" = "$APP_SALES_CHECKSUM_BEFORE" ] && echo ✅ || echo ❌) |"
+            echo ""
+            echo "Home exibindo o histórico mensal: **não é verificável por SQL** — depois"
+            echo "que este job passar, abra o app e confirme visualmente o painel Início."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          exit $fail
+
+      # Só leitura: mostra o estado atual das 3 métricas sem alterar nada.
+      # Útil antes de rodar `legacy-sales` (para ver se já foi feito) e
+      # depois (para reconferir a qualquer momento). Nunca falha o job —
+      # é um relatório, não um gate.
+      - name: "validate-legacy-sales: conferência somente leitura"
+        if: github.event.inputs.action == 'validate-legacy-sales'
+        run: |
+          set -euo pipefail
+          export PGHOST="db.${PROJECT_REF}.supabase.co" PGPORT=5432 PGUSER=postgres PGDATABASE=postgres
+          export PGPASSWORD="$SUPABASE_DB_PASSWORD" PGSSLMODE=require
+
+          imported=$(psql -v ON_ERROR_STOP=1 -tAc "select count(*) from public.sales where origin = 'migration';")
+          left_out=$(psql -v ON_ERROR_STOP=1 -tAc "
+            select count(*)
+            from public.vehicle_occurrences o
+            where o.observed_status = 'sold'
+              and o.sale_classification = 'sale_detected'
+              and (
+                o.sale_date_parsed is null
+                or o.sale_date_parsed > current_date
+                or coalesce(o.confirmed_value, o.value_parsed) is null
+              )
+              and not exists (select 1 from public.sales s where s.source_occurrence_id = o.id);
+          ")
+          with_vehicle=$(psql -v ON_ERROR_STOP=1 -tAc "select count(*) from public.sales where origin = 'migration' and vehicle_id is not null;")
+          app_count=$(psql -v ON_ERROR_STOP=1 -tAc "select count(*) from public.sales where origin = 'app';")
+
+          echo "legacy_sales_imported=$imported (esperado após import: 542)"
+          echo "left_out_for_review=$left_out (esperado após import: 60)"
+          echo "legacy_sales_with_a_vehicle_id=$with_vehicle (esperado sempre: 0)"
+          echo "vendas do app (origin='app')=$app_count"
+
+          {
+            echo "### Conferência somente leitura — vendas legadas"
+            echo ""
+            echo "| Métrica | Valor atual | Esperado após import |"
+            echo "|---|---|---|"
+            echo "| legacy_sales_imported | $imported | 542 |"
+            echo "| left_out_for_review | $left_out | 60 |"
+            echo "| legacy_sales_with_a_vehicle_id | $with_vehicle | 0 |"
+            echo "| vendas do app (origin='app') | $app_count | — |"
+            echo ""
+            echo "Esta action é só leitura: nada foi alterado no banco."
+          } >> "$GITHUB_STEP_SUMMARY"

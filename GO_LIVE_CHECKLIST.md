@@ -14,7 +14,11 @@ depois do detour de Google Apps Script na Onda 7).
       saída rejeita qualquer conexão a `*.supabase.co`/`api.supabase.com`
       por política da organização, não por falta de credencial (ver
       `ARCHITECTURE.md`, "Bloqueio de acesso real ao Supabase"). Precisa
-      rodar de fora deste ambiente — a máquina do usuário ou CI.
+      rodar de fora deste ambiente — a máquina do usuário ou CI. Caminho
+      recomendado agora: workflow manual `.github/workflows/supabase-manual-migration.yml`
+      (`action: migrations-only`, pelo GitHub Actions — ver README.md,
+      "Rodando migrations/imports contra o projeto real"). Ainda não
+      executado contra o projeto real.
 - [x] Constraints (checks, unique indexes, FKs) validadas com inserts reais
 - [x] RLS habilitado em todas as tabelas operacionais, testado por papel
       (anon vs. authenticated) com inserts reais, não só leitura do SQL
@@ -47,7 +51,9 @@ depois do detour de Google Apps Script na Onda 7).
 - [ ] Artefato(s) executado(s) contra o projeto Supabase real
       (`xzcuhrdhccnforqkovof`) — falta o usuário rodar pelo painel (CSV
       primeiro; lotes SQL pequenos como alternativa) e confirmar os mesmos
-      counts
+      counts. Caminho recomendado agora: mesmo workflow manual do GitHub
+      Actions citado acima (dá pra disparar pelo celular, sem precisar
+      colar nada no painel) — ver README.md.
 - [ ] Estoque validado por humano, linha a linha, na Central de Revisão —
       **NÃO** vira estoque oficial automaticamente
 - [ ] Duplicidades tratadas (fila de revisão resolvida ou conscientemente
@@ -65,11 +71,16 @@ depois do detour de Google Apps Script na Onda 7).
       contra Postgres 16 local com o ledger real: 542 importadas, 0 com
       vehicle_id, idempotente ao rodar duas vezes.
 - [ ] Artefato de vendas legadas executado contra o projeto Supabase real
-      (`xzcuhrdhccnforqkovof`) — falta colar
-      `artifacts/migration/import_legacy_sales.sql` no SQL Editor (roda
-      inteiramente a partir do `vehicle_occurrences` já carregado, sem
-      depender de nenhum arquivo externo — só depende do item anterior de
-      carga do ledger já ter rodado)
+      (`xzcuhrdhccnforqkovof`) — falta rodar
+      `artifacts/migration/import_legacy_sales.sql` (roda inteiramente a
+      partir do `vehicle_occurrences` já carregado, sem depender de nenhum
+      arquivo externo — só depende do item anterior de carga do ledger já
+      ter rodado). Duas formas: colar no SQL Editor, **ou** disparar o
+      workflow manual `.github/workflows/supabase-manual-migration.yml`
+      com `action: legacy-sales` (aplica a migration
+      `20260829001800_sales_legacy_provenance.sql`, importa e já valida os
+      3 números — 542/60/0 — falhando o job se algum não bater; ver
+      README.md).
 
 ## Aplicação
 

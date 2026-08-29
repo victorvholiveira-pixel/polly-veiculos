@@ -52,11 +52,98 @@ Projeto definitivo já criado: `xzcuhrdhccnforqkovof`
 
 1. Em *Project Settings → API*, copiar a **Project URL** e a **anon/publishable
    key** para o `.env` (nunca a `service_role key`).
-2. Aplicar as migrations: `supabase link --project-ref xzcuhrdhccnforqkovof`
-   + `supabase db push` (ou colar o conteúdo de `supabase/migrations/*.sql`,
-   em ordem, no SQL Editor do projeto).
+2. Aplicar as migrations e importar as vendas legadas pelo workflow manual do
+   GitHub Actions — ver "Rodando migrations/imports contra o projeto real"
+   abaixo. (Alternativa manual, sem CI: `supabase link --project-ref
+   xzcuhrdhccnforqkovof` + `supabase db push`, ou colar o conteúdo de
+   `supabase/migrations/*.sql`, em ordem, no SQL Editor do projeto.)
 3. Criar o primeiro usuário em *Authentication → Users* (e-mail + senha) —
    não há tela de cadastro no app de propósito.
+
+### Rodando migrations/imports contra o projeto real (GitHub Actions)
+
+Este ambiente de desenvolvimento não alcança `*.supabase.co` na rede (ver
+`ARCHITECTURE.md`), então migrations e o import de vendas legadas contra o
+projeto real (`xzcuhrdhccnforqkovof`) rodam por um workflow manual do GitHub
+Actions: [`.github/workflows/supabase-manual-migration.yml`](./.github/workflows/supabase-manual-migration.yml).
+Ele **nunca** roda em push/PR — só quando alguém dispara manualmente.
+
+#### 1. Secrets a criar (uma vez)
+
+No GitHub: **Settings → Environments → `production`** (o workflow está
+vinculado a esse Environment; crie-o se ainda não existir) **→ Environment
+secrets → Add secret**. Se preferir, também funciona como *Repository
+secret* em Settings → Secrets and variables → Actions, mas o Environment é
+melhor porque permite exigir aprovação manual antes do job rodar (ver
+"Proteções" abaixo).
+
+| Nome exato do secret | Valor | Onde conseguir |
+|---|---|---|
+| `SUPABASE_ACCESS_TOKEN` | Personal access token da sua conta Supabase | [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens) → Generate new token |
+| `SUPABASE_DB_PASSWORD` | Senha do Postgres do projeto `xzcuhrdhccnforqkovof` | Project Settings → Database → Database password (a que você definiu ao criar o projeto; "Reset database password" se não lembrar) |
+
+O project ref (`xzcuhrdhccnforqkovof`) **não** é secret — já está hardcoded
+no workflow, porque é um identificador público (aparece na própria URL do
+projeto).
+
+#### 2. Como rodar pelo celular ou pelo navegador
+
+1. Abra o repositório no app do GitHub (ou `github.com` no navegador do
+   celular).
+2. Aba **Actions** → workflow **"Supabase — migração/import manual (projeto
+   real)"**.
+3. Botão **Run workflow** → escolha o branch (`main`) → escolha a opção em
+   **action** → **Run workflow**.
+4. Se o Environment `production` tiver aprovação obrigatória configurada, o
+   job fica "Waiting" até alguém aprovar (mesma tela, botão **Review
+   deployments**).
+5. Acompanhe o job rodando; ao final, abra o **Summary** da execução — ele
+   mostra uma tabela com o resultado (não precisa ler o log linha a linha).
+
+#### 3. O que cada `action` faz
+
+| `action` | O que roda | Altera o banco? |
+|---|---|---|
+| `validate-legacy-sales` (padrão) | 3 queries de leitura: quantas vendas `origin='migration'` existem, quantas ocorrências ficaram de fora para revisão, e se alguma venda migrada tem `vehicle_id` | **Não** — só leitura |
+| `migrations-only` | `supabase db push` — aplica no projeto real só as migrations de `supabase/migrations/` que ainda não estão no ledger remoto (não reaplica as já aplicadas) | Sim — schema (DDL), nunca dados de vendas |
+| `legacy-sales` | Aplica migrations pendentes (inclui `20260829001800_sales_legacy_provenance.sql` se ainda não aplicada) → roda `artifacts/migration/import_legacy_sales.sql` (insere as 542 vendas legadas seguras, `ON CONFLICT DO NOTHING` — seguro rodar de novo) → valida as contagens e **falha o job** se não baterem | Sim — schema + as vendas legadas (nunca mexe em `origin='app'`, e o job confere isso) |
+
+#### 4. Como interpretar o resultado
+
+- Job **verde**: para `legacy-sales`, significa que as 3 métricas bateram
+  exatamente (542 importadas / 60 para revisão / 0 com `vehicle_id`) **e**
+  que a quantidade e o conteúdo das vendas `origin='app'` não mudaram. Para
+  `migrations-only`, significa que `supabase db push` terminou sem erro.
+- Job **vermelho**: alguma migration falhou, o import falhou, ou uma das
+  validações não bateu — o Summary mostra qual métrica ficou diferente do
+  esperado. Nada é mascarado; investigue antes de rodar de novo.
+- O Summary sempre lembra que "Home exibindo o histórico mensal" é visual —
+  não dá para confirmar por SQL. Depois de um `legacy-sales` verde, abra o
+  app de verdade e confira o painel Início.
+
+#### 5. Proteções já no workflow
+
+- `workflow_dispatch` apenas — nada roda em push/PR/merge.
+- Job vinculado ao Environment `production` (permite exigir aprovação manual
+  antes de rodar, se você configurar "required reviewers" nesse Environment).
+- `concurrency` — impede duas execuções ao mesmo tempo no mesmo banco.
+- Secrets nunca aparecem em log (senha só existe como variável de ambiente,
+  nunca em linha de comando; o GitHub também mascara automaticamente
+  qualquer secret que aparecer por engano).
+- `set -euo pipefail` em todo passo — nenhuma falha é engolida.
+- Migrations aplicadas pelo ledger oficial da CLI (`supabase db push`), não
+  por DDL colado às cegas — reexecução é sempre segura.
+- Import de vendas usa o mesmo `ON CONFLICT DO NOTHING` do artefato SQL —
+  reexecução nunca duplica.
+
+#### Limitação real
+
+Este workflow ainda não é executável a partir deste ambiente de
+desenvolvimento (que não alcança `*.supabase.co`) nem foi rodado contra o
+projeto real ainda — só validado sintaticamente (`actionlint`). A primeira
+execução real deve ser `validate-legacy-sales` (só leitura) para confirmar
+que os secrets estão certos, antes de rodar `migrations-only` ou
+`legacy-sales`.
 
 ### Scripts
 
