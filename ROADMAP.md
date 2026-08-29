@@ -65,11 +65,8 @@
       fora, para revisão manual, sem inventar nada. `sales.vehicle_id` virou
       opcional e uma venda legada nunca ganha um veículo placeholder — ver
       `ARCHITECTURE.md`, "sales.origin", e `MIGRATION.md` para a auditoria
-      completa. *(concluída — falta só o primeiro push com
-      `.github/workflows/supabase-deploy.yml` no ar aplicar
-      `supabase/data-migrations/20260829002000_import_legacy_sales.sql`
-      contra o projeto real; deixou de depender de alguém rodar isso à mão,
-      ver Onda 11)*
+      completa. *(concluída — executada contra o projeto real na Onda 11:
+      542 vendas legadas confirmadas em produção, ver abaixo)*
 - [x] **Onda 11 — Deploy automático (schema + dados)**: fim da dependência
       de SQL Editor manual ou clique em "Run workflow" para operação normal.
       `.github/workflows/supabase-deploy.yml` dispara sozinho a cada push em
@@ -82,9 +79,13 @@
       CI aplica e valida contra o projeto real. `workflow_dispatch`
       continua como escape hatch manual (`deploy`/`validate-only`), não como
       caminho principal. Ver `ARCHITECTURE.md`, "Data migrations", e
-      README.md, "Deploy automático contra o projeto real". *(concluída —
-      pipeline no ar, ainda não exercido por um push real: o primeiro push
-      tocando essas pastas é a primeira execução de verdade)*
+      README.md, "Deploy automático contra o projeto real". *(concluída e
+      exercida de verdade contra `xzcuhrdhccnforqkovof`: as 19 migrations
+      sincronizadas e as 542 vendas legadas importadas em produção — a
+      primeira execução real também encontrou e corrigiu dois problemas de
+      infraestrutura só visíveis contra o projeto de verdade (IPv6 do
+      Session Pooler, ledger da CLI vazio apesar do schema já existir) —
+      ver ARCHITECTURE.md)*
 
 ### Endurecimento futuro (não bloqueia Go-Live)
 

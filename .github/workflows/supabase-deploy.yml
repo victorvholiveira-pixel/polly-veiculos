@@ -103,26 +103,6 @@ jobs:
           } >> "$GITHUB_ENV"
           echo "PGPASSWORD=$SUPABASE_DB_PASSWORD" >> "$GITHUB_ENV"
 
-      # TEMP — reparo único do ledger remoto: confirmado por inspeção direta
-      # (objeto a objeto, run 33277567201) que o schema real já reflete as
-      # migrations 20260829000100–20260829001800 (aplicadas manualmente antes
-      # deste pipeline existir), mas supabase_migrations.schema_migrations
-      # está vazio para todas elas. `migration repair --status applied` só
-      # grava linhas no ledger, não roda SQL — por isso só marca as versões
-      # que a inspeção confirmou presentes; 20260829001900 fica de fora de
-      # propósito, para o próximo passo (`db push`) aplicá-la de verdade.
-      # Remover este passo depois desta execução — não é operação recorrente.
-      - name: "TEMP: reparar ledger remoto (bootstrap único, ver ARCHITECTURE.md)"
-        if: github.event.inputs.action == 'deploy'
-        run: |
-          set -euo pipefail
-          supabase migration repair --status applied --linked \
-            20260829000100 20260829000200 20260829000300 20260829000400 \
-            20260829000500 20260829000600 20260829000700 20260829000800 \
-            20260829000900 20260829001000 20260829001100 20260829001200 \
-            20260829001300 20260829001400 20260829001500 20260829001600 \
-            20260829001700 20260829001800
-
       # 1) Migrations de schema — só as que ainda não estão no ledger oficial
       # da CLI (supabase_migrations.schema_migrations). Reexecução nunca
       # reaplica uma já aplicada.

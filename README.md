@@ -9,22 +9,26 @@ Ver também: [`ARCHITECTURE.md`](./ARCHITECTURE.md) · [`ROADMAP.md`](./ROADMAP.
 
 ## Status atual
 
-**Ondas 1–8 concluídas** (ver `ROADMAP.md`). O core operacional está
+**Ondas 1–11 concluídas** (ver `ROADMAP.md`). O core operacional está
 funcional: login, Estoque (listar/buscar/cadastrar/editar), Vender,
-Histórico com cancelamento, painel Início com os 6 indicadores, comissão
-manual/configurável, Central de Revisão da migração, auditoria e
-exportação de dados.
+Histórico com cancelamento (com vendas legadas reais), painel Início com os
+6 indicadores, comissão manual/configurável, Central de Revisão da
+migração, auditoria e exportação de dados.
 
 **Backend definitivo: Supabase** (projeto `xzcuhrdhccnforqkovof`). Um
 detour por Google Apps Script + Sheets (Onda 7) foi implementado, testado e
 depois abandonado — ver `ARCHITECTURE.md` para o porquê. Nada dessa fase
 continua em uso.
 
-**Ainda não há acesso de rede a `*.supabase.co` neste ambiente de
-desenvolvimento** — todas as migrations foram validadas só contra um
-Postgres 16 local (`npm run db:validate`, 27/27 asserções), nunca contra o
-projeto real. Ver `GO_LIVE_CHECKLIST.md` para o que falta antes do
-lançamento.
+**Schema e vendas legadas já aplicados contra o projeto real** — via
+`.github/workflows/supabase-deploy.yml` (Onda 11), não colado à mão: as 19
+migrations sincronizadas e as 542 vendas legadas importadas em produção
+(ver "Executado contra o projeto real" abaixo). Este ambiente de
+desenvolvimento (onde o Claude roda) continua sem rede até
+`*.supabase.co` — mas quem aplica de verdade é o runner do GitHub Actions,
+não este ambiente; `npm run db:validate` (Postgres local, 33/33 asserções)
+continua sendo a validação de cada mudança antes do push. Ver
+`GO_LIVE_CHECKLIST.md` para o que falta antes do lançamento.
 
 O cutover histórico completo (as 602/23/263 vendas da planilha antiga, os
 ~1.023 veículos candidatos a identidade canônica) segue deliberadamente não
@@ -167,18 +171,30 @@ importadas / 0 com `vehicle_id`.
   ledger próprio (`public._data_migrations`) com checagem de checksum —
   reexecução é sempre segura nos dois casos.
 
-#### Limitação real
+#### Executado contra o projeto real (Onda 11)
 
-Nem o workflow nem o runner de data-migrations foram executados contra o
-projeto real ainda (este ambiente de desenvolvimento não alcança
-`*.supabase.co`) — só validados: sintaxe (`actionlint` + `shellcheck`, 0
-achados) e o runner de data-migrations de ponta a ponta contra os dados
-reais da planilha, num Postgres local (`npm run db:validate`), incluindo os
-casos de idempotência, checksum divergente e falha de validação interna. A
-primeira execução real será o próximo push em `main` que altere
-`supabase/migrations/**` ou `supabase/data-migrations/**` — ou
-`workflow_dispatch` → `validate-only` antes disso, se quiser conferir que os
-secrets estão certos sem alterar nada.
+Rodado de verdade contra `xzcuhrdhccnforqkovof` — não é só teoria: schema
+com as 19 migrations sincronizado (`supabase migration list --linked`
+confirma Local/Remote batendo em todas, `db push --dry-run` reporta "Remote
+database is up to date"), e as 542 vendas legadas importadas
+(`legacy_sales_imported = 542`, `left_out_for_review = 60`,
+`legacy_sales_with_a_vehicle_id = 0`), registradas no ledger
+`public._data_migrations`.
+
+A primeira execução real encontrou (e o pipeline corrigiu) dois problemas
+de infraestrutura que só apareciam contra o projeto de verdade, nunca no
+Postgres local: a conexão direta do Supabase só resolve IPv6 (runners do
+GitHub Actions não têm rota de saída IPv6 — corrigido usando o Session
+Pooler, IPv4) e o ledger da CLI estava vazio porque o schema tinha sido
+aplicado manualmente antes deste pipeline existir (corrigido com um reparo
+único de metadado, `supabase migration repair`, sem rodar nenhum SQL — ver
+ARCHITECTURE.md, "Conexão do CI ao Postgres real" e "Data migrations").
+Ambos os fixes ficaram permanentes no workflow; o reparo do ledger foi um
+passo único, já removido depois de confirmado.
+
+Este ambiente de desenvolvimento (onde o Claude roda) continua sem rede até
+`*.supabase.co` — mas isso nunca foi mais que um detalhe de onde o comando
+roda: quem executou de fato foi o runner do GitHub Actions, como desenhado.
 
 ### Scripts
 

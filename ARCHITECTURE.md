@@ -254,6 +254,43 @@ sessão) em vez de 6543 (transaction mode) — session mode se comporta como
 uma conexão Postgres normal (transações, `\i`, tudo que os scripts usam);
 transaction mode tem restrições que quebrariam isso.
 
+## Ledger da CLI vazio apesar do schema já existir (bootstrap único, Onda 11)
+
+Segundo problema da primeira execução real: `supabase db push` falhou na
+1ª migration com `function "set_updated_at" already exists`. Investigando
+com `supabase migration list --linked` (só leitura): as 19 migrations
+locais apareciam com a coluna "Remote" vazia — ou seja,
+`supabase_migrations.schema_migrations` (o ledger que a própria CLI
+mantém) estava **completamente vazio**, apesar do schema real já ter os
+objetos. Conclusão: o schema deste projeto foi aplicado ao banco real em
+algum momento fora do controle da CLI — plausivelmente colado no SQL
+Editor, um caminho que este próprio README chegou a documentar como
+alternativa antes da Onda 11.
+
+Antes de mexer em qualquer coisa, confirmei objeto a objeto (uma única
+query `select ... exists(...)`, só leitura) que **todas** as migrations de
+`20260829000100` a `20260829001800` já tinham seus objetos reais no banco
+(tabelas, colunas, funções — uma checagem por migration). Só
+`20260829001900` (a tabela `_data_migrations`, criada nesta mesma Onda)
+realmente faltava.
+
+Corrigido com `supabase migration repair --status applied --linked
+<versões>` — esse comando só grava linhas na tabela de ledger, nunca roda
+SQL — marcando exatamente as 18 versões confirmadas como já aplicadas.
+`db push --linked` então aplicou de verdade só a migration genuinamente
+nova (`20260829001900`), e a data-migration de vendas legadas rodou logo
+em seguida: `INSERT 0 0` (as 542 vendas já existiam — mesmo padrão: dado
+real carregado antes deste pipeline) mas a validação embutida confirmou os
+3 números (542/60/0) de qualquer forma, e o registro no ledger próprio
+(`public._data_migrations`) aconteceu normalmente.
+
+Esse reparo foi **um passo único do workflow, removido do arquivo depois de
+confirmado** — não é uma operação que o pipeline recorrente executa. Se
+algo semelhante acontecer de novo (alguém aplicar SQL fora da CLI), o
+caminho é o mesmo: `supabase migration list --linked` para diagnosticar,
+confirmar objeto a objeto antes de marcar qualquer coisa como aplicada, e
+`migration repair` como reparo único e deliberado — nunca automatizado.
+
 ## Data migrations
 
 `supabase/migrations/` versiona *schema* (DDL) e é gerenciado pelo ledger

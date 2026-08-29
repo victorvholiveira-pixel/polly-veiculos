@@ -9,15 +9,18 @@ depois do detour de Google Apps Script na Onda 7).
 - [x] Migrations versionadas e aplicadas com sucesso contra um Postgres real
       (`npm run db:validate` — via Postgres local, 33/33 asserções; não o
       projeto real ainda)
-- [ ] Migrations aplicadas contra o projeto Supabase real
-      (`xzcuhrdhccnforqkovof`) — este ambiente de desenvolvimento não
-      alcança `*.supabase.co` na rede (ver `ARCHITECTURE.md`, "Bloqueio de
-      acesso real ao Supabase"), mas **isso não é mais um bloqueio de
-      produção**: `.github/workflows/supabase-deploy.yml` aplica migrations
-      pendentes automaticamente a cada push em `main` que toque
-      `supabase/migrations/**` (ver README.md, "Deploy automático contra o
-      projeto real"). Ainda não executado de verdade — falta o primeiro
-      push com este pipeline no ar.
+- [x] Migrations aplicadas contra o projeto Supabase real
+      (`xzcuhrdhccnforqkovof`) — via `.github/workflows/supabase-deploy.yml`
+      (run 33277817821, `action: deploy`). `supabase migration list --linked`
+      confirma as 19 migrations com Local/Remote batendo; `db push --dry-run`
+      confirma "Remote database is up to date". Precisou de um reparo único
+      do ledger primeiro (`supabase migration repair`, só metadado, nenhum
+      SQL): o schema de `20260829000100` a `20260829001800` já existia no
+      projeto real, aplicado manualmente antes deste pipeline existir, mas
+      o ledger da CLI estava vazio — confirmado objeto a objeto antes do
+      reparo (ver ARCHITECTURE.md, "Conexão do CI ao Postgres real"). Só
+      `20260829001900` (a tabela `_data_migrations`) foi de fato uma
+      migration nova aplicada por `db push`.
 - [x] Constraints (checks, unique indexes, FKs) validadas com inserts reais
 - [x] RLS habilitado em todas as tabelas operacionais, testado por papel
       (anon vs. authenticated) com inserts reais, não só leitura do SQL
@@ -47,11 +50,12 @@ depois do detour de Google Apps Script na Onda 7).
       round-trip de jsonb íntegro (`\copy` padrão do Postgres — o importador
       da Supabase Studio pode ter particularidades que não dá para testar
       sem rede real), lotes idempotentes (re-rodar um lote não duplica).
-- [ ] Artefato(s) executado(s) contra o projeto Supabase real
-      (`xzcuhrdhccnforqkovof`) — falta o primeiro push com o pipeline
-      automático no ar (mesmo `.github/workflows/supabase-deploy.yml`
-      citado acima; alternativa manual continua existindo: CSV pelo Table
-      Editor, ou lotes SQL pequenos)
+- [x] Artefato(s) executado(s) contra o projeto Supabase real
+      (`xzcuhrdhccnforqkovof`) — confirmado indiretamente pelo deploy real
+      (health check + import de vendas legadas dependem de
+      `vehicle_occurrences` populado e passaram; `INSERT 0 0` no import —
+      as 542 vendas já existiam, provando que o ledger de ocorrências já
+      estava carregado antes deste pipeline)
 - [ ] Estoque validado por humano, linha a linha, na Central de Revisão —
       **NÃO** vira estoque oficial automaticamente
 - [ ] Duplicidades tratadas (fila de revisão resolvida ou conscientemente
@@ -72,13 +76,14 @@ depois do detour de Google Apps Script na Onda 7).
       usa): 542 importadas, 0 com vehicle_id, idempotente ao rodar duas
       vezes, e a validação interna do arquivo (bloco `raise exception`)
       testada tanto no caminho feliz quanto abortando de propósito.
-- [ ] Data-migration de vendas legadas executada contra o projeto Supabase
-      real (`xzcuhrdhccnforqkovof`) — falta o primeiro push com
-      `.github/workflows/supabase-deploy.yml` no ar (aplica a migration
-      `20260829001800_sales_legacy_provenance.sql` + a data-migration
-      acima automaticamente, e falha o job se as contagens não baterem;
-      ver README.md, "Deploy automático contra o projeto real"). Depende do
-      item anterior (carga do ledger) já ter rodado no projeto real.
+- [x] Data-migration de vendas legadas executada contra o projeto Supabase
+      real (`xzcuhrdhccnforqkovof`) — via `.github/workflows/supabase-deploy.yml`
+      (run 33277817821): `legacy_sales_imported = 542`,
+      `left_out_for_review = 60`, `legacy_sales_with_a_vehicle_id = 0`,
+      período `2022-07-14` a `2026-08-28`. Registrada no ledger
+      `public._data_migrations`. Nenhuma venda `origin='app'` tocada (o
+      INSERT só atinge linhas com `origin='migration'` por construção da
+      própria query).
 
 ## Aplicação
 
