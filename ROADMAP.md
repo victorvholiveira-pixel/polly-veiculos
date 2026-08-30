@@ -187,6 +187,46 @@
       em produção) para confirmar que filtro/ordenação/resumo seguem corretos
       nessa escala — este ambiente não alcança o Supabase real para puxar as
       542 linhas de verdade.
+- [x] **Onda 16 — Revisão de legibilidade/UX de Vendidos**: feedback real de
+      uso ("letras pequenas, texto secundário claro demais, pouco contraste,
+      leitura cansativa, filtros pouco intuitivos") — não era um pedido de
+      `font-size` maior, era hierarquia e contraste errados.
+
+      *Tipografia/contraste*: removido `text-slate-400`/`text-500` de todo
+      texto de conteúdo real (datas, placa, vendedor, meta) — no fundo claro
+      deste app (tema travado em light), `slate-400` mede ~2,8:1 de contraste
+      contra branco, abaixo do mínimo WCAG AA (4,5:1); virou `slate-600`
+      (~6,6:1) em todo lugar, com `slate-500` (~4,67:1, ainda dentro do AA)
+      reservado só para eyebrows curtos colados a um valor bem mais forte
+      logo abaixo (ex. "TICKET MÉDIO"). Preço/contagem de vendas subiram de
+      tamanho e peso; nenhum texto operacional ficou em 12px.
+
+      *Navegação mensal explícita* (pedido novo, não existia): tira
+      "< Agosto de 2026 >" no topo da visão, sempre visível — setas
+      avançam/voltam um mês (nunca para o futuro; sem piso, então meses sem
+      venda continuam navegáveis e mostram um vazio honesto, não somem),
+      tocar no rótulo abre um seletor de mês/ano em bottom sheet (grade de
+      12 meses + navegação de ano). `SoldPeriodSelection` ganhou o tipo
+      `calendarMonth` (ano+mês explícitos) ao lado dos períodos corridos
+      (3/6/12 meses/ano/tudo) já existentes — os pills de período viraram um
+      atalho complementar à tira de mês, não o único jeito de navegar.
+
+      *Filtros rápidos vs. avançados*: mês e busca ficam sempre visíveis;
+      vendedor/canal/origem/comissão (informada/não informada, novo)/ano do
+      veículo (novo)/faixa de valor (novo) foram para um "Filtros avançados"
+      compacto, com contagem de filtros ativos visível no próprio botão
+      ("Filtros · 2"). Botões de filtro/ordenar ganharam texto (não só
+      ícone). Card de venda reorganizado na hierarquia pedida
+      (marca/modelo → versão → preço em destaque → data → ano · placa →
+      badge), com chevron indicando que é tocável.
+
+      32 testes unitários (`soldSales.ts`: navegação de mês, período, todos
+      os filtros novos e combinados) + 19 testes de componente (mês sem
+      venda, troca de mês/ano, filtros combinados, resumo refletindo
+      filtros, busca, ordenação, abertura do `SaleDetailsSheet`, escala de
+      542 vendas). Validado visualmente com screenshots reais em Android
+      (Playwright, perfil Pixel 7, dados simulados — este ambiente não
+      alcança o Supabase real) antes de finalizar o design.
 
 ### Endurecimento futuro (não bloqueia Go-Live)
 

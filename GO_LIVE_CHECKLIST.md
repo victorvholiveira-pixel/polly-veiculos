@@ -91,12 +91,17 @@ depois do detour de Google Apps Script na Onda 7).
       Supabase real estar acessível)
 - [x] Estoque (lista, busca, ver, editar — funcional; validado só em
       Postgres local, não no projeto real)
-- [x] Vendidos dentro de Estoque (Onda 15): alternador "Em estoque"/
-      "Vendidos" na mesma tela, listando `sales.status='completed'` com
-      período/vendedor/canal/origem/busca combináveis e o mesmo
+- [x] Vendidos dentro de Estoque (Onda 15, revisão de legibilidade Onda 16):
+      alternador "Em estoque"/"Vendidos" na mesma tela, navegação mensal
+      explícita ("< Agosto de 2026 >"), filtros rápidos (mês/busca) sempre
+      visíveis e avançados (vendedor/canal/origem/comissão/ano do veículo/
+      faixa de valor) num sheet compacto com contagem de ativos, contraste
+      revisto (texto real nunca abaixo de slate-600 no tema claro), mesmo
       `SaleDetailsSheet` do Histórico/Home — testado com massa sintética de
-      542 vendas de migração (escala real), não com as 542 linhas reais do
-      projeto (ambiente sem acesso ao Supabase real)
+      542 vendas de migração (escala real) e validado visualmente com
+      screenshots reais em Android (Playwright), não com as 542 linhas
+      reais do projeto nem num aparelho físico (ambiente sem acesso ao
+      Supabase real)
 - [x] Cadastro de veículo
 - [x] Edição de veículo (nunca permite marcar como vendido — ver Segurança)
 - [x] Venda (`register_sale` RPC transacional, fluxo "Vender" completo —
@@ -135,7 +140,7 @@ depois do detour de Google Apps Script na Onda 7).
 
 - [x] `npm run lint` sem erros (1 warning informativo conhecido)
 - [x] `npm run typecheck` sem erros (TypeScript strict)
-- [x] `npm run test` — 217 testes unitários/componente passando
+- [x] `npm run test` — 237 testes unitários/componente passando
 - [x] `npm run test:e2e` — 4/4 smoke tests em navegador real passando (sem
       backend real ainda — provam a fiação client-side, não login de verdade)
 - [x] `npm run build` — build de produção sem erros

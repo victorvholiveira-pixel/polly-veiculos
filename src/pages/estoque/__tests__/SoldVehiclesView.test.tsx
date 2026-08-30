@@ -63,6 +63,12 @@ describe('SoldVehiclesView', () => {
     vi.useRealTimers()
   })
 
+  it('opens on the current month by default, labelled in plain language', async () => {
+    mockedFetchSales.mockResolvedValue([sale({})])
+    renderView()
+    expect(await screen.findByText('Agosto de 2026')).toBeInTheDocument()
+  })
+
   it('lists only completed sales — a cancelled sale never appears in Vendidos', async () => {
     mockedFetchSales.mockResolvedValue([
       sale({ id: 's-completed', status: 'completed' }),
@@ -75,17 +81,12 @@ describe('SoldVehiclesView', () => {
   })
 
   it('shows the fields a sold-vehicle card should: brand/model/trim/year/plate/date/value/customer/seller/commission', async () => {
-    mockedFetchSales.mockResolvedValue([
-      sale({
-        sellerName: 'João Vendedor',
-        vehicle: { brand: 'Fiat', model: 'Uno', trim: 'LXR 1.4', modelYear: 2020, plate: 'ABC1234' },
-      }),
-    ])
+    mockedFetchSales.mockResolvedValue([sale({ sellerName: 'João Vendedor' })])
     renderView()
 
     await screen.findByText('Fiat Uno')
     const card = screen.getByRole('button', { name: /Fiat Uno/ })
-    expect(within(card).getByText(/LXR 1\.4/)).toBeInTheDocument()
+    expect(within(card).getByText('LXR 1.4')).toBeInTheDocument()
     expect(within(card).getByText(/2020/)).toBeInTheDocument()
     expect(within(card).getByText(/ABC1234/)).toBeInTheDocument()
     expect(within(card).getByText('R$ 30.000,00')).toBeInTheDocument()
@@ -116,21 +117,59 @@ describe('SoldVehiclesView', () => {
     expect(await screen.findByRole('link', { name: 'Ver veículo' })).toBeInTheDocument()
   })
 
-  it('filters by period — "Este mês" excludes older sales, summary reflects the filtered set', async () => {
-    mockedFetchSales.mockResolvedValue([
-      sale({ id: 's-this-month', sale_date: '2026-08-05', sale_value: 10000, commission_amount: 500, vehicle: { brand: 'Fiat', model: 'Uno', trim: null, modelYear: 2020, plate: 'ABC1234' } }),
-      sale({ id: 's-old', sale_date: '2025-01-01', sale_value: 999999, commission_amount: null, vehicle: { brand: 'Honda', model: 'Civic', trim: null, modelYear: 2018, plate: 'DEF5678' } }),
-    ])
-    const user = userEvent.setup({ delay: null })
-    renderView()
+  describe('navegação de mês', () => {
+    it('steps to the previous month and filters to it', async () => {
+      mockedFetchSales.mockResolvedValue([
+        sale({ id: 'aug', sale_date: '2026-08-05', vehicle: { brand: 'Fiat', model: 'Uno', trim: null, modelYear: 2020, plate: 'ABC1234' } }),
+        sale({ id: 'jul', sale_date: '2026-07-05', vehicle: { brand: 'Honda', model: 'Civic', trim: null, modelYear: 2018, plate: 'DEF5678' } }),
+      ])
+      const user = userEvent.setup({ delay: null })
+      renderView()
 
-    await screen.findByText('Fiat Uno')
-    await user.click(screen.getByRole('button', { name: 'Este mês' }))
+      await screen.findByText('Fiat Uno')
+      await user.click(screen.getByRole('button', { name: 'Mês anterior' }))
 
-    expect(screen.getByText('Fiat Uno')).toBeInTheDocument()
-    expect(screen.queryByText('Honda Civic')).not.toBeInTheDocument()
-    // revenue, avg ticket, and the single card's value are all R$ 10.000,00 with just one sale in the period — none of them the huge older sale
-    expect(screen.getAllByText('R$ 10.000,00')).toHaveLength(3)
+      expect(await screen.findByText('Julho de 2026')).toBeInTheDocument()
+      expect(screen.getByText('Honda Civic')).toBeInTheDocument()
+      expect(screen.queryByText('Fiat Uno')).not.toBeInTheDocument()
+    })
+
+    it('does not allow stepping into a future month', async () => {
+      mockedFetchSales.mockResolvedValue([sale({})])
+      renderView()
+      await screen.findByText('Fiat Uno')
+      expect(screen.getByRole('button', { name: 'Próximo mês' })).toBeDisabled()
+    })
+
+    it('jumps to a specific month/year via the month picker, including changing year', async () => {
+      mockedFetchSales.mockResolvedValue([
+        sale({ id: 'aug26', sale_date: '2026-08-05', vehicle: { brand: 'Fiat', model: 'Uno', trim: null, modelYear: 2020, plate: 'ABC1234' } }),
+        sale({ id: 'mar25', sale_date: '2025-03-10', vehicle: { brand: 'Honda', model: 'Civic', trim: null, modelYear: 2018, plate: 'DEF5678' } }),
+      ])
+      const user = userEvent.setup({ delay: null })
+      renderView()
+
+      await screen.findByText('Fiat Uno')
+      await user.click(screen.getByRole('button', { name: 'Agosto de 2026' }))
+      await user.click(screen.getByRole('button', { name: 'Ano anterior' }))
+      await user.click(screen.getByRole('button', { name: 'Mar' }))
+
+      expect(await screen.findByText('Março de 2025')).toBeInTheDocument()
+      expect(screen.getByText('Honda Civic')).toBeInTheDocument()
+      expect(screen.queryByText('Fiat Uno')).not.toBeInTheDocument()
+    })
+
+    it('shows an honest empty state for a real month with zero sales, without hiding or skipping it', async () => {
+      mockedFetchSales.mockResolvedValue([sale({ sale_date: '2026-08-05' })])
+      const user = userEvent.setup({ delay: null })
+      renderView()
+
+      await screen.findByText('Fiat Uno')
+      await user.click(screen.getByRole('button', { name: 'Mês anterior' }))
+
+      expect(await screen.findByText('Julho de 2026')).toBeInTheDocument()
+      expect(await screen.findByText(/Nenhuma venda em julho de 2026/)).toBeInTheDocument()
+    })
   })
 
   it('never invents a missing commission in the summary — shows the known total and a count of unknowns', async () => {
@@ -140,18 +179,42 @@ describe('SoldVehiclesView', () => {
     ])
     renderView()
 
-    await screen.findByText('R$ 1.000,00') // commissão conhecida
+    await screen.findByText('R$ 1.000,00') // comissão conhecida
     expect(screen.getByText('1 venda sem comissão informada')).toBeInTheDocument()
   })
 
-  it('filters by seller/channel/origin together with search, via the Filtros sheet', async () => {
+  it('resumo reflects the currently active filters, not the whole dataset', async () => {
     mockedFetchSales.mockResolvedValue([
+      sale({ id: 'a', sale_date: '2026-08-01', sale_value: 10000, vehicle: { brand: 'Fiat', model: 'Uno', trim: null, modelYear: 2020, plate: 'ABC1234' } }),
+      sale({ id: 'b', sale_date: '2026-08-02', sale_value: 90000, vehicle: { brand: 'Honda', model: 'Civic', trim: null, modelYear: 2018, plate: 'DEF5678' } }),
+    ])
+    const user = userEvent.setup({ delay: null })
+    renderView()
+
+    await screen.findByText('Fiat Uno')
+    await user.click(screen.getByRole('button', { name: 'Tudo' }))
+    await user.click(screen.getByRole('button', { name: /Filtros/ }))
+    const minInput = screen.getByLabelText('De R$', { selector: 'input' }) ?? screen.getByPlaceholderText('0')
+    await user.type(minInput, '50000')
+    await user.click(screen.getByRole('button', { name: /Ver \d+ venda/ }))
+
+    // revenue, avg ticket, and the single remaining card's value are all R$ 90.000,00
+    expect(screen.getAllByText('R$ 90.000,00').length).toBeGreaterThan(0)
+    expect(screen.queryByText('R$ 10.000,00')).not.toBeInTheDocument()
+    expect(screen.getByText('Honda Civic')).toBeInTheDocument()
+    expect(screen.queryByText('Fiat Uno')).not.toBeInTheDocument()
+  })
+
+  describe('filtros avançados', () => {
+    const sales = [
       sale({
         id: 's-app',
         seller_id: 'sel-1',
         sellerName: 'Ana',
         channel: 'Indicação',
         origin: 'app',
+        commission_amount: 500,
+        sale_date: '2026-08-05',
         vehicle: { brand: 'Fiat', model: 'Uno', trim: null, modelYear: 2020, plate: 'ABC1234' },
       }),
       sale({
@@ -160,21 +223,91 @@ describe('SoldVehiclesView', () => {
         sellerName: null,
         channel: 'Loja física',
         origin: 'migration',
+        commission_amount: null,
+        sale_date: '2026-08-06',
         vehicle_id: null,
         source_occurrence_id: 'occ-1',
         vehicle: { brand: 'Honda', model: 'Civic', trim: null, modelYear: 2018, plate: 'DEF5678' },
       }),
+    ]
+
+    it('combines month + seller', async () => {
+      mockedFetchSales.mockResolvedValue(sales)
+      const user = userEvent.setup({ delay: null })
+      renderView()
+
+      await screen.findByText('Fiat Uno')
+      await user.click(screen.getByRole('button', { name: /Filtros/ }))
+      await user.click(screen.getByRole('button', { name: 'Ana' }))
+      await user.click(screen.getByRole('button', { name: /Ver \d+ venda/ }))
+
+      expect(screen.getByText('Fiat Uno')).toBeInTheDocument()
+      expect(screen.queryByText('Honda Civic')).not.toBeInTheDocument()
+    })
+
+    it('combines month + origin, and shows an active-filter count on the Filtros button', async () => {
+      mockedFetchSales.mockResolvedValue(sales)
+      const user = userEvent.setup({ delay: null })
+      renderView()
+
+      await screen.findByText('Fiat Uno')
+      await user.click(screen.getByRole('button', { name: /Filtros/ }))
+      await user.click(screen.getByRole('button', { name: 'Histórico importado' }))
+      await user.click(screen.getByRole('button', { name: /Ver \d+ venda/ }))
+
+      expect(screen.getByText('Honda Civic')).toBeInTheDocument()
+      expect(screen.queryByText('Fiat Uno')).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /Filtros/ })).toHaveTextContent('1')
+    })
+
+    it('filters by commission known/unknown', async () => {
+      mockedFetchSales.mockResolvedValue(sales)
+      const user = userEvent.setup({ delay: null })
+      renderView()
+
+      await screen.findByText('Fiat Uno')
+      await user.click(screen.getByRole('button', { name: /Filtros/ }))
+      await user.click(screen.getByRole('button', { name: 'Não informada' }))
+      await user.click(screen.getByRole('button', { name: /Ver \d+ venda/ }))
+
+      expect(screen.getByText('Honda Civic')).toBeInTheDocument()
+      expect(screen.queryByText('Fiat Uno')).not.toBeInTheDocument()
+    })
+
+    it('clears advanced filters without resetting the selected month', async () => {
+      mockedFetchSales.mockResolvedValue(sales)
+      const user = userEvent.setup({ delay: null })
+      renderView()
+
+      await screen.findByText('Fiat Uno')
+      await user.click(screen.getByRole('button', { name: /Filtros/ }))
+      await user.click(screen.getByRole('button', { name: 'Ana' }))
+      await user.click(screen.getByRole('button', { name: /Ver \d+ venda/ }))
+      expect(screen.queryByText('Honda Civic')).not.toBeInTheDocument()
+
+      await user.click(screen.getByRole('button', { name: /Filtros/ }))
+      await user.click(screen.getByRole('button', { name: 'Limpar' }))
+      await user.click(screen.getByRole('button', { name: /Ver \d+ venda/ }))
+
+      expect(screen.getByText('Fiat Uno')).toBeInTheDocument()
+      expect(screen.getByText('Honda Civic')).toBeInTheDocument()
+      expect(screen.getByText('Agosto de 2026')).toBeInTheDocument()
+    })
+  })
+
+  it('searches by brand/model/plate/customer', async () => {
+    mockedFetchSales.mockResolvedValue([
+      sale({ id: 'a', sale_date: '2026-08-01', vehicle: { brand: 'Fiat', model: 'Uno', trim: null, modelYear: 2020, plate: 'ABC1234' } }),
+      sale({ id: 'b', sale_date: '2026-08-02', vehicle: { brand: 'Honda', model: 'Civic', trim: null, modelYear: 2018, plate: 'DEF5678' } }),
     ])
     const user = userEvent.setup({ delay: null })
     renderView()
 
     await screen.findByText('Fiat Uno')
-    await user.click(screen.getByRole('button', { name: 'Filtros' }))
-    await user.click(screen.getByRole('button', { name: 'Ana' }))
-    await user.click(screen.getByRole('button', { name: /Ver \d+ venda/ }))
+    await user.type(screen.getByPlaceholderText('Marca, modelo, placa ou cliente'), 'civic')
 
-    expect(screen.getByText('Fiat Uno')).toBeInTheDocument()
-    expect(screen.queryByText('Honda Civic')).not.toBeInTheDocument()
+    expect(screen.getByText('Honda Civic')).toBeInTheDocument()
+    expect(screen.queryByText('Fiat Uno')).not.toBeInTheDocument()
   })
 
   it('sorts by highest value first when chosen', async () => {
@@ -197,22 +330,6 @@ describe('SoldVehiclesView', () => {
     mockedFetchSales.mockResolvedValue([])
     renderView()
     expect(await screen.findByText('Nenhuma venda concluída ainda.')).toBeInTheDocument()
-  })
-
-  it('shows a distinct empty state when filters exclude everything, with a way to clear them', async () => {
-    mockedFetchSales.mockResolvedValue([sale({ sale_date: '2026-08-05' })])
-    const user = userEvent.setup({ delay: null })
-    renderView()
-
-    await screen.findByText('Fiat Uno')
-    await user.click(screen.getByRole('button', { name: 'Filtros' }))
-    await user.click(screen.getByRole('button', { name: 'App' }))
-    await user.click(screen.getByRole('button', { name: /Ver \d+ venda/ }))
-    await user.click(screen.getByRole('button', { name: 'Filtros' }))
-    await user.click(screen.getByRole('button', { name: 'Histórico importado' }))
-    await user.click(screen.getByRole('button', { name: /Ver \d+ venda/ }))
-
-    expect(await screen.findByText('Nada encontrado para esses filtros.')).toBeInTheDocument()
   })
 
   it('handles the real-scale legacy dataset (542 migration sales) without breaking filters or the summary', async () => {
