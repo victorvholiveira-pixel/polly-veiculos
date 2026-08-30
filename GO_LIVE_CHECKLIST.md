@@ -161,7 +161,14 @@ depois do detour de Google Apps Script na Onda 7).
 - [ ] `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY` reais preenchidos (URL já
       conhecida: `https://xzcuhrdhccnforqkovof.supabase.co` — falta a anon/
       publishable key, disponível em Project Settings → API no painel)
-- [ ] Domínio/URL de produção definido (Vercel)
+- [ ] Domínio/URL de produção definido (Vercel) — bug real encontrado em
+      produção: sem `vercel.json`, recarregar a página em qualquer rota que
+      não seja `/` (ex.: atualizar com o app aberto em Estoque) dava 404 da
+      própria Vercel, porque o roteamento client-side do React Router só
+      funciona para navegação dentro do app; uma requisição de verdade pra
+      `/estoque` não existe como arquivo estático. Corrigido com um rewrite
+      catch-all (`vercel.json`, `"rewrites": [{"source": "/(.*)",
+      "destination": "/"}]`) — ainda não confirmado no deploy real
 - [ ] HTTPS (padrão em Vercel, mas confirmar)
 - [ ] Instalação testada num Android real
 - [ ] Smoke test real, com dados reais, contra o projeto Supabase de produção
