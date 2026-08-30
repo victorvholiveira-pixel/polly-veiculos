@@ -6,7 +6,7 @@ export type Sale = Database['public']['Tables']['sales']['Row']
 export type Seller = Database['public']['Tables']['sellers']['Row']
 
 export interface SaleWithDetails extends Sale {
-  vehicle: { brand: string; model: string; trim: string | null; plate: string | null } | null
+  vehicle: { brand: string; model: string; trim: string | null; modelYear: number | null; plate: string | null } | null
   sellerName: string | null
 }
 
@@ -35,13 +35,15 @@ export async function fetchSales(): Promise<SaleWithDetails[]> {
 
   const [{ data: vehicles, error: vehiclesError }, { data: occurrences, error: occurrencesError }, { data: sellers, error: sellersError }] = await Promise.all([
     vehicleIds.length > 0
-      ? withTimeout(supabase.from('vehicles').select('id, brand, model, trim, plate').in('id', vehicleIds))
+      ? withTimeout(supabase.from('vehicles').select('id, brand, model, trim, model_year, plate').in('id', vehicleIds))
       : Promise.resolve({ data: [], error: null }),
     occurrenceIds.length > 0
       ? withTimeout(
           supabase
             .from('vehicle_occurrences')
-            .select('id, confirmed_brand, confirmed_model, parsed_brand, parsed_model, model_raw, confirmed_plate, plate_normalized')
+            .select(
+              'id, confirmed_brand, confirmed_model, parsed_brand, parsed_model, model_raw, confirmed_year, parsed_year, confirmed_plate, plate_normalized',
+            )
             .in('id', occurrenceIds),
         )
       : Promise.resolve({ data: [], error: null }),
@@ -53,7 +55,9 @@ export async function fetchSales(): Promise<SaleWithDetails[]> {
   if (occurrencesError) throw occurrencesError
   if (sellersError) throw sellersError
 
-  const vehicleMap = new Map(vehicles.map((v) => [v.id, v]))
+  const vehicleMap = new Map(
+    vehicles.map((v) => [v.id, { brand: v.brand, model: v.model, trim: v.trim, modelYear: v.model_year, plate: v.plate }]),
+  )
   // create_initial_inventory maps the occurrence's model_raw to vehicles.trim
   // (a "version" string, e.g. "LXR 2.0") — mirrored here for the same shape.
   const occurrenceMap = new Map(
@@ -63,6 +67,7 @@ export async function fetchSales(): Promise<SaleWithDetails[]> {
         brand: o.confirmed_brand ?? o.parsed_brand ?? 'Não identificado',
         model: o.confirmed_model ?? o.parsed_model ?? 'Não identificado',
         trim: o.model_raw,
+        modelYear: o.confirmed_year ?? o.parsed_year,
         plate: o.confirmed_plate ?? o.plate_normalized,
       },
     ]),

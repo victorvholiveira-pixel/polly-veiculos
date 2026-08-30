@@ -4,13 +4,23 @@ import { MemoryRouter } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { StockListPage } from '../StockListPage'
 import { fetchVehicles, type Vehicle } from '@/lib/data/vehicles'
+import { fetchSales } from '@/lib/data/sales'
 
 vi.mock('@/lib/data/vehicles', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/lib/data/vehicles')>()),
   fetchVehicles: vi.fn(),
 }))
 
+// The "Vendidos" tab (SoldVehiclesView) is always mounted (just hidden via
+// CSS, so switching tabs is instant) — it fetches sales on its own, which
+// needs mocking here too even though these tests only exercise "Em estoque".
+vi.mock('@/lib/data/sales', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/data/sales')>()),
+  fetchSales: vi.fn(),
+}))
+
 const mockedFetch = vi.mocked(fetchVehicles)
+const mockedFetchSales = vi.mocked(fetchSales)
 
 function vehicle(overrides: Partial<Vehicle>): Vehicle {
   return {
@@ -55,6 +65,7 @@ function renderPage() {
 describe('StockListPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    mockedFetchSales.mockResolvedValue([])
     vi.useFakeTimers({ toFake: ['Date'] })
     vi.setSystemTime(new Date('2026-08-29T12:00:00'))
   })
@@ -210,5 +221,28 @@ describe('StockListPage', () => {
     renderPage()
     expect(await screen.findByText('Nenhum veículo cadastrado ainda.')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /cadastrar veículo/i })).toBeInTheDocument()
+  })
+
+  describe('Em estoque / Vendidos toggle', () => {
+    it('starts on Em estoque and switches to Vendidos without losing the stock view underneath', async () => {
+      mockedFetch.mockResolvedValue(ALL_VEHICLES)
+      mockedFetchSales.mockResolvedValue([])
+      const user = userEvent.setup({ delay: null })
+      renderPage()
+
+      await screen.findByText(/Toyota Corolla/)
+      expect(screen.getByRole('tab', { name: 'Em estoque' })).toHaveAttribute('aria-selected', 'true')
+      expect(screen.getByRole('link', { name: '+ Adicionar' })).toBeInTheDocument()
+
+      await user.click(screen.getByRole('tab', { name: 'Vendidos' }))
+      expect(screen.getByRole('tab', { name: 'Vendidos' })).toHaveAttribute('aria-selected', 'true')
+      // "+ Adicionar" only makes sense for Em estoque
+      expect(screen.queryByRole('link', { name: '+ Adicionar' })).not.toBeInTheDocument()
+      expect(mockedFetchSales).toHaveBeenCalled()
+
+      await user.click(screen.getByRole('tab', { name: 'Em estoque' }))
+      // switching back doesn't need to refetch — the stock list is still there
+      expect(await screen.findByText(/Toyota Corolla/)).toBeInTheDocument()
+    })
   })
 })

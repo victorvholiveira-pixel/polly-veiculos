@@ -17,11 +17,15 @@ import {
   type StockSummary,
 } from '@/lib/data/stockSummary'
 import { fetchVehicles, searchVehicles, type Vehicle } from '@/lib/data/vehicles'
+import { SoldVehiclesView } from './SoldVehiclesView'
 
 const STATUS_LABEL: Record<Vehicle['status'], string> = { available: 'Disponível', reserved: 'Reservado', sold: 'Vendido' }
 
+type StockView = 'stock' | 'sold'
+
 export function StockListPage() {
   const navigate = useNavigate()
+  const [view, setView] = useState<StockView>('stock')
   const [vehicles, setVehicles] = useState<Vehicle[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -67,17 +71,22 @@ export function StockListPage() {
     <div className="space-y-4 pb-2">
       <div className="flex items-center justify-between gap-2">
         <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">Estoque</h1>
-        <Link to="/estoque/novo" className="rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-medium text-white dark:bg-slate-50 dark:text-slate-900">
-          + Adicionar
-        </Link>
+        {view === 'stock' && (
+          <Link to="/estoque/novo" className="rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-medium text-white dark:bg-slate-50 dark:text-slate-900">
+            + Adicionar
+          </Link>
+        )}
       </div>
 
-      {error && <p role="alert" className="text-sm text-red-600 dark:text-red-400">{error}</p>}
-      {loading && <StockSkeleton />}
+      <ViewToggle view={view} onChange={setView} />
 
-      {!loading && !error && (
-        <>
-          {vehicles.length > 0 && <StockHero summary={summary} />}
+      <div hidden={view !== 'stock'} className="space-y-4">
+        {error && <p role="alert" className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+        {loading && <StockSkeleton />}
+
+        {!loading && !error && (
+          <>
+            {vehicles.length > 0 && <StockHero summary={summary} />}
 
           {vehicles.length > 0 && (
             <div className="flex items-center gap-2">
@@ -122,34 +131,70 @@ export function StockListPage() {
               ))}
             </ul>
           )}
-        </>
-      )}
-
-      <ActionSheet open={sortOpen} onClose={() => setSortOpen(false)} title="Ordenar por">
-        {SORT_OPTIONS.map((opt) => (
-          <ActionSheetItem
-            key={opt.key}
-            active={sortKey === opt.key}
-            onClick={() => {
-              setSortKey(opt.key)
-              setSortOpen(false)
-            }}
-          >
-            {opt.label}
-          </ActionSheetItem>
-        ))}
-      </ActionSheet>
-
-      <ActionSheet open={menuVehicle !== null} onClose={() => setMenuVehicle(null)} title={menuVehicle ? `${menuVehicle.brand} ${menuVehicle.model}` : undefined}>
-        {menuVehicle && (
-          <>
-            <ActionSheetItem onClick={() => navigate(`/estoque/${menuVehicle.id}`)}>Ver detalhes</ActionSheetItem>
-            <ActionSheetItem onClick={() => navigate(`/estoque/${menuVehicle.id}/editar`)}>Editar</ActionSheetItem>
-            {menuVehicle.status === 'available' && <ActionSheetItem onClick={() => navigate(`/vender/${menuVehicle.id}`)}>Vender</ActionSheetItem>}
           </>
         )}
-      </ActionSheet>
+
+        <ActionSheet open={sortOpen} onClose={() => setSortOpen(false)} title="Ordenar por">
+          {SORT_OPTIONS.map((opt) => (
+            <ActionSheetItem
+              key={opt.key}
+              active={sortKey === opt.key}
+              onClick={() => {
+                setSortKey(opt.key)
+                setSortOpen(false)
+              }}
+            >
+              {opt.label}
+            </ActionSheetItem>
+          ))}
+        </ActionSheet>
+
+        <ActionSheet open={menuVehicle !== null} onClose={() => setMenuVehicle(null)} title={menuVehicle ? `${menuVehicle.brand} ${menuVehicle.model}` : undefined}>
+          {menuVehicle && (
+            <>
+              <ActionSheetItem onClick={() => navigate(`/estoque/${menuVehicle.id}`)}>Ver detalhes</ActionSheetItem>
+              <ActionSheetItem onClick={() => navigate(`/estoque/${menuVehicle.id}/editar`)}>Editar</ActionSheetItem>
+              {menuVehicle.status === 'available' && <ActionSheetItem onClick={() => navigate(`/vender/${menuVehicle.id}`)}>Vender</ActionSheetItem>}
+            </>
+          )}
+        </ActionSheet>
+      </div>
+
+      <div hidden={view !== 'sold'}>
+        <SoldVehiclesView />
+      </div>
     </div>
+  )
+}
+
+// --- Alternância Em estoque / Vendidos ---------------------------------------
+
+function ViewToggle({ view, onChange }: { view: StockView; onChange: (v: StockView) => void }) {
+  return (
+    <div className="flex gap-1 rounded-full bg-slate-100 p-1 dark:bg-slate-800" role="tablist">
+      <ToggleTab active={view === 'stock'} onClick={() => onChange('stock')}>
+        Em estoque
+      </ToggleTab>
+      <ToggleTab active={view === 'sold'} onClick={() => onChange('sold')}>
+        Vendidos
+      </ToggleTab>
+    </div>
+  )
+}
+
+function ToggleTab({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
+  return (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={active}
+      onClick={onClick}
+      className={`flex-1 rounded-full py-2 text-sm font-medium transition-colors ${
+        active ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-950 dark:text-slate-50' : 'text-slate-500 dark:text-slate-400'
+      }`}
+    >
+      {children}
+    </button>
   )
 }
 

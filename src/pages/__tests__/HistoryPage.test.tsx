@@ -42,7 +42,7 @@ const ACTIVE_SALE: SaleWithDetails = {
   origin: 'app',
   created_at: '2026-08-20T00:00:00Z',
   updated_at: '2026-08-20T00:00:00Z',
-  vehicle: { brand: 'Fiat', model: 'Uno', trim: null, plate: 'ABC1234' },
+  vehicle: { brand: 'Fiat', model: 'Uno', trim: null, modelYear: 2020, plate: 'ABC1234' },
   sellerName: null,
 }
 
@@ -82,7 +82,7 @@ describe('HistoryPage', () => {
         vehicle_id: null,
         source_occurrence_id: 'occ-1',
         origin: 'migration',
-        vehicle: { brand: 'Honda', model: 'Civic', trim: 'LXR', plate: 'DEF5678' },
+        vehicle: { brand: 'Honda', model: 'Civic', trim: 'LXR', modelYear: 2019, plate: 'DEF5678' },
       },
     ])
 

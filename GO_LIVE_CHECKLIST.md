@@ -91,6 +91,12 @@ depois do detour de Google Apps Script na Onda 7).
       Supabase real estar acessível)
 - [x] Estoque (lista, busca, ver, editar — funcional; validado só em
       Postgres local, não no projeto real)
+- [x] Vendidos dentro de Estoque (Onda 15): alternador "Em estoque"/
+      "Vendidos" na mesma tela, listando `sales.status='completed'` com
+      período/vendedor/canal/origem/busca combináveis e o mesmo
+      `SaleDetailsSheet` do Histórico/Home — testado com massa sintética de
+      542 vendas de migração (escala real), não com as 542 linhas reais do
+      projeto (ambiente sem acesso ao Supabase real)
 - [x] Cadastro de veículo
 - [x] Edição de veículo (nunca permite marcar como vendido — ver Segurança)
 - [x] Venda (`register_sale` RPC transacional, fluxo "Vender" completo —
@@ -129,7 +135,7 @@ depois do detour de Google Apps Script na Onda 7).
 
 - [x] `npm run lint` sem erros (1 warning informativo conhecido)
 - [x] `npm run typecheck` sem erros (TypeScript strict)
-- [x] `npm run test` — 185 testes unitários/componente passando
+- [x] `npm run test` — 217 testes unitários/componente passando
 - [x] `npm run test:e2e` — 4/4 smoke tests em navegador real passando (sem
       backend real ainda — provam a fiação client-side, não login de verdade)
 - [x] `npm run build` — build de produção sem erros

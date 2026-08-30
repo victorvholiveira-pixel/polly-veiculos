@@ -153,6 +153,40 @@
 
       Nenhuma migration de schema — tudo já suportado pelas colunas
       existentes de `sales`/`vehicle_occurrences`/`audit_log`.
+- [x] **Onda 15 — Vendidos dentro de Estoque**: a experiência principal de
+      Estoque (`StockListPage`) ganhou um alternador "Em estoque" / "Vendidos"
+      no topo — mesma tela, sem rota nova nem componente paralelo. As duas
+      visões ficam sempre montadas (só uma escondida via `hidden`), então
+      trocar de aba é instantâneo e não reconsulta dados.
+
+      "Vendidos" lista `sales.status='completed'` (uma venda cancelada é só
+      Histórico, não "o que já vendi"), reaproveitando `fetchSales()` — sem
+      query nova. Cada card mostra marca/modelo/versão/ano/placa/data/valor/
+      cliente/vendedor/comissão, com "Histórico importado" para
+      `origin='migration'`; tocar abre o mesmo `SaleDetailsSheet` já usado em
+      Histórico e na Home — nenhuma implementação de detalhe duplicada.
+
+      Filtros (`src/lib/data/soldSales.ts`, com 20 testes unitários próprios):
+      período (este mês/3/6/12 meses/tudo/ano específico quando há mais de um
+      ano de dado — mesmo padrão de pill+select da Home), vendedor e canal
+      (derivados das próprias vendas concluídas, nunca uma lista fixa
+      desalinhada do dado real), origem (app/migração), busca por marca/
+      modelo/placa/cliente — todos combináveis, num "Filtros" compacto
+      (bottom sheet) para não competir por espaço com os pills de período
+      sempre visíveis. Ordenação: mais recente/mais antiga/maior/menor valor.
+      Resumo no topo (quantidade, faturamento, ticket médio, comissão
+      conhecida) recalculado a partir do conjunto já filtrado — comissão
+      ausente nunca é somada como se fosse conhecida, só contada à parte
+      ("N vendas sem comissão informada").
+
+      `fetchSales()` passou a trazer `model_year` (vehicles) /
+      `confirmed_year`/`parsed_year` (vehicle_occurrences) — só o que faltava
+      para mostrar "ano" nos cards; Histórico e Home continuam funcionando
+      sem mudança. Testado com uma massa sintética de 542 vendas
+      `origin='migration'` (mesma ordem de grandeza das vendas legadas reais
+      em produção) para confirmar que filtro/ordenação/resumo seguem corretos
+      nessa escala — este ambiente não alcança o Supabase real para puxar as
+      542 linhas de verdade.
 
 ### Endurecimento futuro (não bloqueia Go-Live)
 
