@@ -154,6 +154,8 @@ export interface RecentActivity {
   vehicleLabel: string | null
   amount: number | null
   note: string | null
+  /** Set only for sale_registered/sale_cancelled — register_sale/cancel_sale write entity_id as the sale's own id (see their .sql). Lets Home open the same SaleDetailsSheet as Histórico, without a second query. */
+  saleId: string | null
 }
 
 /**
@@ -170,6 +172,7 @@ export function buildRecentActivity(entries: AuditLogEntry[], vehiclesByKey: Map
     let label: string | null = null
     let amount: number | null = null
     let note: string | null = null
+    let saleId: string | null = null
 
     switch (entry.action) {
       case 'vehicle_created': {
@@ -194,12 +197,14 @@ export function buildRecentActivity(entries: AuditLogEntry[], vehiclesByKey: Map
         const vehicleId = typeof diff?.vehicle_id === 'string' ? diff.vehicle_id : null
         label = vehicleId ? vehicleLabel(vehiclesByKey.get(`v:${vehicleId}`)) : null
         amount = typeof diff?.sale_value === 'number' ? diff.sale_value : null
+        saleId = entry.entity_id
         break
       }
       case 'sale_cancelled': {
         const vehicleId = typeof diff?.vehicle_id === 'string' ? diff.vehicle_id : null
         label = vehicleId ? vehicleLabel(vehiclesByKey.get(`v:${vehicleId}`)) : null
         note = typeof diff?.reason === 'string' ? diff.reason : null
+        saleId = entry.entity_id
         break
       }
     }
@@ -211,6 +216,7 @@ export function buildRecentActivity(entries: AuditLogEntry[], vehiclesByKey: Map
       vehicleLabel: label,
       amount,
       note,
+      saleId,
     }
   })
 }

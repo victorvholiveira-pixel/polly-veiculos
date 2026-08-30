@@ -12,11 +12,11 @@ export function ActionSheet({ open, onClose, title, children }: { open: boolean;
     <div className="fixed inset-0 z-20 flex items-end justify-center" role="dialog" aria-modal="true" aria-label={title}>
       <button type="button" aria-label="Fechar" onClick={onClose} className="absolute inset-0 bg-slate-900/40" />
       <div
-        className="relative w-full max-w-lg rounded-t-2xl border-t border-slate-200 bg-white p-2 shadow-xl dark:border-slate-800 dark:bg-slate-900"
+        className="relative flex max-h-[85vh] w-full max-w-lg flex-col rounded-t-2xl border-t border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-900"
         style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
       >
-        {title && <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-400">{title}</p>}
-        {children}
+        {title && <p className="px-5 pt-2 text-xs font-semibold uppercase tracking-wide text-slate-400">{title}</p>}
+        <div className="overflow-y-auto p-2">{children}</div>
       </div>
     </div>
   )

@@ -98,6 +98,9 @@ depois do detour de Google Apps Script na Onda 7).
 - [x] Comissão manual por venda (campo livre no formulário de venda; regra
       automática ainda não existe — ver ROADMAP.md)
 - [x] Histórico (vendas reais do app, busca por comprador/placa/marca/modelo)
+- [x] Detalhe de venda (Onda 14): `SaleDetailsSheet`, reaproveitado em
+      Histórico e Home/"Últimas movimentações" — venda `origin='migration'`
+      hidratada de `vehicle_occurrences`, nunca com veículo placeholder
 - [x] Cancelamento de venda (`cancel_sale` RPC, motivo obrigatório, reverte
       o veículo para disponível)
 - [x] Filtros (estoque, histórico) — busca textual simples
@@ -112,12 +115,21 @@ depois do detour de Google Apps Script na Onda 7).
 - [x] PWA instalável (manifest + service worker gerados; ícone é um
       monograma "P" desenhado — não mais fonte de sistema — mas ainda não é
       necessariamente a identidade visual final da marca, decisão do usuário)
+- [x] PWA atualiza sozinho (Onda 14): `registerType: 'autoUpdate'` +
+      `skipWaiting`/`clientsClaim`/`cleanupOutdatedCaches` explícitos,
+      navegação em `NetworkFirst` (não presa em cache-first — confirmado no
+      `dist/sw.js` gerado, sem `NavigationRoute`), checagem por evento
+      (abrir/foreground/online, nunca polling), proteção contra reload loop
+      testada isoladamente, versão/build visível em Mais → Sobre. Validado só
+      via build local + inspeção do service worker gerado — falta confirmar
+      o ciclo completo (novo deploy → PWA já aberto detecta e atualiza) num
+      aparelho real contra a Vercel, ver "Produção" abaixo
 
 ## Qualidade
 
 - [x] `npm run lint` sem erros (1 warning informativo conhecido)
 - [x] `npm run typecheck` sem erros (TypeScript strict)
-- [x] `npm run test` — 132 testes unitários/componente passando
+- [x] `npm run test` — 185 testes unitários/componente passando
 - [x] `npm run test:e2e` — 4/4 smoke tests em navegador real passando (sem
       backend real ainda — provam a fiação client-side, não login de verdade)
 - [x] `npm run build` — build de produção sem erros

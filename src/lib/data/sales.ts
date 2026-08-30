@@ -80,6 +80,75 @@ export async function fetchSales(): Promise<SaleWithDetails[]> {
   }))
 }
 
+export interface SaleDetailVehicle {
+  brand: string
+  model: string
+  trim: string | null
+  modelYear: number | null
+  plate: string | null
+}
+
+export interface SaleDetail extends Sale {
+  vehicle: SaleDetailVehicle | null
+  sellerName: string | null
+}
+
+/**
+ * Full detail for a single sale — used by SaleDetailsSheet, opened on demand
+ * (never for a list) so it's fine to run a couple of small extra queries here
+ * that fetchSales() intentionally skips (year/trim aren't shown in the list
+ * rows). Same origin split as fetchSales(): a migration sale is hydrated from
+ * vehicle_occurrences via source_occurrence_id — never a fabricated vehicle.
+ */
+export async function fetchSaleDetail(saleId: string): Promise<SaleDetail | null> {
+  const { data: sale, error } = await withTimeout(supabase.from('sales').select('*').eq('id', saleId).maybeSingle())
+  if (error) throw error
+  if (!sale) return null
+
+  const [vehicleResult, sellerResult] = await Promise.all([
+    sale.vehicle_id
+      ? withTimeout(
+          supabase.from('vehicles').select('brand, model, trim, model_year, plate').eq('id', sale.vehicle_id).maybeSingle(),
+        )
+      : sale.source_occurrence_id
+        ? withTimeout(
+            supabase
+              .from('vehicle_occurrences')
+              .select(
+                'confirmed_brand, confirmed_model, parsed_brand, parsed_model, model_raw, confirmed_trim, confirmed_year, parsed_year, confirmed_plate, plate_normalized',
+              )
+              .eq('id', sale.source_occurrence_id)
+              .maybeSingle(),
+          )
+        : Promise.resolve({ data: null, error: null }),
+    sale.seller_id
+      ? withTimeout(supabase.from('sellers').select('name').eq('id', sale.seller_id).maybeSingle())
+      : Promise.resolve({ data: null, error: null }),
+  ])
+  if (vehicleResult.error) throw vehicleResult.error
+  if (sellerResult.error) throw sellerResult.error
+
+  let vehicle: SaleDetailVehicle | null = null
+  const v = vehicleResult.data
+  if (v) {
+    // Same source (occurrence vs. vehicles) as sale.vehicle_id/source_occurrence_id
+    // decided above — narrow by which fields are actually present.
+    if ('model_year' in v) {
+      vehicle = { brand: v.brand, model: v.model, trim: v.trim, modelYear: v.model_year, plate: v.plate }
+    } else {
+      vehicle = {
+        brand: v.confirmed_brand ?? v.parsed_brand ?? 'Não identificado',
+        model: v.confirmed_model ?? v.parsed_model ?? 'Não identificado',
+        trim: v.confirmed_trim ?? v.model_raw,
+        modelYear: v.confirmed_year ?? v.parsed_year,
+        plate: v.confirmed_plate ?? v.plate_normalized,
+      }
+    }
+  }
+
+  return { ...sale, vehicle, sellerName: sellerResult.data?.name ?? null }
+}
+
 export async function fetchActiveSellers(): Promise<Seller[]> {
   const { data, error } = await withTimeout(
     supabase.from('sellers').select('*').eq('active', true).order('name', { ascending: true }),

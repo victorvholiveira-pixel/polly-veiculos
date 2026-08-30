@@ -91,8 +91,8 @@ const FULL_STATS: DashboardStats = {
   fastestSale: { vehicleLabel: 'Honda Civic', days: 5, date: '2026-08-05' },
 
   recentActivity: [
-    { id: 'a1', createdAt: '2026-08-20T10:00:00Z', actionLabel: 'Venda registrada', vehicleLabel: 'Fiat Uno', amount: 25900, note: null },
-    { id: 'a2', createdAt: '2026-08-19T10:00:00Z', actionLabel: 'Veículo editado', vehicleLabel: 'Honda Civic', amount: null, note: null },
+    { id: 'a1', createdAt: '2026-08-20T10:00:00Z', actionLabel: 'Venda registrada', vehicleLabel: 'Fiat Uno', amount: 25900, note: null, saleId: 'sale-1' },
+    { id: 'a2', createdAt: '2026-08-19T10:00:00Z', actionLabel: 'Veículo editado', vehicleLabel: 'Honda Civic', amount: null, note: null, saleId: null },
   ],
 }
 

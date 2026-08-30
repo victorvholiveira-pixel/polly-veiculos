@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { AppShell } from '@/components/layout/AppShell'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
+import { AboutPage } from '@/pages/AboutPage'
 import { AuditLogPage } from '@/pages/AuditLogPage'
 import { HistoryPage } from '@/pages/HistoryPage'
 import { HomePage } from '@/pages/HomePage'
@@ -39,6 +40,7 @@ export const router = createBrowserRouter([
       { path: '/mais', element: <MorePage /> },
       { path: '/mais/configuracoes', element: <SettingsPage /> },
       { path: '/mais/auditoria', element: <AuditLogPage /> },
+      { path: '/mais/sobre', element: <AboutPage /> },
       { path: '/mais/revisao', element: <ReviewCenterIndexPage /> },
       { path: '/mais/revisao/estoque', element: <InventoryReviewPage /> },
       { path: '/mais/revisao/conflitos', element: <ConflictsReviewPage /> },

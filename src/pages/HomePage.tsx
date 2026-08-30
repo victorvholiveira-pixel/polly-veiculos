@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { SaleDetailsSheet } from '@/components/sales/SaleDetailsSheet'
 import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
 import { SkeletonBlock } from '@/components/ui/Skeleton'
@@ -39,15 +40,18 @@ export function HomePage() {
   const [error, setError] = useState<string | null>(null)
   const [chartMode, setChartMode] = useState<'count' | 'revenue'>('count')
   const [rangeSelection, setRangeSelection] = useState<SalesRangeSelection>({ kind: 'months', months: 6 })
+  const [selectedSaleId, setSelectedSaleId] = useState<string | null>(null)
 
-  useEffect(() => {
+  const load = () => {
     fetchDashboardStats()
       .then(setStats)
       .catch((err: unknown) =>
         setError(err instanceof Error ? `Não foi possível carregar o painel: ${err.message}` : 'Não foi possível carregar o painel agora.'),
       )
       .finally(() => setLoading(false))
-  }, [])
+  }
+
+  useEffect(load, [])
 
   return (
     <div className="space-y-5 pb-2">
@@ -66,9 +70,11 @@ export function HomePage() {
           <SalesHistoryCard stats={stats} mode={chartMode} onModeChange={setChartMode} selection={rangeSelection} onSelectionChange={setRangeSelection} />
           <AgingCard stats={stats} />
           <HighlightsCard stats={stats} />
-          <RecentActivityCard stats={stats} />
+          <RecentActivityCard stats={stats} onSelectSale={setSelectedSaleId} />
         </>
       )}
+
+      <SaleDetailsSheet key={selectedSaleId ?? 'none'} saleId={selectedSaleId} onClose={() => setSelectedSaleId(null)} onSaleChanged={load} />
     </div>
   )
 }
@@ -490,7 +496,7 @@ function HighlightRow({ label, value, note }: { label: string; value: string; no
 
 // --- Últimas movimentações -----------------------------------------------
 
-function RecentActivityCard({ stats }: { stats: DashboardStats }) {
+function RecentActivityCard({ stats, onSelectSale }: { stats: DashboardStats; onSelectSale: (saleId: string) => void }) {
   return (
     <Card>
       <div className="flex items-center justify-between">
@@ -504,17 +510,31 @@ function RecentActivityCard({ stats }: { stats: DashboardStats }) {
         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Nenhuma movimentação ainda.</p>
       ) : (
         <ul className="mt-3 space-y-2.5">
-          {stats.recentActivity.map((a) => (
-            <li key={a.id} className="flex items-start justify-between gap-2">
-              <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-50">{a.actionLabel}</p>
-                <p className="truncate text-xs text-slate-400">
-                  {[a.vehicleLabel, a.amount !== null ? fmtBRL(a.amount) : null, a.note].filter(Boolean).join(' · ')}
-                </p>
-              </div>
-              <p className="shrink-0 text-xs text-slate-400">{fmtShortDate(a.createdAt)}</p>
-            </li>
-          ))}
+          {stats.recentActivity.map((a) => {
+            const row = (
+              <>
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-50">{a.actionLabel}</p>
+                  <p className="truncate text-xs text-slate-400">
+                    {[a.vehicleLabel, a.amount !== null ? fmtBRL(a.amount) : null, a.note].filter(Boolean).join(' · ')}
+                  </p>
+                </div>
+                <p className="shrink-0 text-xs text-slate-400">{fmtShortDate(a.createdAt)}</p>
+              </>
+            )
+            const saleId = a.saleId
+            return (
+              <li key={a.id}>
+                {saleId ? (
+                  <button type="button" onClick={() => onSelectSale(saleId)} className="flex w-full items-start justify-between gap-2 text-left">
+                    {row}
+                  </button>
+                ) : (
+                  <div className="flex items-start justify-between gap-2">{row}</div>
+                )}
+              </li>
+            )
+          })}
         </ul>
       )}
     </Card>

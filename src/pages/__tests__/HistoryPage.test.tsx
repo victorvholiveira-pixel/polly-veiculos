@@ -1,13 +1,14 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { HistoryPage } from '../HistoryPage'
-import { cancelSale, fetchSales, type SaleWithDetails } from '@/lib/data/sales'
+import { fetchSaleDetail, fetchSales, type SaleWithDetails } from '@/lib/data/sales'
 import { loadReviewFixture } from '@/lib/data/reviewFixture'
 
 vi.mock('@/lib/data/sales', () => ({
   fetchSales: vi.fn(),
+  fetchSaleDetail: vi.fn(),
   cancelSale: vi.fn(),
 }))
 vi.mock('@/lib/data/reviewFixture', () => ({
@@ -15,7 +16,7 @@ vi.mock('@/lib/data/reviewFixture', () => ({
 }))
 
 const mockedFetchSales = vi.mocked(fetchSales)
-const mockedCancelSale = vi.mocked(cancelSale)
+const mockedFetchSaleDetail = vi.mocked(fetchSaleDetail)
 const mockedLoadFixture = vi.mocked(loadReviewFixture)
 
 const ACTIVE_SALE: SaleWithDetails = {
@@ -65,25 +66,12 @@ describe('HistoryPage', () => {
     } as never)
   })
 
-  it('renders a real sale and requires a reason before cancelling', async () => {
+  it('renders a real sale row', async () => {
     mockedFetchSales.mockResolvedValue([ACTIVE_SALE])
-    mockedCancelSale.mockResolvedValue({} as never)
-    const user = userEvent.setup()
-
     renderPage()
 
     await screen.findByText('Fiat Uno')
     expect(screen.getByText('Maria Teste', { exact: false })).toBeInTheDocument()
-
-    await user.click(screen.getByRole('button', { name: 'Cancelar venda' }))
-    const confirmButton = screen.getByRole('button', { name: 'Confirmar cancelamento' })
-    expect(confirmButton).toBeDisabled()
-
-    await user.type(screen.getByLabelText('Motivo do cancelamento'), 'Cliente desistiu')
-    expect(confirmButton).toBeEnabled()
-    await user.click(confirmButton)
-
-    await waitFor(() => expect(mockedCancelSale).toHaveBeenCalledWith('sale-1', 'Cliente desistiu'))
   })
 
   it('marks a legacy (pre-app) sale distinctly, with vehicle info resolved from the migration record', async () => {
@@ -112,7 +100,7 @@ describe('HistoryPage', () => {
     expect(screen.queryByText('Antes do app')).not.toBeInTheDocument()
   })
 
-  it('shows a cancelled sale as read-only, with its reason and no cancel action', async () => {
+  it('shows a cancelled sale as read-only in the list, with its reason', async () => {
     mockedFetchSales.mockResolvedValue([
       { ...ACTIVE_SALE, status: 'cancelled', cancelled_reason: 'Negócio desfeito', cancelled_at: '2026-08-21T00:00:00Z' },
     ])
@@ -120,6 +108,18 @@ describe('HistoryPage', () => {
     renderPage()
 
     expect(await screen.findByText(/Venda cancelada — Negócio desfeito/)).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Cancelar venda' })).not.toBeInTheDocument()
+  })
+
+  it('opens the sale detail sheet when a sale is tapped', async () => {
+    mockedFetchSales.mockResolvedValue([ACTIVE_SALE])
+    mockedFetchSaleDetail.mockResolvedValue({ ...ACTIVE_SALE, vehicle: { brand: 'Fiat', model: 'Uno', trim: null, modelYear: 2020, plate: 'ABC1234' }, sellerName: null })
+    const user = userEvent.setup()
+
+    renderPage()
+
+    await user.click(await screen.findByRole('button', { name: /Fiat Uno/ }))
+
+    expect(mockedFetchSaleDetail).toHaveBeenCalledWith('sale-1')
+    expect(await screen.findByRole('link', { name: 'Ver veículo' })).toBeInTheDocument()
   })
 })

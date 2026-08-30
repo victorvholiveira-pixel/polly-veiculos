@@ -44,6 +44,14 @@ export function MorePage() {
         <p className="text-sm text-slate-500 dark:text-slate-400">Histórico de cadastros, edições, vendas e cancelamentos.</p>
       </Link>
 
+      <Link
+        to="/mais/sobre"
+        className="block rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+      >
+        <p className="font-medium text-slate-900 dark:text-slate-50">Sobre</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Versão instalada deste app, para diagnóstico.</p>
+      </Link>
+
       <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
         <p className="text-sm text-slate-500 dark:text-slate-400">Conectado como</p>
         <p className="font-medium text-slate-900 dark:text-slate-50">{user?.email}</p>

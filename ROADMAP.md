@@ -106,6 +106,53 @@
       com dados reais rodando no navegador (Playwright contra o build de
       produção, sessão simulada — este ambiente não alcança o Supabase real),
       não só mocks do Figma.
+- [x] **Onda 14 — PWA auto-update + detalhe de venda**: resolve o problema
+      real de usuário ficar preso numa versão antiga (relatado em produção) e
+      torna vendas clicáveis.
+
+      *Auto-update*: registro do service worker passou de `injectRegister:
+      'auto'` (zero controle) para manual via `virtual:pwa-register/react`
+      (`src/lib/pwa/useAppUpdate.ts`), com `registerType: 'autoUpdate'` +
+      `skipWaiting`/`clientsClaim`/`cleanupOutdatedCaches` explícitos no
+      workbox (antes implícitos só quando `injectRegister: 'auto'` — ver
+      `node_modules/vite-plugin-pwa/dist/index.js`). Navegação (HTML) saiu do
+      precache — `navigateFallback` desligado de propósito, porque
+      `workbox-build` só registra a `NavigationRoute` (cache-first de fato)
+      quando ele existe (ver `workbox-build/build/templates/sw-template.js`)
+      — e passou a usar uma regra `runtimeCaching` própria com `NetworkFirst`
+      (`cacheName: 'polly-pages'`, timeout de 3s), confirmada no
+      `dist/sw.js` gerado. Assets versionados (hash do Vite) continuam
+      precache agressivo, sem risco de staleness. Checagem de atualização é
+      só por evento — ao registrar, ao voltar o app pro primeiro plano
+      (`visibilitychange`), com foco (`focus`) e ao voltar a ficar online
+      (`online`) — nunca por intervalo. Proteção contra reload loop
+      (`src/lib/pwa/reloadGuard.ts`, testado isoladamente): um reload já
+      disparado nos últimos 10s bloqueia o próximo. Toast discreto "Polly
+      atualizado ✓" depois de um reload controlado (nunca o mecanismo
+      principal — não existe botão manual). Versão/build (Git SHA via
+      `VERCEL_GIT_COMMIT_SHA` no build da Vercel, com fallback pro
+      `git rev-parse` local) visível em Mais → Sobre, para diagnóstico.
+
+      *Detalhe de venda*: `SaleDetailsSheet` (bottom sheet, mobile-first) é o
+      único componente de detalhe de venda do app — aberto a partir de
+      Histórico e de "Últimas movimentações" na Home, sem duplicar
+      implementação. Busca os próprios dados sob demanda
+      (`fetchSaleDetail`, uma query pequena por abertura — as listas
+      continuam leves, sem N+1). `origin='app'` usa `vehicle_id` e dado real
+      de `vehicles`; `origin='migration'` hidrata de `vehicle_occurrences`
+      via `source_occurrence_id`, nunca cria veículo placeholder, e mostra
+      "Histórico importado" discretamente. Ações no rodapé: "Ver veículo" e
+      "Cancelar venda" (reaproveitando `cancel_sale`) só para venda
+      `origin='app'` ativa; venda de migração é sempre somente leitura. Nenhum
+      campo ausente é inventado — omitido, ou "Não informada" só para
+      comissão, onde saber que é desconhecida importa. `RecentActivity`
+      ganhou `saleId` (de `audit_log.entity_id`, que `register_sale`/
+      `cancel_sale` já gravam como o id real da venda — nenhuma coluna nova),
+      permitindo que "Últimas movimentações" abra a mesma sheet sem uma
+      segunda tabela ou view.
+
+      Nenhuma migration de schema — tudo já suportado pelas colunas
+      existentes de `sales`/`vehicle_occurrences`/`audit_log`.
 
 ### Endurecimento futuro (não bloqueia Go-Live)
 
